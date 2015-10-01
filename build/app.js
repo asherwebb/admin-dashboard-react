@@ -5,5 +5,5 @@
 React.render(React.createElement(
   'h1',
   null,
-  'App Title'
+  'Swing Shift'
 ), document.getElementById('content'));
