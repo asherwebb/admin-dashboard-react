@@ -5,5 +5,5 @@
 React.render(React.createElement(
   'h1',
   null,
-  'Swing Shift'
+  'Swing Shift Dashboard'
 ), document.getElementById('content'));

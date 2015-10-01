@@ -1,7 +1,7 @@
 {
-  "name": "react-desktop-project",
+  "name": "swing-shift-dashboard",
   "version": "1.0.0",
-  "description": "react boilerplate for browser",
+  "description": "swing-shift-dashboard",
   "main": "src/app.js",
   "scripts": {
     "babel-jsx-watch": "babel src --watch --out-dir build",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/asherwebb/react-desktop-project.git"
+    "url": "https://github.com/asherwebb/swing-shift-dashboard.git"
   },
   "author": "Asher Webb",
   "license": "Private",
   "bugs": {
-    "url": "https://github.com/asherwebb/react-desktop-project/issues"
+    "url": "https://github.com/asherwebb/swing-shift-dashboard/issues"
   },
-  "homepage": "https://github.com/asherwebb/react-desktop-project",
+  "homepage": "https://github.com/asherwebb/swing-shift-dashboard",
   "devDependencies": {
     "gulp": "^3.9.0",
     "browser-sync": "^2.8.2"
