@@ -1,3 +1,8 @@
+//FIX ME:
+//we need to get the matching hotel profile, update the object with info from the create profile form, then send back
+//we need to remove hotel name from the form and from the payload
+//also need to make sure user_key, hotel_name and linked_username not as var or in payload
+
 "use strict";
 
 var CreateHotelProfile = React.createClass({
@@ -19,7 +24,7 @@ var CreateHotelProfile = React.createClass({
 				$(output).width('320px');
 				$(output).height('260px');
 				$(output).attr('src', reader.result);
-				$(output).after('<button class="clearPreview" data-clear=' + inputId + '> X </button>');
+				$(output).after('<button class="clearPreview btn btn-default" data-clear=' + inputId + '> X </button>');
 				$(".clearPreview").on('click', function (e) {
 					e.preventDefault();
 					$(this).remove();
@@ -45,7 +50,6 @@ var CreateHotelProfile = React.createClass({
 			value: 0
 		});
 
-		var hotel_name = this.refs.hotel_name.getDOMNode().value;
 		var about_hotel = this.refs.about_hotel.getDOMNode().value;
 		var short_about_hotel = this.refs.short_about_hotel.getDOMNode().value;
 		var hotel_entered_address = this.refs.hotel_entered_address.getDOMNode().value;
@@ -125,7 +129,6 @@ var CreateHotelProfile = React.createClass({
 		var hotel_image_12Parse = new Parse.File('hotel_image_12.jpg', hotel_image_12);
 
 		var payload = {
-			"hotel_name": hotel_name,
 			"featured_image": featured_imageParse,
 			"hotel_image_1": hotel_image_1Parse,
 			"hotel_image_2": hotel_image_2Parse,
@@ -172,8 +175,7 @@ var CreateHotelProfile = React.createClass({
 			"hotel_style": hotel_style,
 			"restaurant_regional_cuisine": restaurant_regional_cuisine,
 			"drinks_beach_club": drinks_beach_club,
-			"timezone": timezone,
-			"user_key": this.props.hotelId
+			"timezone": timezone
 		};
 
 		var inc = 1 / 13; //13 images
@@ -216,6 +218,9 @@ var CreateHotelProfile = React.createClass({
 														incrementProgressBar(counter);
 														hotel_image_12Parse.save().then(function () {
 															incrementProgressBar(counter);
+															//we need to query hotel profile as it already exists
+
+															//{this.props.hotelId}
 															var HotelProfile = Parse.Object.extend("hotel_profile");
 															var hotelProfile = new HotelProfile();
 															hotelProfile.save(payload, {
@@ -274,21 +279,13 @@ var CreateHotelProfile = React.createClass({
 			"div",
 			null,
 			React.createElement(
-				"h1",
-				null,
-				"Hotel Profile Information ",
-				this.props.hotelId
-			),
-			React.createElement(
 				"form",
 				null,
-				React.createElement("input", { ref: "hotel_name", type: "text", placeholder: "Hotel Name" }),
+				React.createElement("textarea", { ref: "about_hotel", placeholder: "About Hotel...", className: "form-control" }),
 				React.createElement("br", null),
-				React.createElement("textarea", { ref: "about_hotel", placeholder: "About Hotel..." }),
-				React.createElement("br", null),
-				React.createElement("input", { ref: "short_about_hotel", type: "text", placeholder: "Hotel Summary" }),
-				React.createElement("input", { ref: "hotel_entered_address", type: "text", placeholder: "Address Line 1" }),
-				React.createElement("input", { ref: "city", type: "text", placeholder: "Address City" }),
+				React.createElement("input", { ref: "short_about_hotel", type: "text", placeholder: "Hotel Summary", className: "form-control" }),
+				React.createElement("input", { ref: "hotel_entered_address", type: "text", placeholder: "Address Line 1", className: "form-control" }),
+				React.createElement("input", { ref: "city", type: "text", placeholder: "Address City", className: "form-control" }),
 				React.createElement(
 					"p",
 					null,
@@ -296,7 +293,7 @@ var CreateHotelProfile = React.createClass({
 				),
 				React.createElement(
 					"select",
-					{ ref: "hotel_select_state" },
+					{ ref: "hotel_select_state", className: "form-control" },
 					React.createElement(
 						"option",
 						{ value: "AL" },
@@ -603,13 +600,13 @@ var CreateHotelProfile = React.createClass({
 						"WY"
 					)
 				),
-				React.createElement("input", { ref: "hotel_entered_latitude", type: "text", placeholder: "Latitude" }),
+				React.createElement("input", { ref: "hotel_entered_latitude", type: "text", placeholder: "Latitude", className: "form-control" }),
 				React.createElement(
 					"a",
 					{ href: "http://itouchmap.com/latlong.html", target: "_blank" },
 					"Use this link if you need assistance"
 				),
-				React.createElement("input", { ref: "hotel_entered_longitude", type: "text", placeholder: "Longitude" }),
+				React.createElement("input", { ref: "hotel_entered_longitude", type: "text", placeholder: "Longitude", className: "form-control" }),
 				React.createElement(
 					"p",
 					null,
@@ -617,7 +614,7 @@ var CreateHotelProfile = React.createClass({
 				),
 				React.createElement(
 					"select",
-					{ ref: "hub_city" },
+					{ ref: "hub_city", className: "form-control" },
 					React.createElement(
 						"option",
 						{ value: "Miami" },
@@ -642,7 +639,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Complimentary Wifi"
 					),
-					React.createElement("input", { ref: "complimentary_wifi", type: "checkbox" })
+					React.createElement("input", { ref: "complimentary_wifi", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -652,7 +649,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Complimentary self-parking"
 					),
-					React.createElement("input", { ref: "complimentary_self_parking", type: "checkbox" })
+					React.createElement("input", { ref: "complimentary_self_parking", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -662,7 +659,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Fitness Center"
 					),
-					React.createElement("input", { ref: "fitness_center", type: "checkbox" })
+					React.createElement("input", { ref: "fitness_center", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -672,7 +669,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Outdoor Pool"
 					),
-					React.createElement("input", { ref: "outdoor_pool", type: "checkbox" })
+					React.createElement("input", { ref: "outdoor_pool", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -682,7 +679,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Valet Parking"
 					),
-					React.createElement("input", { ref: "valet_parking", type: "checkbox" })
+					React.createElement("input", { ref: "valet_parking", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -692,7 +689,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Valet Parking Fee"
 					),
-					React.createElement("input", { ref: "valet_parking_fee", type: "checkbox" })
+					React.createElement("input", { ref: "valet_parking_fee", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -702,7 +699,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Indoor Pool"
 					),
-					React.createElement("input", { ref: "indoor_pool", type: "checkbox" })
+					React.createElement("input", { ref: "indoor_pool", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -712,7 +709,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hot Tub"
 					),
-					React.createElement("input", { ref: "hot_tub", type: "checkbox" })
+					React.createElement("input", { ref: "hot_tub", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -722,7 +719,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Sauna"
 					),
-					React.createElement("input", { ref: "sauna", type: "checkbox" })
+					React.createElement("input", { ref: "sauna", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -732,7 +729,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Beach Access"
 					),
-					React.createElement("input", { ref: "beach_access", type: "checkbox" })
+					React.createElement("input", { ref: "beach_access", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -742,7 +739,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Ski Access"
 					),
-					React.createElement("input", { ref: "ski_access", type: "checkbox" })
+					React.createElement("input", { ref: "ski_access", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -752,7 +749,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Spa Services"
 					),
-					React.createElement("input", { ref: "spa_services", type: "checkbox" })
+					React.createElement("input", { ref: "spa_services", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -762,7 +759,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Restaurant on Site"
 					),
-					React.createElement("input", { ref: "restaurant_on_site", type: "checkbox" })
+					React.createElement("input", { ref: "restaurant_on_site", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -772,7 +769,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Bar on Site"
 					),
-					React.createElement("input", { ref: "bar_on_site", type: "checkbox" })
+					React.createElement("input", { ref: "bar_on_site", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -782,7 +779,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Room Service"
 					),
-					React.createElement("input", { ref: "room_service", type: "checkbox" })
+					React.createElement("input", { ref: "room_service", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -792,7 +789,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Pets Allowed"
 					),
-					React.createElement("input", { ref: "pets_allowed", type: "checkbox" })
+					React.createElement("input", { ref: "pets_allowed", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -802,7 +799,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Phone"
 					),
-					React.createElement("input", { placeholder: "Phone", ref: "phone_checkbox", type: "checkbox" })
+					React.createElement("input", { placeholder: "Phone", ref: "phone_checkbox", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -817,7 +814,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"$"
 					),
-					React.createElement("input", { placeholder: "Nightly Rate", ref: "nightly_rate", type: "text" })
+					React.createElement("input", { placeholder: "Nightly Rate", ref: "nightly_rate", type: "text", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -827,7 +824,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Taxes"
 					),
-					React.createElement("input", { placeholder: "Taxes", ref: "taxes", type: "text" }),
+					React.createElement("input", { placeholder: "Taxes", ref: "taxes", type: "text", className: "form-control" }),
 					React.createElement(
 						"span",
 						null,
@@ -847,17 +844,17 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"$"
 					),
-					React.createElement("input", { placeholder: "Additional Fees", ref: "additional_fees", type: "text" }),
+					React.createElement("input", { placeholder: "Additional Fees", ref: "additional_fees", type: "text", className: "form-control" }),
 					React.createElement(
 						"label",
 						null,
 						"Additional Fees Description"
 					),
-					React.createElement("input", { placeholder: "", ref: "additional_fees_desc", type: "text" })
+					React.createElement("input", { placeholder: "", ref: "additional_fees_desc", type: "text", className: "form-control" })
 				),
 				React.createElement(
 					"select",
-					{ id: "hotel_style", ref: "hotel_style" },
+					{ id: "hotel_style", ref: "hotel_style", className: "form-control" },
 					React.createElement(
 						"option",
 						{ value: "-" },
@@ -902,7 +899,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Restaurant serves Regional Cuisine"
 					),
-					React.createElement("input", { value: "Restaurant serves Regional Cuisine", ref: "restaurant_regional_cuisine", type: "checkbox" })
+					React.createElement("input", { value: "Restaurant serves Regional Cuisine", ref: "restaurant_regional_cuisine", type: "checkbox", className: "form-control" })
 				),
 				React.createElement(
 					"fieldset",
@@ -922,7 +919,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"You will see a preview of the image. Your images will be uploaded when you submit the entire form."
 					),
-					React.createElement("input", { ref: "featured_image", type: "file", id: "featured_image" }),
+					React.createElement("input", { ref: "featured_image", type: "file", id: "featured_image", className: "form-control" }),
 					React.createElement("img", { "data-id": "featured_image" })
 				),
 				React.createElement(
@@ -933,7 +930,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 1"
 					),
-					React.createElement("input", { ref: "hotel_image_1", type: "file", id: "hotel_image_1" }),
+					React.createElement("input", { ref: "hotel_image_1", type: "file", id: "hotel_image_1", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_1" })
 				),
 				React.createElement(
@@ -944,7 +941,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 2"
 					),
-					React.createElement("input", { ref: "hotel_image_2", type: "file", id: "hotel_image_2" }),
+					React.createElement("input", { ref: "hotel_image_2", type: "file", id: "hotel_image_2", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_2" })
 				),
 				React.createElement(
@@ -955,7 +952,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 3"
 					),
-					React.createElement("input", { ref: "hotel_image_3", type: "file", id: "hotel_image_3" }),
+					React.createElement("input", { ref: "hotel_image_3", type: "file", id: "hotel_image_3", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_3" })
 				),
 				React.createElement(
@@ -966,7 +963,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 4"
 					),
-					React.createElement("input", { ref: "hotel_image_4", type: "file", id: "hotel_image_4" }),
+					React.createElement("input", { ref: "hotel_image_4", type: "file", id: "hotel_image_4", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_4" })
 				),
 				React.createElement(
@@ -977,7 +974,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 5"
 					),
-					React.createElement("input", { ref: "hotel_image_5", type: "file", id: "hotel_image_5" }),
+					React.createElement("input", { ref: "hotel_image_5", type: "file", id: "hotel_image_5", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_5" })
 				),
 				React.createElement(
@@ -988,7 +985,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 6"
 					),
-					React.createElement("input", { ref: "hotel_image_6", type: "file", id: "hotel_image_6" }),
+					React.createElement("input", { ref: "hotel_image_6", type: "file", id: "hotel_image_6", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_6" })
 				),
 				React.createElement(
@@ -999,7 +996,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 7"
 					),
-					React.createElement("input", { ref: "hotel_image_7", type: "file", id: "hotel_image_7" }),
+					React.createElement("input", { ref: "hotel_image_7", type: "file", id: "hotel_image_7", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_7" })
 				),
 				React.createElement(
@@ -1010,7 +1007,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 8"
 					),
-					React.createElement("input", { ref: "hotel_image_8", type: "file", id: "hotel_image_8" }),
+					React.createElement("input", { ref: "hotel_image_8", type: "file", id: "hotel_image_8", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_8" })
 				),
 				React.createElement(
@@ -1021,7 +1018,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 9"
 					),
-					React.createElement("input", { ref: "hotel_image_9", type: "file", id: "hotel_image_9" }),
+					React.createElement("input", { ref: "hotel_image_9", type: "file", id: "hotel_image_9", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_9" })
 				),
 				React.createElement(
@@ -1032,7 +1029,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 10"
 					),
-					React.createElement("input", { ref: "hotel_image_10", type: "file", id: "hotel_image_10" }),
+					React.createElement("input", { ref: "hotel_image_10", type: "file", id: "hotel_image_10", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_10" })
 				),
 				React.createElement(
@@ -1043,7 +1040,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 11"
 					),
-					React.createElement("input", { ref: "hotel_image_11", type: "file", id: "hotel_image_11" }),
+					React.createElement("input", { ref: "hotel_image_11", type: "file", id: "hotel_image_11", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_11" })
 				),
 				React.createElement(
@@ -1054,7 +1051,7 @@ var CreateHotelProfile = React.createClass({
 						null,
 						"Hotel Image 12"
 					),
-					React.createElement("input", { ref: "hotel_image_12", type: "file", id: "hotel_image_12" }),
+					React.createElement("input", { ref: "hotel_image_12", type: "file", id: "hotel_image_12", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_12" })
 				),
 				React.createElement(
@@ -1093,17 +1090,17 @@ var CreateHotelProfile = React.createClass({
 				),
 				React.createElement(
 					"button",
-					{ onClick: this.submitHotelProfile, "class": "test" },
+					{ onClick: this.submitHotelProfile, className: "btn btn-success" },
 					"Create Profile"
 				),
 				React.createElement(
 					"button",
-					null,
+					{ className: "btn btn-danger" },
 					"Cancel"
 				),
 				React.createElement(
 					"button",
-					null,
+					{ className: "btn btn-warning" },
 					"Clear"
 				),
 				React.createElement(

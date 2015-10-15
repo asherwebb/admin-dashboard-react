@@ -1,3 +1,8 @@
+//FIX ME:
+//we need to get the matching hotel profile, update the object with info from the create profile form, then send back
+//we need to remove hotel name from the form and from the payload
+//also need to make sure user_key, hotel_name and linked_username not as var or in payload
+
 var CreateHotelProfile = React.createClass({
 	closeProfileForm: function(e){
 		e.preventDefault();
@@ -15,7 +20,7 @@ var CreateHotelProfile = React.createClass({
       			$(output).width( '320px' );
        			$(output).height( '260px' );
       			$(output).attr('src', reader.result);
-      			$( output ).after( '<button class="clearPreview" data-clear=' + inputId + '> X </button>' );
+      			$( output ).after( '<button class="clearPreview btn btn-default" data-clear=' + inputId + '> X </button>' );
       			$(".clearPreview").on( 'click' , function(e){
       				e.preventDefault();
       				$(this).remove();
@@ -41,7 +46,6 @@ var CreateHotelProfile = React.createClass({
       		value: 0
     	});
 
-		var hotel_name = this.refs.hotel_name.getDOMNode().value;
 		var about_hotel = this.refs.about_hotel.getDOMNode().value;
 		var short_about_hotel = this.refs.short_about_hotel.getDOMNode().value;
 		var hotel_entered_address = this.refs.hotel_entered_address.getDOMNode().value;
@@ -121,7 +125,6 @@ var CreateHotelProfile = React.createClass({
 		var hotel_image_12Parse = new Parse.File('hotel_image_12.jpg', hotel_image_12);
 
 		 var payload = {
-			"hotel_name" : hotel_name,
 			"featured_image": featured_imageParse,
 			"hotel_image_1" : hotel_image_1Parse,
 			"hotel_image_2" : hotel_image_2Parse,
@@ -168,8 +171,7 @@ var CreateHotelProfile = React.createClass({
 			"hotel_style" : hotel_style,
 			"restaurant_regional_cuisine" : restaurant_regional_cuisine,
 			"drinks_beach_club" : drinks_beach_club,
-			"timezone" : timezone,
-			"user_key": this.props.hotelId
+			"timezone" : timezone
 		};
 
 		var inc = 1/13;//13 images
@@ -212,6 +214,9 @@ var CreateHotelProfile = React.createClass({
 														incrementProgressBar(counter);
 														hotel_image_12Parse.save().then(function(){
 															incrementProgressBar(counter);
+															//we need to query hotel profile as it already exists
+
+															//{this.props.hotelId}
 																var HotelProfile = Parse.Object.extend("hotel_profile");
 																var hotelProfile = new HotelProfile();
 																	hotelProfile.save(payload, {
@@ -242,109 +247,108 @@ var CreateHotelProfile = React.createClass({
 	render: function(){
 		return(
 			<div>			
-				<h1>Hotel Profile Information {this.props.hotelId}</h1>
 				<form>
-					<input ref="hotel_name" type="text" placeholder="Hotel Name" /><br />		
-					<textarea ref="about_hotel" placeholder="About Hotel..." ></textarea><br />
-					<input ref="short_about_hotel" type="text" placeholder="Hotel Summary" />
-					<input ref="hotel_entered_address" type="text" placeholder="Address Line 1" />	
-					<input ref="city" type="text" placeholder="Address City" />
+					
+					<textarea ref="about_hotel" placeholder="About Hotel..." className="form-control" ></textarea><br />
+					<input ref="short_about_hotel" type="text" placeholder="Hotel Summary" className="form-control" />
+					<input ref="hotel_entered_address" type="text" placeholder="Address Line 1" className="form-control" />	
+					<input ref="city" type="text" placeholder="Address City" className="form-control" />
 					<p>Address State</p>
-					<select ref="hotel_select_state">
+					<select ref="hotel_select_state" className="form-control" >
 	 					<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
 					</select>
-					<input ref="hotel_entered_latitude" type="text" placeholder="Latitude" />
+					<input ref="hotel_entered_latitude" type="text" placeholder="Latitude" className="form-control" />
 					<a href="http://itouchmap.com/latlong.html" target="_blank">Use this link if you need assistance</a>
-					<input ref="hotel_entered_longitude" type="text" placeholder="Longitude" />
+					<input ref="hotel_entered_longitude" type="text" placeholder="Longitude" className="form-control" />
 					<p>Hub City</p>
-					<select ref="hub_city">
+					<select ref="hub_city" className="form-control" >
 						<option value="Miami">Miami</option>
 						<option value="Orlando">Orlando</option>
 					</select>
 					<p>Amenities</p>
 					<fieldset>
 						<label>Complimentary Wifi</label>
-						<input ref="complimentary_wifi" type="checkbox" />
+						<input ref="complimentary_wifi" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Complimentary self-parking</label>
-						<input ref="complimentary_self_parking" type="checkbox" />
+						<input ref="complimentary_self_parking" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Fitness Center</label>
-						<input ref="fitness_center" type="checkbox" />
+						<input ref="fitness_center" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Outdoor Pool</label>
-						<input ref="outdoor_pool" type="checkbox" />
+						<input ref="outdoor_pool" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Valet Parking</label>
-						<input ref="valet_parking" type="checkbox" />
+						<input ref="valet_parking" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Valet Parking Fee</label>
-						<input ref="valet_parking_fee" type="checkbox" />
+						<input ref="valet_parking_fee" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Indoor Pool</label>
-						<input ref="indoor_pool" type="checkbox" />
+						<input ref="indoor_pool" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Hot Tub</label>
-						<input ref="hot_tub" type="checkbox" />
+						<input ref="hot_tub" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Sauna</label>
-						<input ref="sauna" type="checkbox" />
+						<input ref="sauna" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Beach Access</label>
-						<input ref="beach_access" type="checkbox" />
+						<input ref="beach_access" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Ski Access</label>
-						<input ref="ski_access" type="checkbox" />
+						<input ref="ski_access" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Spa Services</label>
-						<input ref="spa_services" type="checkbox" />
+						<input ref="spa_services" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Restaurant on Site</label>
-						<input ref="restaurant_on_site" type="checkbox" />
+						<input ref="restaurant_on_site" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Bar on Site</label>
-						<input ref="bar_on_site" type="checkbox" />
+						<input ref="bar_on_site" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Room Service</label>
-						<input ref="room_service" type="checkbox" />
+						<input ref="room_service" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Pets Allowed</label>
-						<input ref="pets_allowed" type="checkbox" />
+						<input ref="pets_allowed" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Phone</label>
-						<input placeholder="Phone" ref="phone_checkbox" type="checkbox" />
+						<input placeholder="Phone" ref="phone_checkbox" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Nightly Rate</label>
-						<span>$</span><input placeholder="Nightly Rate" ref="nightly_rate" type="text" />
+						<span>$</span><input placeholder="Nightly Rate" ref="nightly_rate" type="text" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Taxes</label>
-						<input placeholder="Taxes" ref="taxes" type="text" /><span>%</span>
+						<input placeholder="Taxes" ref="taxes" type="text" className="form-control" /><span>%</span>
 					</fieldset>
 					<fieldset>
 						<label>Additional Fees</label>
-						<span>$</span><input placeholder="Additional Fees" ref="additional_fees" type="text" />
+						<span>$</span><input placeholder="Additional Fees" ref="additional_fees" type="text" className="form-control" />
 						<label>Additional Fees Description</label>
-						<input placeholder="" ref="additional_fees_desc" type="text" />
+						<input placeholder="" ref="additional_fees_desc" type="text" className="form-control" />
 					</fieldset>
-					<select id="hotel_style" ref="hotel_style">
+					<select id="hotel_style" ref="hotel_style" className="form-control" >
 						<option value="-">-</option>
 						<option value="GLAM">GLAM</option>
 						<option value="LUX">LUX</option>
@@ -355,73 +359,73 @@ var CreateHotelProfile = React.createClass({
 					</select>
 					<fieldset>
 						<label>Restaurant serves Regional Cuisine</label>
-						<input value="Restaurant serves Regional Cuisine" ref="restaurant_regional_cuisine" type="checkbox" />
+						<input value="Restaurant serves Regional Cuisine" ref="restaurant_regional_cuisine" type="checkbox" className="form-control" />
 					</fieldset>
 					<fieldset>
 						<label>Featured Image</label>
 						<p>Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format</p>
 						<p>You will see a preview of the image. Your images will be uploaded when you submit the entire form.</p>
-						<input ref="featured_image" type="file" id="featured_image" />
+						<input ref="featured_image" type="file" id="featured_image" className="form-control" />
 						<img data-id="featured_image" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 1</label>
-						<input ref="hotel_image_1" type="file" id="hotel_image_1"/>
+						<input ref="hotel_image_1" type="file" id="hotel_image_1" className="form-control" />
 						<img data-id="hotel_image_1" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 2</label>
-						<input ref="hotel_image_2" type="file" id="hotel_image_2" />
+						<input ref="hotel_image_2" type="file" id="hotel_image_2" className="form-control" />
 						<img data-id="hotel_image_2" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 3</label>
-						<input ref="hotel_image_3" type="file" id="hotel_image_3" />
+						<input ref="hotel_image_3" type="file" id="hotel_image_3" className="form-control" />
 						<img data-id="hotel_image_3" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 4</label>
-						<input ref="hotel_image_4" type="file" id="hotel_image_4" />
+						<input ref="hotel_image_4" type="file" id="hotel_image_4" className="form-control" />
 						<img data-id="hotel_image_4" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 5</label>
-						<input ref="hotel_image_5" type="file" id="hotel_image_5" />
+						<input ref="hotel_image_5" type="file" id="hotel_image_5" className="form-control" />
 						<img data-id="hotel_image_5" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 6</label>
-						<input ref="hotel_image_6" type="file" id="hotel_image_6" />
+						<input ref="hotel_image_6" type="file" id="hotel_image_6" className="form-control" />
 						<img data-id="hotel_image_6" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 7</label>
-						<input ref="hotel_image_7" type="file" id="hotel_image_7" />
+						<input ref="hotel_image_7" type="file" id="hotel_image_7" className="form-control" />
 						<img data-id="hotel_image_7" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 8</label>
-						<input ref="hotel_image_8" type="file" id="hotel_image_8" />
+						<input ref="hotel_image_8" type="file" id="hotel_image_8" className="form-control" />
 						<img data-id="hotel_image_8" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 9</label>
-						<input ref="hotel_image_9" type="file" id="hotel_image_9" />
+						<input ref="hotel_image_9" type="file" id="hotel_image_9" className="form-control" />
 						<img data-id="hotel_image_9" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 10</label>
-						<input ref="hotel_image_10" type="file" id="hotel_image_10" />
+						<input ref="hotel_image_10" type="file" id="hotel_image_10" className="form-control" />
 						<img data-id="hotel_image_10" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 11</label>
-						<input ref="hotel_image_11" type="file" id="hotel_image_11" />
+						<input ref="hotel_image_11" type="file" id="hotel_image_11" className="form-control" />
 						<img data-id="hotel_image_11" />
 					</fieldset>
 					<fieldset>
 						<label>Hotel Image 12</label>
-						<input ref="hotel_image_12" type="file" id="hotel_image_12" />
+						<input ref="hotel_image_12" type="file" id="hotel_image_12" className="form-control" />
 						<img data-id="hotel_image_12" />
 					</fieldset>
 					<fieldset>
@@ -434,9 +438,9 @@ var CreateHotelProfile = React.createClass({
 						<option value="MT">Mountain Time - Denver, CO USA</option>
 						<option value="PT">Pacific Time - Los Angeles, CA USA</option>
 					</select>
-					<button onClick={this.submitHotelProfile} class="test">Create Profile</button>
-					<button>Cancel</button>
-					<button>Clear</button>
+					<button onClick={this.submitHotelProfile} className="btn btn-success">Create Profile</button>
+					<button className="btn btn-danger" >Cancel</button>
+					<button className="btn btn-warning" >Clear</button>
 					<div id="progressbox">
 						<p>Creating Profile...</p>
 						<div id="progressbar"></div>

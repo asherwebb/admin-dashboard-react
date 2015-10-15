@@ -1,0 +1,23 @@
+.center-400w{width: 400px; margin: 0 auto}
+.input-margin{margin: 2px auto; width:80%;}
+.header-margin{margin-bottom: 15px}
+#progressbar .ui-progressbar-value {
+    background-color: #ccc;
+}
+.left-margin-100{
+	margin-left: 45px
+}
+.pad-left{text-align:center;}
+#login{margin-left: 275px}
+#progressbox{display: none}
+.page-header{padding-left:100px !important}
+.bg-primary{padding:20px !important;}
+.mg-settings{margin-left:20px !important;}
+
+#create-user-form{width:400px; padding-bottom:25px }
+@media screen and (min-width: 768px){
+.jumbotron {
+
+padding-top:10px;}}
+
+.delete-user-btn{margin-left: 200px; margin-right: 25px}

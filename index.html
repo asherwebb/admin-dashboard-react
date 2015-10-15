@@ -1,45 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Swing Shift Dashboard</title>
-    <!-- jquery -->
-    <script src="thirdparty/jquery/jquery-2.1.4.min.js"></script>
-    <!-- jquery ui -->
+    <head>
+        <meta charset="UTF-8" />
+        <title>Swing Shift Dashboard</title>
+        <!-- jquery -->
+        <script src="thirdparty/jquery/jquery-2.1.4.min.js"></script>
+        <!-- jquery ui -->
 
-    <link rel="stylesheet" href="thirdparty/jquery-ui/jquery-ui.structure.min.css">
-    <link rel="stylesheet" href="thirdparty/jquery-ui/jquery-ui.theme.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="thirdparty/jquery-ui/jquery-ui.structure.min.css">
+        <link rel="stylesheet" href="thirdparty/jquery-ui/jquery-ui.theme.min.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="thirdparty/bootstrap/bootstrap.min.css">
-    <!-- bootstrap optional theme -->
-    <link rel="stylesheet" href="thirdparty/bootstrap/bootstrap-theme.min.css">
-    <script src="thirdparty/bootstrap/bootstrap.min.js"></script>
-    <!-- react -->
-    <script src="thirdparty/react/react.js"></script>
-    <!-- parse -->
-    <script src="thirdparty/parse/parse.min.js"></script>
-    <style>
-    .center-400w{width: 400px; margin: 0 auto}
-    .input-margin{margin-bottom: 4px}
-    .header-margin{margin-bottom: 15px}
-
-  #progressbar .ui-progressbar-value {
-    background-color: #ccc;
-  }
-
-  #progressbox{display: none}
-
-    </style>
-  </head>
-  <body>
-    <div id="content"></div>
-    <script>
-    Parse.initialize("4wXys2cFh34Mz1tD2aQUvihi94nW4HfJZoM4v9uQ", "nCW4UvvWwvdlWETDSvuuYKyVWxDvYmt7QImtKPQg");
-    </script>
-    <script src="build/profileForm.js"></script>
-    <script src="build/app.js"></script>
-  </body>
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="thirdparty/bootstrap/bootstrap.min.css">
+        <!-- bootstrap optional theme -->
+        <link rel="stylesheet" href="thirdparty/bootstrap/bootstrap-theme.min.css">
+        <script src="thirdparty/bootstrap/bootstrap.min.js"></script>
+        <!-- react -->
+        <script src="thirdparty/react/react.js"></script>
+        <!-- parse -->
+        <script src="thirdparty/parse/parse.min.js"></script>
+        <link rel="stylesheet" href="css/local.css">
+    </head>
+    <body>
+        <div id="content"></div>
+        <script>
+            Parse.initialize("4wXys2cFh34Mz1tD2aQUvihi94nW4HfJZoM4v9uQ", "nCW4UvvWwvdlWETDSvuuYKyVWxDvYmt7QImtKPQg");
+        </script>
+        <script src="build/profileForm.js"></script>
+        <script src="build/hotelUser.js"></script>
+        <script src="build/createUserBox.js"></script>
+        <script src="build/loginForm.js"></script>
+        <script src="build/dashboard.js"></script>
+        <script src="build/app.js"></script>
+    </body>
 </html>
