@@ -11,6 +11,15 @@ var Dashboard = React.createClass({
 		data.unshift(userData);
 		this.setState({data: data});
 	},
+	userRemovedUpdate: function(hotel){
+		var hotelId = hotel.id;
+		alert(hotelId);
+		//hotel should contain hotel object id
+		//get this.state.data
+		//find hotel to remove by key
+		//pop that index out of the array
+		//set state with new array as data
+	},
 	componentWillMount: function() {
 		var query = new Parse.Query( Parse.User );
 		query.equalTo( "isAdmin", true );
@@ -61,13 +70,17 @@ var Dashboard = React.createClass({
 						var orderedHotelProfileDataSetArray = _.sortBy(arrayMatchData, 'createdAt');
 						var orderedUserProfileDataSetArray = _.sortBy(data, 'createdAt');
 
+						//console.log(orderedHotelProfileDataSetArray);
+
 						mergedHotelUserData = orderedUserProfileDataSetArray.map( function( item, i ) {
 							var mObj = {};
 							mObj = _.extend( item, orderedHotelProfileDataSetArray[i] );
+							console.log(mObj);
 							return mObj;
 						});
 						//reverse to display createdAt order descending
-						mergedHotelUserData = mergedHotelUserData.reverse();						
+						mergedHotelUserData = mergedHotelUserData.reverse();	
+						//console.log(mergedHotelUserData);					
 						this.setState({data:mergedHotelUserData});						
 					}.bind( this ),
 					error: function(){
@@ -103,7 +116,7 @@ var Dashboard = React.createClass({
 		var isAdmin = this.state.isAdmin ? 
 			<div>
 				<p>Welcome SwingShift Admin <button onClick={this.logout} className="btn btn-danger pull-right">Logout</button>	</p>
-				<button disabled={this.state.creatingUser} onClick={this.renderCreateUserBox} className="btn btn-primary" >Create User</button><button className="btn btn-info mg-settings">Manage Settings</button>
+				<button disabled={this.state.creatingUser} onClick={this.renderCreateUserBox} className="btn btn-primary" ><span className="glyphicon glyphicon-plus" ></span> Create User</button><button className="btn btn-info mg-settings"><span className="glyphicon glyphicon-option-horizontal" ></span> Manage Settings</button>
 				<h3 className="bg-primary">Current Hotel Users </h3>
 				{hotelUserNodes}
 			</div> : 

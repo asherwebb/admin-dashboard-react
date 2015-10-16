@@ -127,6 +127,7 @@ var CreateHotelProfile = React.createClass({
 		var hotel_image_12Parse = new Parse.File('hotel_image_12.jpg', hotel_image_12);
 
 		 var payload = {
+		 	"profile_complete":true,
 			"featured_image": featured_imageParse,
 			"hotel_image_1" : hotel_image_1Parse,
 			"hotel_image_2" : hotel_image_2Parse,
@@ -227,8 +228,6 @@ var CreateHotelProfile = React.createClass({
 															counter = counter + 1;
 															incrementProgressBar(counter);
 															//we need to query hotel profile as it already exists
-
-															
 																var HotelProfile = Parse.Object.extend("hotel_profile");
 																var hotelProfileQuery = new Parse.Query(HotelProfile);
 																hotelProfileQuery.get( hotelId , {
@@ -243,19 +242,17 @@ var CreateHotelProfile = React.createClass({
 																				incrementProgressBar();
 																				$("#progressbox").hide();
 																			//FIX ME: need to pass props back to parent state
+																			this.props.profileComplete({profileComplete: true});
 																			}.bind(this),
 																			error: function( completeHotelProfile, error){
 				 																alert('Failed to create new object, with error code: ' + error.message);
-
 																			}
 																		});
 																	}.bind(this),
 																	error: function( hotel, error ) {
 
 																	}
-
-																});
-											
+																});											
 														}, function(error){ alert( 'There has been an error processing image upload' ); });
 													}, function(error){ alert( 'There has been an error processing image upload' ); });
 												}, function(error){ alert( 'There has been an error processing image upload' ); });

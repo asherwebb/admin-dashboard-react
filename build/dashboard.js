@@ -15,6 +15,15 @@ var Dashboard = React.createClass({
 		data.unshift(userData);
 		this.setState({ data: data });
 	},
+	userRemovedUpdate: function userRemovedUpdate(hotel) {
+		var hotelId = hotel.id;
+		alert(hotelId);
+		//hotel should contain hotel object id
+		//get this.state.data
+		//find hotel to remove by key
+		//pop that index out of the array
+		//set state with new array as data
+	},
 	componentWillMount: function componentWillMount() {
 		var query = new Parse.Query(Parse.User);
 		query.equalTo("isAdmin", true);
@@ -65,13 +74,17 @@ var Dashboard = React.createClass({
 						var orderedHotelProfileDataSetArray = _.sortBy(arrayMatchData, 'createdAt');
 						var orderedUserProfileDataSetArray = _.sortBy(data, 'createdAt');
 
+						//console.log(orderedHotelProfileDataSetArray);
+
 						mergedHotelUserData = orderedUserProfileDataSetArray.map(function (item, i) {
 							var mObj = {};
 							mObj = _.extend(item, orderedHotelProfileDataSetArray[i]);
+							console.log(mObj);
 							return mObj;
 						});
 						//reverse to display createdAt order descending
 						mergedHotelUserData = mergedHotelUserData.reverse();
+						//console.log(mergedHotelUserData);					
 						this.setState({ data: mergedHotelUserData });
 					}).bind(this),
 					error: function error() {}
@@ -114,12 +127,14 @@ var Dashboard = React.createClass({
 			React.createElement(
 				"button",
 				{ disabled: this.state.creatingUser, onClick: this.renderCreateUserBox, className: "btn btn-primary" },
-				"Create User"
+				React.createElement("span", { className: "glyphicon glyphicon-plus" }),
+				" Create User"
 			),
 			React.createElement(
 				"button",
 				{ className: "btn btn-info mg-settings" },
-				"Manage Settings"
+				React.createElement("span", { className: "glyphicon glyphicon-option-horizontal" }),
+				" Manage Settings"
 			),
 			React.createElement(
 				"h3",
