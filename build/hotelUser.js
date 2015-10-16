@@ -31,7 +31,7 @@ var HotelUser = React.createClass({
       { onClick: this.createProfile, className: "btn btn-info", disabled: createBtnStatus },
       "Create Profile"
     );
-    var createProfileView = this.state.creatingProfile ? React.createElement(CreateHotelProfile, { displayForm: this.notCreateProfile, hotelId: this.props.objId }) : '';
+    var createProfileView = this.state.creatingProfile ? React.createElement(CreateHotelProfile, { displayForm: this.notCreateProfile, hotelId: this.props.hotelId }) : '';
     var closeProfileBtn = this.state.creatingProfile ? React.createElement(
       "button",
       { onClick: this.notCreateProfile, className: "btn btn-danger" },

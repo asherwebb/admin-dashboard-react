@@ -45,6 +45,8 @@ var CreateHotelProfile = React.createClass({
 	},
 	submitHotelProfile: function submitHotelProfile(e) {
 		e.preventDefault();
+		var hotelId = this.props.hotelId;
+
 		$("#progressbox").show();
 		$("#progressbar").progressbar({
 			value: 0
@@ -185,7 +187,7 @@ var CreateHotelProfile = React.createClass({
 
 		function incrementProgressBar(counter) {
 			var value = inc * counter;
-			console.log("value is:" + value);
+			// console.log("value is:" + value);
 			$("#progressbar").progressbar("option", "value", value);
 		};
 
@@ -199,40 +201,59 @@ var CreateHotelProfile = React.createClass({
 					counter = counter + 1;
 					incrementProgressBar(counter);
 					hotel_image_3Parse.save().then(function () {
+						counter = counter + 1;
 						incrementProgressBar(counter);
 						hotel_image_4Parse.save().then(function () {
+							counter = counter + 1;
 							incrementProgressBar(counter);
 							hotel_image_5Parse.save().then(function () {
+								counter = counter + 1;
 								incrementProgressBar(counter);
 								hotel_image_6Parse.save().then(function () {
+									counter = counter + 1;
 									incrementProgressBar(counter);
 									hotel_image_7Parse.save().then(function () {
+										counter = counter + 1;
 										incrementProgressBar(counter);
 										hotel_image_8Parse.save().then(function () {
+											counter = counter + 1;
 											incrementProgressBar(counter);
 											hotel_image_9Parse.save().then(function () {
+												counter = counter + 1;
 												incrementProgressBar(counter);
 												hotel_image_10Parse.save().then(function () {
+													counter = counter + 1;
 													incrementProgressBar(counter);
 													hotel_image_11Parse.save().then(function () {
+														counter = counter + 1;
 														incrementProgressBar(counter);
 														hotel_image_12Parse.save().then(function () {
+															counter = counter + 1;
 															incrementProgressBar(counter);
 															//we need to query hotel profile as it already exists
 
-															//{this.props.hotelId}
 															var HotelProfile = Parse.Object.extend("hotel_profile");
-															var hotelProfile = new HotelProfile();
-															hotelProfile.save(payload, {
-																success: function success(hotelProfile) {
-																	incrementProgressBar();
-																	alert('success profile created');
-																	$("#progressbox").hide();
-																	//FIX ME: need to pass props back to parent state
-																},
-																error: function error(hotelProfile, _error) {
-																	alert('Failed to create new object, with error code: ' + _error.message);
-																}
+															var hotelProfileQuery = new Parse.Query(HotelProfile);
+															hotelProfileQuery.get(hotelId, {
+																success: (function (hotel) {
+																	//save the payload to the hotel
+
+																	hotel.save(payload, {
+																		success: (function (completeHotelProfile) {
+																			alert('successfully created profile now figure how to update state ');
+																			console.log(completeHotelProfile);
+																			counter = counter + 1;
+																			incrementProgressBar();
+																			$("#progressbox").hide();
+																			//FIX ME: need to pass props back to parent state
+																		}).bind(this),
+																		error: function error(completeHotelProfile, _error2) {
+																			alert('Failed to create new object, with error code: ' + _error2.message);
+																		}
+																	});
+																}).bind(this),
+																error: function error(hotel, _error) {}
+
 															});
 														}, function (error) {
 															alert('There has been an error processing image upload');

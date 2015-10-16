@@ -1,92 +1,102 @@
 var Dashboard = React.createClass({
 	getInitialState: function(){
 		return {
-			data:[],
-			isAdmin:false,
-			creatingUser: false,
-			editingUserProfile: false,
-			viewHotelDashboard: false
+			data:[], isAdmin:false, creatingUser: false, editingUserProfile: false, viewHotelDashboard: false
 		};
 	},
+	userCreatedUpdate: function(userData){
+		var data = [];
+	 	var currentItems = this.state.data;
+	 	data = currentItems;
+		data.unshift(userData);
+		this.setState({data: data});
+	},
 	componentWillMount: function() {
-		var query = new Parse.Query(Parse.User);
-		query.equalTo("isAdmin", true);
-		query.find({
-	  		success: function(admins) {
-	  			for( var i=0; i<admins.length; i++){
+		var query = new Parse.Query( Parse.User );
+		query.equalTo( "isAdmin", true );
+		query.find( {
+	  		success: function( admins ) {
+	  			for( var i=0; i<admins.length; i++ ){
 	  				if( admins[i].id === Parse.User.current().id ){
-	  				this.setState({isAdmin:true});
+	  				this.setState( {isAdmin:true} );
 	  				}
 	  			}
   			}.bind(this)
 		});
 
 		var data = [];
-		var allUsers = new Parse.Query(Parse.User);
+		var userHotelLink = [];
+		var mergedHotelUserData = [];
+		var allUsers = new Parse.Query( Parse.User );
 
-		allUsers.notEqualTo("isAdmin", true);
-
-		allUsers.find({
-			success:function(items){
-			//alert(items.length);
-			for(var i=0;i<items.length;i++){
+		allUsers.notEqualTo( "isAdmin", true );
+		allUsers.find( {
+			success:function( items ){
+			for( var i=0; i<items.length; i++ ){
 				var userData = {};
 				userData.uid = items[i].id;
-				userData.email = items[i].get('email');
-				userData.username = items[i].get('username');
-				
-				//FIX ME:
-				//lets grab the email as well to display, then query the hotel profile and display the hotel name. 
-				//create a flag in parse to say 'profile complete'
-				//change button to view profile, edit profile and scratch create profile if they have a profile
-				//otherwise still display the create profile button 
-				//may have to pass up as props
+				userData.email = items[i].get( 'email' );
+				userData.username = items[i].get( 'username' );
+				data.push(userData);
+				userHotelLink.push(userData.uid);
+			};
 
-				var HotelQuery = new Parse.Object.extend("hotel_profile");
-				var hotelQuery = new Parse.Query(HotelQuery);
-				hotelQuery.equalTo("user_key" , userData.uid);
-				hotelQuery.first({
-					success: function(object){
-						if(object !== undefined){
-						console.log(object);
-						//get hotel name
-						userData.hotelId = object.id;
-						userData.profileComplete = object.get("profile_complete");
-						userData.hotelName = object.get("hotel_name");
-						//see if profile is complete
-						data.push(userData);
-						this.setState({data:data});
-						}
-					}.bind(this),
+			//extend user data objects to include hotel data objects in new array
+			var HotelQuery = new Parse.Object.extend( "hotel_profile" );
+				var hotelQuery = new Parse.Query( HotelQuery );
+				hotelQuery.containedIn( "user_key" , userHotelLink );
+				hotelQuery.find( {
+					success: function(results){
+						var hotelMatchItems = results;
+						var arrayMatchData = hotelMatchItems.map(function(object){
+							var rObj = {};
+							rObj.createdAt = object.createdAt;
+							rObj.hotelUserKey = object.get('user_key');
+							rObj.hotelId = object.id;
+							rObj.profileComplete = object.get('profile_complete');
+							rObj.hotelName = object.get('hotel_name');
+							return rObj;
+						});
+
+						var orderedHotelProfileDataSetArray = _.sortBy(arrayMatchData, 'createdAt');
+						var orderedUserProfileDataSetArray = _.sortBy(data, 'createdAt');
+
+						mergedHotelUserData = orderedUserProfileDataSetArray.map( function( item, i ) {
+							var mObj = {};
+							mObj = _.extend( item, orderedHotelProfileDataSetArray[i] );
+							return mObj;
+						});
+						//reverse to display createdAt order descending
+						mergedHotelUserData = mergedHotelUserData.reverse();						
+						this.setState({data:mergedHotelUserData});						
+					}.bind( this ),
 					error: function(){
 
 					}
 				});
-			}			
+				
 			}.bind(this)
 			});
 
 	},
 	renderCreateUserBox: function() {
-		this.setState({creatingUser:true});
+		this.setState( {creatingUser:true} );
 	},
-	creatingUser: function(display){
-		console.log(display);
-		//display should be true or false
-		this.setState({creatingUser:display});
+	creatingUser: function( display ){
+		//? display should be true or false ?
+		this.setState( {creatingUser:display} );
 
 	},
 	logout: function(){
-		Parse.User.logOut().then( function(results){
-		console.log(results);
-		this.props.filter({loggedIn: false});
-		}.bind(this));
+		Parse.User.logOut().then( function( results ){
+		this.props.filter( {loggedIn: false} );
+		}.bind( this ));
 	},
 	render: function(){	
-		//we need to get the user object ids and use them as keys in the hotel users for reference key={}, make sure to hook up to the hotel user data model
-		var hotelUserNodes = this.state.data.map(function (user) {
-      		return (
-        		<HotelUser hotelId={user.hotelId} username={user.username} key={user.uid} objId={user.uid} email={user.email} profileComplete={user.profileComplete} hotelName={user.hotelName} />
+			//FIX ME: duplicate key issue check users and hotel
+		var hotelUserNodes = this.state.data.map( function ( user ) {
+      	return (
+        	<HotelUser hotelId={user.hotelId} username={user.username} key={user.uid} objId={user.uid} email={user.email} profileComplete={user.profileComplete} hotelName={user.hotelName} />
       		);
     	});
 
@@ -102,12 +112,12 @@ var Dashboard = React.createClass({
 				<button>Profile</button>
 				<button>View Dashboard</button>
 			</div>;
-		var isCreatingUser = this.state.creatingUser ? <CreateUserBox isActive={this.creatingUser} data={this.state.data} /> : '';
+
+		var isCreatingUser = this.state.creatingUser ? <CreateUserBox isActive={this.creatingUser} userCreatedUpdate={this.userCreatedUpdate} data={this.state.data} /> : '';
 		return(
 			<div className="jumbotron padding-left container">
-			{isCreatingUser}
-			{isAdmin}	
-
+				{isCreatingUser}
+				{isAdmin}	
 			</div>
 		);
 	}

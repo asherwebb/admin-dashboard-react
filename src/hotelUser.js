@@ -19,7 +19,7 @@ var HotelUser = React.createClass({
 	render: function() {
   		var createBtnStatus = this.state.creatingProfile ? true : false;
   		var profileButton = this.state.profileComplete ? <button>view profile</button> : <button onClick={this.createProfile} className="btn btn-info" disabled={createBtnStatus} >Create Profile</button>;   
-  		var createProfileView = this.state.creatingProfile ? <CreateHotelProfile displayForm={this.notCreateProfile} hotelId={this.props.objId}  /> :  '';
+  		var createProfileView = this.state.creatingProfile ? <CreateHotelProfile displayForm={this.notCreateProfile} hotelId={this.props.hotelId}  /> :  '';
   		var closeProfileBtn = this.state.creatingProfile ? <button onClick={this.notCreateProfile} className="btn btn-danger">Cancel</button> : '';
     	return (
      		<div className="panel panel-default">
