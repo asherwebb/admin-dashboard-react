@@ -28,29 +28,30 @@ var HotelUser = React.createClass({
   },
   removeHotel: function removeHotel(e) {
     e.preventDefault();
-    //get by this.props.hotelId from parse hotel profile object
-    var hotelId = this.props.objId;
-    console.log('hotel id: ' + hotelId);
-    var HotelQuery = Parse.Object.extend('hotel_profile');
-    var hotelQuery = new Parse.Query(HotelQuery);
-    hotelQuery.get(hotelId, {
-      success: (function (hotel) {
-        hotel.save({ "isActive": false }, {
-          success: (function (hotel) {
-            //pass data back up the stat chain to re-render
-            alert('hotel has been deleted');
-            $("#" + hotelId).fadeOut();
-            //this.props.deletedHotel({id:hotelId});
-          }).bind(this),
-          error: (function (hotel, error) {
-            alert('error: hotel unable to be deleted');
-          }).bind(this)
-        });
-      }).bind(this),
-      error: (function (hotel, error) {
-        alert('remove hotel error');
-      }).bind(this)
-    });
+    if (window.confirm("Delete Hotel Profile?")) {
+      //get by this.props.hotelId from parse hotel profile object
+      var hotelId = this.props.hotelId;
+      console.log('hotel id: ' + hotelId);
+      var HotelQuery = Parse.Object.extend('hotel_profile');
+      var hotelQuery = new Parse.Query(HotelQuery);
+      hotelQuery.get(hotelId, {
+        success: (function (hotel) {
+          hotel.save({ "isActive": false }, {
+            success: (function (hotel) {
+              //pass data back up the stat chain to re-render
+              alert('hotel has been deleted');
+              $("#" + hotelId).fadeOut();
+            }).bind(this),
+            error: (function (hotel, error) {
+              alert('error: hotel unable to be deleted');
+            }).bind(this)
+          });
+        }).bind(this),
+        error: (function (hotel, error) {
+          alert('remove hotel error');
+        }).bind(this)
+      });
+    }
   },
   render: function render() {
     var createBtnStatus = this.state.creatingProfile ? true : false;

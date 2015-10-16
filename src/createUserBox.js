@@ -79,7 +79,7 @@ var CreateUserBox = React.createClass({
 	render: function(){		
 		return(
 			<div className="panel panel-default">
-				<h2>Create New User Form</h2>
+				<h2 className="left-margin-100">Create New User Form</h2>
 				<form id="create-user-form">
 					<input type="text" ref="newUsername" placeholder="New Username" className="form-control input-margin" required /><br />
 					<input type="email" ref="createUserEmail" placeholder="New User Email" className="form-control input-margin" required /><br />

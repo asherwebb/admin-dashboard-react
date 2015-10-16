@@ -24,3 +24,8 @@ padding-top:10px;}}
 
 .percent-eighty{width:80%;display: inline;}
 .percent-fifteen{width:15%;display: inline;}
+
+#dialog{display: none;}
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}

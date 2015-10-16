@@ -85,7 +85,7 @@ var CreateUserBox = React.createClass({
 			{ className: "panel panel-default" },
 			React.createElement(
 				"h2",
-				null,
+				{ className: "left-margin-100" },
 				"Create New User Form"
 			),
 			React.createElement(

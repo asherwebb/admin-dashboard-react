@@ -24,8 +24,9 @@ var HotelUser = React.createClass({
    	},
     removeHotel: function(e){
       e.preventDefault();
-      //get by this.props.hotelId from parse hotel profile object
-      var hotelId = this.props.objId;
+if (window.confirm("Delete Hotel Profile?")) { 
+     //get by this.props.hotelId from parse hotel profile object
+      var hotelId = this.props.hotelId;
       console.log('hotel id: ' + hotelId);
       var HotelQuery = Parse.Object.extend('hotel_profile');
       var hotelQuery = new Parse.Query(HotelQuery);
@@ -36,7 +37,6 @@ var HotelUser = React.createClass({
                   //pass data back up the stat chain to re-render
                   alert('hotel has been deleted');
                   $("#"+hotelId).fadeOut();
-                  //this.props.deletedHotel({id:hotelId});
                 }.bind(this),
                 error: function(hotel, error){
                   alert('error: hotel unable to be deleted');
@@ -47,6 +47,14 @@ var HotelUser = React.createClass({
               alert('remove hotel error');
             }.bind(this)
       });
+
+ 
+
+}
+
+                
+
+
     },
 	render: function() {
   		var createBtnStatus = this.state.creatingProfile ? true : false;
