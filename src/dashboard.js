@@ -58,7 +58,10 @@ var Dashboard = React.createClass({
 					success: function(results){
 						var hotelMatchItems = results;
 						var arrayMatchData = hotelMatchItems.map(function(object){
+
 							var rObj = {};
+							//? .isActive to not display hotels not active
+							rObj.isActive = object.get("isActive");
 							rObj.createdAt = object.createdAt;
 							rObj.hotelUserKey = object.get('user_key');
 							rObj.hotelId = object.id;
@@ -76,11 +79,16 @@ var Dashboard = React.createClass({
 							var mObj = {};
 							mObj = _.extend( item, orderedHotelProfileDataSetArray[i] );
 							console.log(mObj);
-							return mObj;
+							if( mObj.isActive ===false ){
+								return null;
+							}else{
+								return mObj;
+							}
 						});
 						//reverse to display createdAt order descending
 						mergedHotelUserData = mergedHotelUserData.reverse();	
-						//console.log(mergedHotelUserData);					
+						//console.log(mergedHotelUserData);		
+						mergedHotelUserData = _.compact( mergedHotelUserData );
 						this.setState({data:mergedHotelUserData});						
 					}.bind( this ),
 					error: function(){
