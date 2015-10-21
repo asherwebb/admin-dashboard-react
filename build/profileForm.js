@@ -298,353 +298,497 @@ var CreateHotelProfile = React.createClass({
 	render: function render() {
 		return React.createElement(
 			"div",
-			null,
+			{ className: "container-fluid pad-top" },
 			React.createElement(
 				"form",
 				null,
-				React.createElement("textarea", { ref: "about_hotel", placeholder: "About Hotel...", className: "form-control" }),
-				React.createElement("br", null),
-				React.createElement("input", { ref: "short_about_hotel", type: "text", placeholder: "Hotel Summary", className: "form-control" }),
-				React.createElement("input", { ref: "hotel_entered_address", type: "text", placeholder: "Address Line 1", className: "form-control" }),
-				React.createElement("input", { ref: "city", type: "text", placeholder: "Address City", className: "form-control" }),
 				React.createElement(
-					"p",
+					"div",
 					null,
-					"Address State"
+					React.createElement("textarea", { ref: "about_hotel", placeholder: "About Hotel...", className: "form-control" }),
+					React.createElement("br", null),
+					React.createElement("input", { ref: "short_about_hotel", type: "text", placeholder: "Hotel Summary", className: "form-control" }),
+					React.createElement("br", null),
+					React.createElement("input", { ref: "hotel_entered_address", type: "text", placeholder: "Address Line 1", className: "form-control" }),
+					React.createElement("br", null)
 				),
 				React.createElement(
-					"select",
-					{ ref: "hotel_select_state", className: "form-control" },
+					"div",
+					null,
 					React.createElement(
-						"option",
-						{ value: "AL" },
-						"AL"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "AK" },
-						"AK"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "AZ" },
-						"AZ"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "AR" },
-						"AR"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "CA" },
-						"CA"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "CO" },
-						"CO"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "CT" },
-						"CT"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "DE" },
-						"DE"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "DC" },
-						"DC"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "FL" },
-						"FL"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "GA" },
-						"GA"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "HI" },
-						"HI"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "ID" },
-						"ID"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "IL" },
-						"IL"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "IN" },
-						"IN"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "IA" },
-						"IA"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "KS" },
-						"KS"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "KY" },
-						"KY"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "LA" },
-						"LA"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "ME" },
-						"ME"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "MD" },
-						"MD"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "MA" },
-						"MA"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "MI" },
-						"MI"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "MN" },
-						"MN"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "MS" },
-						"MS"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "MO" },
-						"MO"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "MT" },
-						"MT"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "NE" },
-						"NE"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "NV" },
-						"NV"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "NH" },
-						"NH"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "NJ" },
-						"NJ"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "NM" },
-						"NM"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "NY" },
-						"NY"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "NC" },
-						"NC"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "ND" },
-						"ND"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "OH" },
-						"OH"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "OK" },
-						"OK"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "OR" },
-						"OR"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "PA" },
-						"PA"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "RI" },
-						"RI"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "SC" },
-						"SC"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "SD" },
-						"SD"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "TN" },
-						"TN"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "TX" },
-						"TX"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "UT" },
-						"UT"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "VT" },
-						"VT"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "VA" },
-						"VA"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "WA" },
-						"WA"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "WV" },
-						"WV"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "WI" },
-						"WI"
-					),
-					" ",
-					React.createElement(
-						"option",
-						{ value: "WY" },
-						"WY"
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement("input", { ref: "city", type: "text", placeholder: "Address City", className: "form-control" })
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6 form-inline" },
+							React.createElement(
+								"span",
+								null,
+								"State: "
+							),
+							React.createElement(
+								"select",
+								{ ref: "hotel_select_state", className: "form-control" },
+								React.createElement(
+									"option",
+									{ value: "AL" },
+									"AL"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "AK" },
+									"AK"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "AZ" },
+									"AZ"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "AR" },
+									"AR"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "CA" },
+									"CA"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "CO" },
+									"CO"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "CT" },
+									"CT"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "DE" },
+									"DE"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "DC" },
+									"DC"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "FL" },
+									"FL"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "GA" },
+									"GA"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "HI" },
+									"HI"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "ID" },
+									"ID"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "IL" },
+									"IL"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "IN" },
+									"IN"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "IA" },
+									"IA"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "KS" },
+									"KS"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "KY" },
+									"KY"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "LA" },
+									"LA"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "ME" },
+									"ME"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "MD" },
+									"MD"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "MA" },
+									"MA"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "MI" },
+									"MI"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "MN" },
+									"MN"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "MS" },
+									"MS"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "MO" },
+									"MO"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "MT" },
+									"MT"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "NE" },
+									"NE"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "NV" },
+									"NV"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "NH" },
+									"NH"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "NJ" },
+									"NJ"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "NM" },
+									"NM"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "NY" },
+									"NY"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "NC" },
+									"NC"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "ND" },
+									"ND"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "OH" },
+									"OH"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "OK" },
+									"OK"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "OR" },
+									"OR"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "PA" },
+									"PA"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "RI" },
+									"RI"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "SC" },
+									"SC"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "SD" },
+									"SD"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "TN" },
+									"TN"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "TX" },
+									"TX"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "UT" },
+									"UT"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "VT" },
+									"VT"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "VA" },
+									"VA"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "WA" },
+									"WA"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "WV" },
+									"WV"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "WI" },
+									"WI"
+								),
+								" ",
+								React.createElement(
+									"option",
+									{ value: "WY" },
+									"WY"
+								)
+							)
+						)
 					)
 				),
-				React.createElement("input", { ref: "hotel_entered_latitude", type: "text", placeholder: "Latitude", className: "form-control" }),
+				React.createElement("br", null),
 				React.createElement(
-					"a",
-					{ href: "http://itouchmap.com/latlong.html", target: "_blank" },
-					"Use this link if you need assistance"
-				),
-				React.createElement("input", { ref: "hotel_entered_longitude", type: "text", placeholder: "Longitude", className: "form-control" }),
-				React.createElement(
-					"p",
-					null,
-					"Hub City"
-				),
-				React.createElement(
-					"select",
-					{ ref: "hub_city", className: "form-control" },
+					"div",
+					{ className: "fieldgroup container-fluid" },
 					React.createElement(
-						"option",
-						{ value: "Miami" },
-						"Miami"
+						"div",
+						{ className: "well" },
+						React.createElement(
+							"div",
+							{ className: "row" },
+							React.createElement(
+								"div",
+								{ className: "col-xs-6" },
+								React.createElement("input", { ref: "hotel_entered_latitude", type: "text", placeholder: "Latitude", className: "form-control" })
+							),
+							React.createElement(
+								"div",
+								{ className: "col-xs-6" },
+								React.createElement("input", { ref: "hotel_entered_longitude", type: "text", placeholder: "Longitude", className: "form-control" })
+							)
+						),
+						React.createElement(
+							"a",
+							{ href: "http://itouchmap.com/latlong.html", target: "_blank" },
+							"Use this link if you need assistance"
+						)
+					)
+				),
+				React.createElement(
+					"div",
+					null,
+					React.createElement(
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-8" },
+							React.createElement(
+								"div",
+								{ className: "form-inline fieldgroup" },
+								React.createElement(
+									"label",
+									null,
+									"Timezone: "
+								),
+								React.createElement(
+									"select",
+									{ id: "timezone", ref: "timezone", className: "form-control" },
+									React.createElement(
+										"option",
+										{ value: "ET" },
+										"Eastern Time - New York, NY USA"
+									),
+									React.createElement(
+										"option",
+										{ value: "CT" },
+										"Central Time - Chicago, IL USA"
+									),
+									React.createElement(
+										"option",
+										{ value: "MT" },
+										"Mountain Time - Denver, CO USA"
+									),
+									React.createElement(
+										"option",
+										{ value: "PT" },
+										"Pacific Time - Los Angeles, CA USA"
+									)
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-4" },
+							React.createElement(
+								"div",
+								{ className: "fieldgroup form-inline" },
+								React.createElement(
+									"label",
+									null,
+									"Hub City: "
+								),
+								React.createElement(
+									"select",
+									{ ref: "hub_city", className: "form-control" },
+									React.createElement(
+										"option",
+										{ value: "Miami" },
+										"Miami"
+									),
+									React.createElement(
+										"option",
+										{ value: "Orlando" },
+										"Orlando"
+									)
+								)
+							)
+						)
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "form-inline pad-top" },
+					React.createElement(
+						"label",
+						null,
+						"Hotel Style: "
 					),
 					React.createElement(
-						"option",
-						{ value: "Orlando" },
-						"Orlando"
+						"select",
+						{ id: "hotel_style", ref: "hotel_style", className: "form-control" },
+						React.createElement(
+							"option",
+							{ value: "-" },
+							"-"
+						),
+						React.createElement(
+							"option",
+							{ value: "GLAM" },
+							"GLAM"
+						),
+						React.createElement(
+							"option",
+							{ value: "LUX" },
+							"LUX"
+						),
+						React.createElement(
+							"option",
+							{ value: "HIP" },
+							"HIP"
+						),
+						React.createElement(
+							"option",
+							{ value: "REFINED" },
+							"REFINED"
+						),
+						React.createElement(
+							"option",
+							{ value: "SOUND" },
+							"SOUND"
+						),
+						React.createElement(
+							"option",
+							{ value: "BASIC" },
+							"BASIC"
+						)
 					)
 				),
 				React.createElement(
@@ -653,274 +797,419 @@ var CreateHotelProfile = React.createClass({
 					"Amenities"
 				),
 				React.createElement(
-					"fieldset",
-					null,
+					"div",
+					{ className: "form-inline" },
 					React.createElement(
-						"label",
-						null,
-						"Complimentary Wifi"
-					),
-					React.createElement("input", { ref: "complimentary_wifi", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Complimentary self-parking"
-					),
-					React.createElement("input", { ref: "complimentary_self_parking", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Fitness Center"
-					),
-					React.createElement("input", { ref: "fitness_center", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Outdoor Pool"
-					),
-					React.createElement("input", { ref: "outdoor_pool", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Valet Parking"
-					),
-					React.createElement("input", { ref: "valet_parking", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Valet Parking Fee"
-					),
-					React.createElement("input", { ref: "valet_parking_fee", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Indoor Pool"
-					),
-					React.createElement("input", { ref: "indoor_pool", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Hot Tub"
-					),
-					React.createElement("input", { ref: "hot_tub", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Sauna"
-					),
-					React.createElement("input", { ref: "sauna", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Beach Access"
-					),
-					React.createElement("input", { ref: "beach_access", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Ski Access"
-					),
-					React.createElement("input", { ref: "ski_access", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Spa Services"
-					),
-					React.createElement("input", { ref: "spa_services", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Restaurant on Site"
-					),
-					React.createElement("input", { ref: "restaurant_on_site", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Bar on Site"
-					),
-					React.createElement("input", { ref: "bar_on_site", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Room Service"
-					),
-					React.createElement("input", { ref: "room_service", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Pets Allowed"
-					),
-					React.createElement("input", { ref: "pets_allowed", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Phone"
-					),
-					React.createElement("input", { placeholder: "Phone", ref: "phone_checkbox", type: "checkbox", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Nightly Rate"
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "complimentary_wifi", type: "checkbox" }),
+									"Complimentary Wifi"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "complimentary_self_parking", type: "checkbox" }),
+									"Complimentary self-parking"
+								)
+							)
+						)
 					),
 					React.createElement(
-						"span",
-						null,
-						"$"
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "fitness_center", type: "checkbox" }),
+									"Fitness Center"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "outdoor_pool", type: "checkbox" }),
+									"Outdoor Pool"
+								)
+							)
+						)
 					),
-					React.createElement("input", { placeholder: "Nightly Rate", ref: "nightly_rate", type: "text", className: "form-control" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
 					React.createElement(
-						"label",
-						null,
-						"Taxes"
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "valet_parking", type: "checkbox" }),
+									"Valet Parking"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "valet_parking_fee", type: "checkbox" }),
+									"Valet Parking Fee"
+								)
+							)
+						)
 					),
-					React.createElement("input", { placeholder: "Taxes", ref: "taxes", type: "text", className: "form-control" }),
 					React.createElement(
-						"span",
-						null,
-						"%"
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "indoor_pool", type: "checkbox" }),
+									"Indoor Pool"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "hot_tub", type: "checkbox" }),
+									"Hot Tub"
+								)
+							)
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "sauna", type: "checkbox" }),
+									"Sauna"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "beach_access", type: "checkbox" }),
+									"Beach Access"
+								)
+							)
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "ski_access", type: "checkbox" }),
+									"Ski Access"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "spa_services", type: "checkbox" }),
+									"Spa Services"
+								)
+							)
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "restaurant_on_site", type: "checkbox" }),
+									"Restaurant on Site"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "bar_on_site", type: "checkbox" }),
+									"Bar on Site"
+								)
+							)
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "room_service", type: "checkbox" }),
+									"Room Service"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { ref: "pets_allowed", type: "checkbox" }),
+									"Pets Allowed"
+								)
+							)
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { placeholder: "Phone", ref: "phone_checkbox", type: "checkbox" }),
+									"Phone"
+								)
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { value: "Restaurant serves Regional Cuisine", ref: "restaurant_regional_cuisine", type: "checkbox" }),
+									"Restaurant serves Regional Cuisine"
+								)
+							)
+						)
+					),
+					React.createElement(
+						"div",
+						{ className: "row" },
+						React.createElement(
+							"div",
+							{ className: "col-xs-6" },
+							React.createElement(
+								"div",
+								{ className: "checkbox" },
+								React.createElement(
+									"label",
+									null,
+									React.createElement("input", { value: "Drinks served at the Beach Club", ref: "drinks_beach_club", type: "checkbox" }),
+									"Drinks served at the Beach Club"
+								)
+							)
+						),
+						React.createElement("div", { className: "col-xs-6" })
 					)
 				),
 				React.createElement(
-					"fieldset",
-					null,
+					"div",
+					{ className: "row" },
 					React.createElement(
-						"label",
-						null,
-						"Additional Fees"
+						"div",
+						{ className: "col-xs-4 col-md-4 form-inline" },
+						React.createElement(
+							"label",
+							null,
+							"Nightly Rate"
+						),
+						React.createElement(
+							"div",
+							{ className: "input-group" },
+							React.createElement(
+								"span",
+								{ className: "input-group-addon" },
+								"$"
+							),
+							React.createElement("input", { type: "text", className: "form-control nightly-rate", placeholder: "Nightly Rate", ref: "nightly_rate" }),
+							React.createElement(
+								"span",
+								{ className: "input-group-addon" },
+								".00"
+							)
+						)
 					),
 					React.createElement(
-						"span",
-						null,
-						"$"
-					),
-					React.createElement("input", { placeholder: "Additional Fees", ref: "additional_fees", type: "text", className: "form-control" }),
-					React.createElement(
-						"label",
-						null,
-						"Additional Fees Description"
-					),
-					React.createElement("input", { placeholder: "", ref: "additional_fees_desc", type: "text", className: "form-control" })
-				),
-				React.createElement(
-					"select",
-					{ id: "hotel_style", ref: "hotel_style", className: "form-control" },
-					React.createElement(
-						"option",
-						{ value: "-" },
-						"-"
+						"div",
+						{ className: "col-xs-4 col-md-4 form-inline" },
+						React.createElement(
+							"label",
+							null,
+							"Taxes: "
+						),
+						React.createElement(
+							"div",
+							{ className: "input-group" },
+							React.createElement("input", { placeholder: "Taxes", ref: "taxes", type: "text", className: "form-control" }),
+							React.createElement(
+								"span",
+								{ className: "input-group-addon" },
+								"%"
+							)
+						)
 					),
 					React.createElement(
-						"option",
-						{ value: "GLAM" },
-						"GLAM"
-					),
-					React.createElement(
-						"option",
-						{ value: "LUX" },
-						"LUX"
-					),
-					React.createElement(
-						"option",
-						{ value: "HIP" },
-						"HIP"
-					),
-					React.createElement(
-						"option",
-						{ value: "REFINED" },
-						"REFINED"
-					),
-					React.createElement(
-						"option",
-						{ value: "SOUND" },
-						"SOUND"
-					),
-					React.createElement(
-						"option",
-						{ value: "BASIC" },
-						"BASIC"
+						"div",
+						{ className: "col-xs-4 col-md-4 form-inline" },
+						React.createElement(
+							"label",
+							null,
+							"Additional Fees"
+						),
+						React.createElement(
+							"div",
+							{ className: "input-group" },
+							React.createElement(
+								"span",
+								{ className: "input-group-addon" },
+								"$"
+							),
+							React.createElement("input", { placeholder: "Additional Fees", ref: "additional_fees", type: "text", className: "form-control" }),
+							React.createElement(
+								"span",
+								{ className: "input-group-addon" },
+								".00"
+							)
+						)
 					)
 				),
+				React.createElement("br", null),
 				React.createElement(
-					"fieldset",
-					null,
+					"div",
+					{ className: "row" },
 					React.createElement(
-						"label",
-						null,
-						"Restaurant serves Regional Cuisine"
+						"div",
+						{ className: "col-xs-4" },
+						React.createElement(
+							"label",
+							null,
+							"Additional Fees Description"
+						)
 					),
-					React.createElement("input", { value: "Restaurant serves Regional Cuisine", ref: "restaurant_regional_cuisine", type: "checkbox", className: "form-control" })
+					React.createElement(
+						"div",
+						{ className: "col-xs-8" },
+						React.createElement("input", { ref: "additional_fees_desc", type: "text", className: "form-control" })
+					)
+				),
+				React.createElement("br", null),
+				React.createElement(
+					"div",
+					{ className: "alert alert-warning", role: "alert" },
+					React.createElement("span", { className: "glyphicon glyphicon-info-sign", "aria-hidden": "true" }),
+					"Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format"
+				),
+				React.createElement("br", null),
+				React.createElement(
+					"div",
+					{ className: "alert alert-info", role: "alert" },
+					React.createElement("span", { className: "glyphicon glyphicon-info-sign", "aria-hidden": "true" }),
+					"You will see a preview of the image. Your images will be uploaded when you submit the entire form."
 				),
 				React.createElement(
 					"fieldset",
@@ -929,16 +1218,6 @@ var CreateHotelProfile = React.createClass({
 						"label",
 						null,
 						"Featured Image"
-					),
-					React.createElement(
-						"p",
-						null,
-						"Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format"
-					),
-					React.createElement(
-						"p",
-						null,
-						"You will see a preview of the image. Your images will be uploaded when you submit the entire form."
 					),
 					React.createElement("input", { ref: "featured_image", type: "file", id: "featured_image", className: "form-control" }),
 					React.createElement("img", { "data-id": "featured_image" })
@@ -1074,40 +1353,6 @@ var CreateHotelProfile = React.createClass({
 					),
 					React.createElement("input", { ref: "hotel_image_12", type: "file", id: "hotel_image_12", className: "form-control" }),
 					React.createElement("img", { "data-id": "hotel_image_12" })
-				),
-				React.createElement(
-					"fieldset",
-					null,
-					React.createElement(
-						"label",
-						null,
-						"Drinks served at the Beach Club"
-					),
-					React.createElement("input", { placeholder: "Drinks served at the Beach Club", ref: "drinks_beach_club", type: "checkbox" })
-				),
-				React.createElement(
-					"select",
-					{ id: "timezone", ref: "timezone" },
-					React.createElement(
-						"option",
-						{ value: "ET" },
-						"Eastern Time - New York, NY USA"
-					),
-					React.createElement(
-						"option",
-						{ value: "CT" },
-						"Central Time - Chicago, IL USA"
-					),
-					React.createElement(
-						"option",
-						{ value: "MT" },
-						"Mountain Time - Denver, CO USA"
-					),
-					React.createElement(
-						"option",
-						{ value: "PT" },
-						"Pacific Time - Los Angeles, CA USA"
-					)
 				),
 				React.createElement(
 					"button",

@@ -5,7 +5,7 @@ var Dashboard = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			data: [], isAdmin: false, creatingUser: false, editingUserProfile: false, viewHotelDashboard: false
+			data: [], isAdmin: false, creatingUser: false, editingUserProfile: false, viewHotelDashboard: false, displaySettings: false
 		};
 	},
 	userCreatedUpdate: function userCreatedUpdate(userData) {
@@ -107,6 +107,9 @@ var Dashboard = React.createClass({
 		//? display should be true or false ?
 		this.setState({ creatingUser: display });
 	},
+	displaySettings: function displaySettings() {
+		this.setState({ displaySettings: true });
+	},
 	logout: function logout() {
 		Parse.User.logOut().then((function (results) {
 			this.props.filter({ loggedIn: false });
@@ -117,6 +120,8 @@ var Dashboard = React.createClass({
 		var hotelUserNodes = this.state.data.map(function (user) {
 			return React.createElement(HotelUser, { hotelId: user.hotelId, username: user.username, key: user.uid, objId: user.uid, email: user.email, profileComplete: user.profileComplete, hotelName: user.hotelName });
 		});
+
+		var isManagingSettings = this.state.displaySettings ? React.createElement(SettingsBox, null) : '';
 
 		var isAdmin = this.state.isAdmin ? React.createElement(
 			"div",
@@ -140,7 +145,7 @@ var Dashboard = React.createClass({
 			),
 			React.createElement(
 				"button",
-				{ className: "btn btn-info mg-settings" },
+				{ className: "btn btn-info mg-settings", onClick: this.displaySettings },
 				React.createElement("span", { className: "glyphicon glyphicon-option-horizontal" }),
 				" Manage Settings"
 			),
@@ -181,6 +186,7 @@ var Dashboard = React.createClass({
 			"div",
 			{ className: "jumbotron padding-left container" },
 			isCreatingUser,
+			isManagingSettings,
 			isAdmin
 		);
 	}

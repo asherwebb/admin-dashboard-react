@@ -1,7 +1,7 @@
 var Dashboard = React.createClass({
 	getInitialState: function(){
 		return {
-			data:[], isAdmin:false, creatingUser: false, editingUserProfile: false, viewHotelDashboard: false
+			data:[], isAdmin:false, creatingUser: false, editingUserProfile: false, viewHotelDashboard: false, displaySettings:false
 		};
 	},
 	userCreatedUpdate: function(userData){
@@ -108,6 +108,9 @@ var Dashboard = React.createClass({
 		this.setState( {creatingUser:display} );
 
 	},
+	displaySettings: function(){
+		this.setState({displaySettings: true});
+	},
 	logout: function(){
 		Parse.User.logOut().then( function( results ){
 		this.props.filter( {loggedIn: false} );
@@ -121,10 +124,12 @@ var Dashboard = React.createClass({
       		);
     	});
 
+		var isManagingSettings = this.state.displaySettings ? <SettingsBox /> : '';
+
 		var isAdmin = this.state.isAdmin ? 
 			<div>
 				<p>Welcome SwingShift Admin <button onClick={this.logout} className="btn btn-danger pull-right">Logout</button>	</p>
-				<button disabled={this.state.creatingUser} onClick={this.renderCreateUserBox} className="btn btn-primary" ><span className="glyphicon glyphicon-plus" ></span> Create User</button><button className="btn btn-info mg-settings"><span className="glyphicon glyphicon-option-horizontal" ></span> Manage Settings</button>
+				<button disabled={this.state.creatingUser} onClick={this.renderCreateUserBox} className="btn btn-primary" ><span className="glyphicon glyphicon-plus" ></span> Create User</button><button className="btn btn-info mg-settings" onClick={this.displaySettings} ><span className="glyphicon glyphicon-option-horizontal" ></span> Manage Settings</button>
 				<h3 className="bg-primary">Current Hotel Users </h3>
 				{hotelUserNodes}
 			</div> : 
@@ -138,6 +143,7 @@ var Dashboard = React.createClass({
 		return(
 			<div className="jumbotron padding-left container">
 				{isCreatingUser}
+				{isManagingSettings}
 				{isAdmin}	
 			</div>
 		);

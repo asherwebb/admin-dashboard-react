@@ -269,109 +269,76 @@ var CreateHotelProfile = React.createClass({
 	},
 	render: function(){
 		return(
-			<div>			
+			<div className="container-fluid pad-top">			
 				<form>
-					
+					<div>
 					<textarea ref="about_hotel" placeholder="About Hotel..." className="form-control" ></textarea><br />
-					<input ref="short_about_hotel" type="text" placeholder="Hotel Summary" className="form-control" />
-					<input ref="hotel_entered_address" type="text" placeholder="Address Line 1" className="form-control" />	
-					<input ref="city" type="text" placeholder="Address City" className="form-control" />
-					<p>Address State</p>
-					<select ref="hotel_select_state" className="form-control" >
-	 					<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
-					</select>
-					<input ref="hotel_entered_latitude" type="text" placeholder="Latitude" className="form-control" />
+					<input ref="short_about_hotel" type="text" placeholder="Hotel Summary" className="form-control" /><br />
+					<input ref="hotel_entered_address" type="text" placeholder="Address Line 1" className="form-control" /><br />
+					</div>
+					<div>
+  						<div className="row">
+							<div className="col-xs-6">
+								<input ref="city" type="text" placeholder="Address City" className="form-control" />
+ 							</div>
+
+  							<div className="col-xs-6 form-inline" >
+  							<span>State: </span>
+								<select ref="hotel_select_state" className="form-control" >
+				 					<option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option> <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option> <option value="CT">CT</option> <option value="DE">DE</option> <option value="DC">DC</option> <option value="FL">FL</option> <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option> <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option> <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option> <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option> <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option> <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option> <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option> <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option> <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option> <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option> <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option> <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option> <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option> <option value="WI">WI</option> <option value="WY">WY</option>
+								</select>
+  							</div>
+  						</div>
+  					</div>
+  					<br />
+					
+					<div className="fieldgroup container-fluid" >
+					<div className="well">
+					  	<div className="row">
+							<div className="col-xs-6">
+							<input ref="hotel_entered_latitude" type="text" placeholder="Latitude" className="form-control" />
+							</div>
+
+							<div className="col-xs-6">
+							<input ref="hotel_entered_longitude" type="text" placeholder="Longitude" className="form-control" />
+							</div>
+
+						</div>
+
+
 					<a href="http://itouchmap.com/latlong.html" target="_blank">Use this link if you need assistance</a>
-					<input ref="hotel_entered_longitude" type="text" placeholder="Longitude" className="form-control" />
-					<p>Hub City</p>
-					<select ref="hub_city" className="form-control" >
-						<option value="Miami">Miami</option>
-						<option value="Orlando">Orlando</option>
-					</select>
-					<p>Amenities</p>
-					<fieldset>
-						<label>Complimentary Wifi</label>
-						<input ref="complimentary_wifi" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Complimentary self-parking</label>
-						<input ref="complimentary_self_parking" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Fitness Center</label>
-						<input ref="fitness_center" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Outdoor Pool</label>
-						<input ref="outdoor_pool" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Valet Parking</label>
-						<input ref="valet_parking" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Valet Parking Fee</label>
-						<input ref="valet_parking_fee" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Indoor Pool</label>
-						<input ref="indoor_pool" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Hot Tub</label>
-						<input ref="hot_tub" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Sauna</label>
-						<input ref="sauna" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Beach Access</label>
-						<input ref="beach_access" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Ski Access</label>
-						<input ref="ski_access" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Spa Services</label>
-						<input ref="spa_services" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Restaurant on Site</label>
-						<input ref="restaurant_on_site" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Bar on Site</label>
-						<input ref="bar_on_site" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Room Service</label>
-						<input ref="room_service" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Pets Allowed</label>
-						<input ref="pets_allowed" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Phone</label>
-						<input placeholder="Phone" ref="phone_checkbox" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Nightly Rate</label>
-						<span>$</span><input placeholder="Nightly Rate" ref="nightly_rate" type="text" className="form-control" />
-					</fieldset>
-					<fieldset>
-						<label>Taxes</label>
-						<input placeholder="Taxes" ref="taxes" type="text" className="form-control" /><span>%</span>
-					</fieldset>
-					<fieldset>
-						<label>Additional Fees</label>
-						<span>$</span><input placeholder="Additional Fees" ref="additional_fees" type="text" className="form-control" />
-						<label>Additional Fees Description</label>
-						<input placeholder="" ref="additional_fees_desc" type="text" className="form-control" />
-					</fieldset>
-					<select id="hotel_style" ref="hotel_style" className="form-control" >
+					</div>
+					</div>
+
+					<div>
+					  	<div className="row">
+							<div className="col-xs-8">
+								<div className="form-inline fieldgroup">
+									<label>Timezone: </label>
+									<select id="timezone" ref="timezone" className="form-control" >
+										<option value="ET">Eastern Time - New York, NY USA</option>
+										<option value="CT">Central Time - Chicago, IL USA</option>
+										<option value="MT">Mountain Time - Denver, CO USA</option>
+										<option value="PT">Pacific Time - Los Angeles, CA USA</option>
+									</select>
+								</div>
+							</div>
+
+							<div className="col-xs-4">
+								<div className="fieldgroup form-inline">
+								<label>Hub City: </label>
+								<select ref="hub_city" className="form-control" >
+									<option value="Miami">Miami</option>
+									<option value="Orlando">Orlando</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div className="form-inline pad-top">
+				<label>Hotel Style: </label>
+				<select id="hotel_style" ref="hotel_style" className="form-control" >
 						<option value="-">-</option>
 						<option value="GLAM">GLAM</option>
 						<option value="LUX">LUX</option>
@@ -379,15 +346,263 @@ var CreateHotelProfile = React.createClass({
 						<option value="REFINED">REFINED</option>
 						<option value="SOUND">SOUND</option>
 						<option value="BASIC">BASIC</option>
-					</select>
-					<fieldset>
-						<label>Restaurant serves Regional Cuisine</label>
-						<input value="Restaurant serves Regional Cuisine" ref="restaurant_regional_cuisine" type="checkbox" className="form-control" />
-					</fieldset>
-					<fieldset>
+				</select>
+				</div>
+
+					<p>Amenities</p>
+
+
+					<div className="form-inline">
+  						<div className="row">
+
+ 							<div className="col-xs-6">
+ 								<div className="checkbox">
+									<label>
+									<input ref="complimentary_wifi" type="checkbox" />
+									Complimentary Wifi 
+									</label>
+								</div>
+ 							</div>
+
+  							<div className="col-xs-6">
+  								<div className="checkbox">
+									<label>
+									<input ref="complimentary_self_parking" type="checkbox" />
+									Complimentary self-parking 
+									</label>
+								</div>
+  							</div>
+
+  						</div>
+
+  						<div className="row">
+
+ 							<div className="col-xs-6">
+	 							<div className="checkbox">
+									<label>
+									<input ref="fitness_center" type="checkbox" />
+									Fitness Center 
+									</label>
+								</div>
+ 							</div>
+
+  							<div className="col-xs-6">
+  								<div className="checkbox">
+									<label>
+									<input ref="outdoor_pool" type="checkbox" />
+									Outdoor Pool
+									</label>
+								</div>
+  							</div>
+  						</div>
+
+  						<div className="row">
+							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="valet_parking" type="checkbox" />
+									Valet Parking
+									</label>
+								</div>
+ 							</div>
+
+  							<div className="col-xs-6">
+  								<div className="checkbox">
+									<label>
+									<input ref="valet_parking_fee" type="checkbox" />
+									Valet Parking Fee 
+									</label>
+								</div>
+  							</div>
+  						</div>
+
+  						<div className="row">
+							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="indoor_pool" type="checkbox" />
+									Indoor Pool
+									</label>
+								</div>
+ 							</div>
+
+  							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="hot_tub" type="checkbox" />
+									Hot Tub
+									</label>
+								</div>
+  							</div>
+  						</div>
+
+   						<div className="row">
+							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="sauna" type="checkbox" />
+									Sauna
+									</label>
+								</div>
+ 							</div>
+
+  							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="beach_access" type="checkbox" />
+									Beach Access
+									</label>
+								</div>
+  							</div>
+  						</div>
+
+	 					<div className="row">
+							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="ski_access" type="checkbox" />
+									Ski Access
+									</label>
+								</div>
+	 						</div>
+
+	  						<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="spa_services" type="checkbox" />
+									Spa Services
+									</label>
+								</div>
+	  						</div>
+	  					</div>
+
+	 					<div className="row">
+							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="restaurant_on_site" type="checkbox" />
+									Restaurant on Site
+									</label>
+								</div>
+	 						</div>
+
+	  						<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="bar_on_site" type="checkbox" />
+									Bar on Site
+									</label>
+								</div>
+	  						</div>
+	  					</div>
+
+	 					<div className="row">
+							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="room_service" type="checkbox" />
+									Room Service
+									</label>
+								</div>
+	 						</div>
+
+	  						<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input ref="pets_allowed" type="checkbox" />
+									Pets Allowed</label>
+								</div>
+	  						</div>
+	  					</div>
+
+	 					<div className="row">
+							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input placeholder="Phone" ref="phone_checkbox" type="checkbox" />
+									Phone
+									</label>
+								</div>
+	 						</div>
+
+	  						<div className="col-xs-6">
+	  							<div className="checkbox">
+								<label>
+								<input value="Restaurant serves Regional Cuisine" ref="restaurant_regional_cuisine" type="checkbox" />
+								Restaurant serves Regional Cuisine
+								</label>
+							</div>
+	  						</div>
+	  					</div>
+
+	 					<div className="row">
+							<div className="col-xs-6">
+								<div className="checkbox">
+									<label>
+									<input value="Drinks served at the Beach Club" ref="drinks_beach_club" type="checkbox" />
+									Drinks served at the Beach Club
+									</label>
+								</div>
+	 						</div>
+
+	  						<div className="col-xs-6">
+
+	  						</div>
+	  					</div>
+
+					</div>
+
+
+					<div className="row">
+							<div className="col-xs-4 col-md-4 form-inline">
+<label>Nightly Rate</label>
+					<div className="input-group">
+						<span className="input-group-addon">$</span>
+						<input type="text" className="form-control nightly-rate" placeholder="Nightly Rate" ref="nightly_rate" />
+						<span className="input-group-addon">.00</span>
+					</div>
+							</div>
+							<div className="col-xs-4 col-md-4 form-inline">
+							<label>Taxes: </label>
+					<div className="input-group">
+						<input placeholder="Taxes" ref="taxes" type="text" className="form-control" />
+						<span className="input-group-addon">%</span>
+					</div>
+							</div>
+							<div className="col-xs-4 col-md-4 form-inline">
+												<label>Additional Fees</label><div className="input-group">
+						<span className="input-group-addon">$</span>
+						<input placeholder="Additional Fees" ref="additional_fees" type="text" className="form-control" />
+						<span className="input-group-addon">.00</span>
+					</div>
+							</div>
+					</div>
+					<br />
+					<div className="row">
+						<div className="col-xs-4">
+						<label>Additional Fees Description</label>
+						</div>
+						<div className="col-xs-8">
+						<input ref="additional_fees_desc" type="text" className="form-control" />
+						</div>
+					</div>
+
+
+			<br />								
+						<div className="alert alert-warning" role="alert">
+  <span className="glyphicon glyphicon-info-sign" aria-hidden="true"></span> 
+  Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format
+</div>
+<br />
+	<div className="alert alert-info" role="alert">
+  <span className="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+  You will see a preview of the image. Your images will be uploaded when you submit the entire form.
+</div>
+
+
+
+						<fieldset>
 						<label>Featured Image</label>
-						<p>Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format</p>
-						<p>You will see a preview of the image. Your images will be uploaded when you submit the entire form.</p>
 						<input ref="featured_image" type="file" id="featured_image" className="form-control" />
 						<img data-id="featured_image" />
 					</fieldset>
@@ -451,16 +666,7 @@ var CreateHotelProfile = React.createClass({
 						<input ref="hotel_image_12" type="file" id="hotel_image_12" className="form-control" />
 						<img data-id="hotel_image_12" />
 					</fieldset>
-					<fieldset>
-						<label>Drinks served at the Beach Club</label>
-						<input placeholder="Drinks served at the Beach Club" ref="drinks_beach_club" type="checkbox" />
-					</fieldset>
-					<select id="timezone" ref="timezone">
-						<option value="ET">Eastern Time - New York, NY USA</option>
-						<option value="CT">Central Time - Chicago, IL USA</option>
-						<option value="MT">Mountain Time - Denver, CO USA</option>
-						<option value="PT">Pacific Time - Los Angeles, CA USA</option>
-					</select>
+
 					<button onClick={this.submitHotelProfile} className="btn btn-success">Create Profile</button>
 					<button className="btn btn-danger" >Cancel</button>
 					<button className="btn btn-warning" >Clear</button>
