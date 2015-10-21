@@ -116,6 +116,9 @@ var Dashboard = React.createClass({
 		this.props.filter( {loggedIn: false} );
 		}.bind( this ));
 	},
+	hideSettings: function(){
+		this.setState( {displaySettings:false} );
+	},
 	render: function(){	
 			//FIX ME: duplicate key issue check users and hotel
 		var hotelUserNodes = this.state.data.map( function ( user ) {
@@ -124,7 +127,7 @@ var Dashboard = React.createClass({
       		);
     	});
 
-		var isManagingSettings = this.state.displaySettings ? <SettingsBox /> : '';
+		var isManagingSettings = this.state.displaySettings ? <SettingsBox hideBox={this.hideSettings} /> : '';
 
 		var isAdmin = this.state.isAdmin ? 
 			<div>

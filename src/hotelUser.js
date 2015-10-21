@@ -1,12 +1,26 @@
+var ProfileBox = React.createClass({
+    render: function() {
+      return(
+        <h1>Profile View</h1>
+        );
+    }
+});
+
 var HotelUser = React.createClass({
 	getInitialState: function(){
    		return {
 	   		profileComplete:false,
 	   		creatingProfile:false,
-        profileDeleted:false
+        profileDeleted:false,
+        isActive:this.props.isActive,
+        viewProfile:false
    		}
    	},
    	componentWillMount: function(){
+      if( this.props.isActive === false ) {
+
+      }
+
    		if(this.props.profileComplete){
    			this.setState({profileComplete:true});
    		}
@@ -19,6 +33,10 @@ var HotelUser = React.createClass({
    	createProfile: function(){
    		this.setState({creatingProfile: true});
    	},
+    viewProfile: function(e){
+      e.preventDefault();
+      this.setState({viewProfile:true});
+    },
    	notCreateProfile: function(hideForm){
    		this.setState({creatingProfile:false});
    	},
@@ -57,8 +75,9 @@ if (window.confirm("Delete Hotel Profile?")) {
 
     },
 	render: function() {
+    var viewProfileView = this.state.viewProfile ? <ProfileBox /> : '';
   		var createBtnStatus = this.state.creatingProfile ? true : false;
-  		var profileButton = this.state.profileComplete ? <button className="btn btn-info" ><span className="glyphicon glyphicon-eye-open"></span> View profile</button> : <button onClick={this.createProfile} className="btn btn-warning" disabled={createBtnStatus} ><span className="glyphicon glyphicon-flash"></span> Create Profile</button>;   
+  		var profileButton = this.state.profileComplete ? <button className="btn btn-info" onClick={this.viewProfile} ><span className="glyphicon glyphicon-eye-open"></span> View profile</button> : <button onClick={this.createProfile} className="btn btn-warning" disabled={createBtnStatus} ><span className="glyphicon glyphicon-flash"></span> Create Profile</button>;   
   		var createProfileView = this.state.creatingProfile ? <CreateHotelProfile displayForm={this.notCreateProfile} hotelId={this.props.hotelId} profileComplete={this.profileCompleted} /> :  '';
   		var closeProfileBtn = this.state.creatingProfile ? <button onClick={this.notCreateProfile} className="btn btn-danger">Cancel</button> : '';
     	return (
@@ -69,6 +88,7 @@ if (window.confirm("Delete Hotel Profile?")) {
             {profileButton}
         		{closeProfileBtn}
         		{createProfileView}
+            {viewProfileView}
         		</div>
       		</div>
     	);

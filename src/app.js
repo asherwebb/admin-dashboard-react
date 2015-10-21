@@ -18,8 +18,8 @@ var App = React.createClass({
 			<div className="page-header">
 			<h2 className="pad-left">SwingShift Hotels Dashboard</h2>
 			</div>
-				{isLoggedIn}
-				</div>
+			{isLoggedIn}
+			</div>
 			
 		);
 	}

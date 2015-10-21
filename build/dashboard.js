@@ -115,13 +115,16 @@ var Dashboard = React.createClass({
 			this.props.filter({ loggedIn: false });
 		}).bind(this));
 	},
+	hideSettings: function hideSettings() {
+		this.setState({ displaySettings: false });
+	},
 	render: function render() {
 		//FIX ME: duplicate key issue check users and hotel
 		var hotelUserNodes = this.state.data.map(function (user) {
 			return React.createElement(HotelUser, { hotelId: user.hotelId, username: user.username, key: user.uid, objId: user.uid, email: user.email, profileComplete: user.profileComplete, hotelName: user.hotelName });
 		});
 
-		var isManagingSettings = this.state.displaySettings ? React.createElement(SettingsBox, null) : '';
+		var isManagingSettings = this.state.displaySettings ? React.createElement(SettingsBox, { hideBox: this.hideSettings }) : '';
 
 		var isAdmin = this.state.isAdmin ? React.createElement(
 			"div",

@@ -1,5 +1,17 @@
 'use strict';
 
+var ProfileBox = React.createClass({
+  displayName: 'ProfileBox',
+
+  render: function render() {
+    return React.createElement(
+      'h1',
+      null,
+      'Profile View'
+    );
+  }
+});
+
 var HotelUser = React.createClass({
   displayName: 'HotelUser',
 
@@ -7,10 +19,14 @@ var HotelUser = React.createClass({
     return {
       profileComplete: false,
       creatingProfile: false,
-      profileDeleted: false
+      profileDeleted: false,
+      isActive: this.props.isActive,
+      viewProfile: false
     };
   },
   componentWillMount: function componentWillMount() {
+    if (this.props.isActive === false) {}
+
     if (this.props.profileComplete) {
       this.setState({ profileComplete: true });
     }
@@ -22,6 +38,10 @@ var HotelUser = React.createClass({
   },
   createProfile: function createProfile() {
     this.setState({ creatingProfile: true });
+  },
+  viewProfile: function viewProfile(e) {
+    e.preventDefault();
+    this.setState({ viewProfile: true });
   },
   notCreateProfile: function notCreateProfile(hideForm) {
     this.setState({ creatingProfile: false });
@@ -54,10 +74,11 @@ var HotelUser = React.createClass({
     }
   },
   render: function render() {
+    var viewProfileView = this.state.viewProfile ? React.createElement(ProfileBox, null) : '';
     var createBtnStatus = this.state.creatingProfile ? true : false;
     var profileButton = this.state.profileComplete ? React.createElement(
       'button',
-      { className: 'btn btn-info' },
+      { className: 'btn btn-info', onClick: this.viewProfile },
       React.createElement('span', { className: 'glyphicon glyphicon-eye-open' }),
       ' View profile'
     ) : React.createElement(
@@ -109,7 +130,8 @@ var HotelUser = React.createClass({
         React.createElement('hr', { className: 'clearfix' }),
         profileButton,
         closeProfileBtn,
-        createProfileView
+        createProfileView,
+        viewProfileView
       )
     );
   }
