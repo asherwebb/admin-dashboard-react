@@ -1,17 +1,5 @@
 'use strict';
 
-var ProfileBox = React.createClass({
-  displayName: 'ProfileBox',
-
-  render: function render() {
-    return React.createElement(
-      'h1',
-      null,
-      'Profile View'
-    );
-  }
-});
-
 var HotelUser = React.createClass({
   displayName: 'HotelUser',
 
@@ -74,7 +62,7 @@ var HotelUser = React.createClass({
     }
   },
   render: function render() {
-    var viewProfileView = this.state.viewProfile ? React.createElement(ProfileBox, null) : '';
+    var viewProfileView = this.state.viewProfile ? React.createElement(ProfileBox, { hotelId: this.props.hotelId, hotelName: this.props.hotelName }) : '';
     var createBtnStatus = this.state.creatingProfile ? true : false;
     var profileButton = this.state.profileComplete ? React.createElement(
       'button',

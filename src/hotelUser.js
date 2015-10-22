@@ -1,11 +1,3 @@
-var ProfileBox = React.createClass({
-    render: function() {
-      return(
-        <h1>Profile View</h1>
-        );
-    }
-});
-
 var HotelUser = React.createClass({
 	getInitialState: function(){
    		return {
@@ -75,7 +67,7 @@ if (window.confirm("Delete Hotel Profile?")) {
 
     },
 	render: function() {
-    var viewProfileView = this.state.viewProfile ? <ProfileBox /> : '';
+    var viewProfileView = this.state.viewProfile ? <ProfileBox hotelId={this.props.hotelId} hotelName={this.props.hotelName} /> : '';
   		var createBtnStatus = this.state.creatingProfile ? true : false;
   		var profileButton = this.state.profileComplete ? <button className="btn btn-info" onClick={this.viewProfile} ><span className="glyphicon glyphicon-eye-open"></span> View profile</button> : <button onClick={this.createProfile} className="btn btn-warning" disabled={createBtnStatus} ><span className="glyphicon glyphicon-flash"></span> Create Profile</button>;   
   		var createProfileView = this.state.creatingProfile ? <CreateHotelProfile displayForm={this.notCreateProfile} hotelId={this.props.hotelId} profileComplete={this.profileCompleted} /> :  '';

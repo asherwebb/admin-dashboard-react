@@ -1,7 +1,6 @@
 //FIX ME:
-//we need to get the matching hotel profile, update the object with info from the create profile form, then send back
-//we need to remove hotel name from the form and from the payload
-//also need to make sure user_key, hotel_name and linked_username not as var or in payload
+
+//success message for creating profile and update state along with options for hub cities pulled dynamically
 
 "use strict";
 
