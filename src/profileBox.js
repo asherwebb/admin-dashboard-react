@@ -1,3 +1,4 @@
+//FIXME: consider moving tax rate, addl fees, addl fee desc and default nightly rate out of profile and into dashboard
 var ProfileBox = React.createClass({
 	getInitialState: function() {
 		return { 
@@ -14,21 +15,22 @@ var ProfileBox = React.createClass({
 
 		hotelProfileQuery.get( hotelId , {
 			success: function(hotel) {
+
 				//get it all
 				 var data = {
-			featured_image: hotel.get("featured_image"),
-			hotel_image_1 : hotel.get("hotel_image_1"),
-			hotel_image_2 : hotel.get("hotel_image_2"),
-			hotel_image_3 : hotel.get("hotel_image_3"),
-			hotel_image_4 : hotel.get("hotel_image_4"),
-			hotel_image_5 : hotel.get("hotel_image_5"),
-			hotel_image_6 : hotel.get("hotel_image_6"),
-			hotel_image_7 : hotel.get("hotel_image_7"),
-			hotel_image_8 : hotel.get("hotel_image_8"),
-			hotel_image_9 : hotel.get("hotel_image_9"),
-			hotel_image_10 : hotel.get("hotel_image_10"),
-			hotel_image_11 : hotel.get("hotel_image_11"),
-			hotel_image_12 : hotel.get("hotel_image_12"),
+			featured_image: hotel.get("featured_image").url(),
+			hotel_image_1 : hotel.get("hotel_image_1").url(),
+			hotel_image_2 : hotel.get("hotel_image_2").url(),
+			hotel_image_3 : hotel.get("hotel_image_3").url(),
+			hotel_image_4 : hotel.get("hotel_image_4").url(),
+			hotel_image_5 : hotel.get("hotel_image_5").url(),
+			hotel_image_6 : hotel.get("hotel_image_6").url(),
+			hotel_image_7 : hotel.get("hotel_image_7").url(),
+			hotel_image_8 : hotel.get("hotel_image_8").url(),
+			hotel_image_9 : hotel.get("hotel_image_9").url(),
+			hotel_image_10 : hotel.get("hotel_image_10").url(),
+			hotel_image_11 : hotel.get("hotel_image_11").url(),
+			hotel_image_12 : hotel.get("hotel_image_12").url(),
 			about_hotel : hotel.get("about_hotel"),
 			short_about_hotel : hotel.get("short_about_hotel"),
 			address: hotel.get("address"),
@@ -69,7 +71,9 @@ this.setState( {data:data} );
 		});
 
 	},
-	updateDb: function(key, update){
+	updateDb: function(key, update, data){
+		var update = update;
+		var data = data;
 		var hotelId = this.props.hotelId;
 		//display in ui with options to edit each field
 		var HotelProfile = Parse.Object.extend("hotel_profile");
@@ -78,34 +82,56 @@ this.setState( {data:data} );
 		hotelProfileQuery.get( hotelId , {
 			success: function(hotel) {
 				hotel.save({key:update}, {
-					success: function(){
+					success: function(result){
 						console.log('hotel updated');
-					},
+						this.setState({data:data});
+
+					}.bind(this),
 					error: function(){
 
 					}
 				});
-			},
+			}.bind( this ),
 			error: function(hotel, error){
 
 			}
 		});
 	},
-	updateMod: function(key, update){
+	updateMod: function(key, update, data){
+		var key = key, update = update;
+
+		if( update.url() ){
+			update = update.url();
+		}
+
 		var data = {};
 			data = this.state.data;
-			data.about_hotel = update;
-			var key = "about_hotel";
-			this.updateDb(key, update);
-			this.setState({data:data});
+			data[key] = update;
+
+			this.updateDb(key, update, data);
 	},
     render: function() {
 
       return(
       	<div>
         	<h1>Profile View {this.props.hotelName} </h1>
+
         	<AboutHotel data={this.state.data.about_hotel} onUpdate={this.updateMod} editElem="textarea" objKey="about_hotel" />
-        </div>
+        	<p>Hotel Images</p>
+        	<HotelImage data={this.state.data.featured_image} onUpdate={this.updateMod} editElem="file" objKey="featured_image" />
+        	<HotelImage data={this.state.data.hotel_image_1} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_1" />
+        	<HotelImage data={this.state.data.hotel_image_2} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_2" />
+        	<HotelImage data={this.state.data.hotel_image_3} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_3" />
+        	<HotelImage data={this.state.data.hotel_image_4} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_4" />
+        	<HotelImage data={this.state.data.hotel_image_5} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_5" />
+        	<HotelImage data={this.state.data.hotel_image_6} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_6" />
+        	<HotelImage data={this.state.data.hotel_image_7} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_7" />
+        	<HotelImage data={this.state.data.hotel_image_8} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_8" />
+        	<HotelImage data={this.state.data.hotel_image_9} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_9" />
+        	<HotelImage data={this.state.data.hotel_image_10} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_10" />
+        	<HotelImage data={this.state.data.hotel_image_11} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_11" />
+        	<HotelImage data={this.state.data.hotel_image_12} onUpdate={this.updateMod} editElem="file" objKey="hotel_image_12" />
+        </div> 
         );
     }
 });

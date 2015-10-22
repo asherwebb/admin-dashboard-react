@@ -1,3 +1,4 @@
+//FIXME: consider moving tax rate, addl fees, addl fee desc and default nightly rate out of profile and into dashboard
 "use strict";
 
 var ProfileBox = React.createClass({
@@ -18,21 +19,22 @@ var ProfileBox = React.createClass({
 
 		hotelProfileQuery.get(hotelId, {
 			success: (function (hotel) {
+
 				//get it all
 				var data = {
-					featured_image: hotel.get("featured_image"),
-					hotel_image_1: hotel.get("hotel_image_1"),
-					hotel_image_2: hotel.get("hotel_image_2"),
-					hotel_image_3: hotel.get("hotel_image_3"),
-					hotel_image_4: hotel.get("hotel_image_4"),
-					hotel_image_5: hotel.get("hotel_image_5"),
-					hotel_image_6: hotel.get("hotel_image_6"),
-					hotel_image_7: hotel.get("hotel_image_7"),
-					hotel_image_8: hotel.get("hotel_image_8"),
-					hotel_image_9: hotel.get("hotel_image_9"),
-					hotel_image_10: hotel.get("hotel_image_10"),
-					hotel_image_11: hotel.get("hotel_image_11"),
-					hotel_image_12: hotel.get("hotel_image_12"),
+					featured_image: hotel.get("featured_image").url(),
+					hotel_image_1: hotel.get("hotel_image_1").url(),
+					hotel_image_2: hotel.get("hotel_image_2").url(),
+					hotel_image_3: hotel.get("hotel_image_3").url(),
+					hotel_image_4: hotel.get("hotel_image_4").url(),
+					hotel_image_5: hotel.get("hotel_image_5").url(),
+					hotel_image_6: hotel.get("hotel_image_6").url(),
+					hotel_image_7: hotel.get("hotel_image_7").url(),
+					hotel_image_8: hotel.get("hotel_image_8").url(),
+					hotel_image_9: hotel.get("hotel_image_9").url(),
+					hotel_image_10: hotel.get("hotel_image_10").url(),
+					hotel_image_11: hotel.get("hotel_image_11").url(),
+					hotel_image_12: hotel.get("hotel_image_12").url(),
 					about_hotel: hotel.get("about_hotel"),
 					short_about_hotel: hotel.get("short_about_hotel"),
 					address: hotel.get("address"),
@@ -72,31 +74,40 @@ var ProfileBox = React.createClass({
 			}
 		});
 	},
-	updateDb: function updateDb(key, update) {
+	updateDb: function updateDb(key, update, data) {
+		var update = update;
+		var data = data;
 		var hotelId = this.props.hotelId;
 		//display in ui with options to edit each field
 		var HotelProfile = Parse.Object.extend("hotel_profile");
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
 
 		hotelProfileQuery.get(hotelId, {
-			success: function success(hotel) {
+			success: (function (hotel) {
 				hotel.save({ key: update }, {
-					success: function success() {
+					success: (function (result) {
 						console.log('hotel updated');
-					},
+						this.setState({ data: data });
+					}).bind(this),
 					error: function error() {}
 				});
-			},
+			}).bind(this),
 			error: function error(hotel, _error2) {}
 		});
 	},
-	updateMod: function updateMod(key, update) {
+	updateMod: function updateMod(key, update, data) {
+		var key = key,
+		    update = update;
+
+		if (update.url()) {
+			update = update.url();
+		}
+
 		var data = {};
 		data = this.state.data;
-		data.about_hotel = update;
-		var key = "about_hotel";
-		this.updateDb(key, update);
-		this.setState({ data: data });
+		data[key] = update;
+
+		this.updateDb(key, update, data);
 	},
 	render: function render() {
 
@@ -110,7 +121,25 @@ var ProfileBox = React.createClass({
 				this.props.hotelName,
 				" "
 			),
-			React.createElement(AboutHotel, { data: this.state.data.about_hotel, onUpdate: this.updateMod, editElem: "textarea", objKey: "about_hotel" })
+			React.createElement(AboutHotel, { data: this.state.data.about_hotel, onUpdate: this.updateMod, editElem: "textarea", objKey: "about_hotel" }),
+			React.createElement(
+				"p",
+				null,
+				"Hotel Images"
+			),
+			React.createElement(HotelImage, { data: this.state.data.featured_image, onUpdate: this.updateMod, editElem: "file", objKey: "featured_image" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_1, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_1" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_2, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_2" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_3, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_3" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_4, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_4" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_5, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_5" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_6, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_6" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_7, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_7" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_8, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_8" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_9, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_9" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_10, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_10" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_11, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_11" }),
+			React.createElement(HotelImage, { data: this.state.data.hotel_image_12, onUpdate: this.updateMod, editElem: "file", objKey: "hotel_image_12" })
 		);
 	}
 });
