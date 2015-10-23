@@ -103,8 +103,6 @@ var CreateHotelProfile = React.createClass({
 		var additional_fees = parseInt( this.refs.additional_fees.getDOMNode().value );
 		var additional_fees_desc = this.refs.additional_fees_desc.getDOMNode().value;
 
-				// var hotel_select_state = React.findDOMNode(this.refs.hotel_select_state);
-		// hotel_select_state = $(hotel_select_state).val();
 		var hotel_style = React.findDOMNode(this.refs.hotel_style);
 			hotel_style = $(hotel_style).val();
 		var restaurant_regional_cuisine = this.refs.restaurant_regional_cuisine.getDOMNode().checked;
@@ -169,11 +167,9 @@ var CreateHotelProfile = React.createClass({
 			"hotel_image_12" : hotel_image_12Parse,
 			"about_hotel" : about_hotel,
 			"short_about_hotel" : short_about_hotel,
-			"address" : {
-				"body": hotel_entered_address,
-				"city": city,
-				"state": hotel_select_state
-			},	
+			"address_line_1":hotel_entered_address,
+			"address_city":city,
+			"address_state":hotel_select_state,
 			"location" : point,
 			"hub_city" : hub_city,
 			"complimentary_wifi" : complimentary_wifi,

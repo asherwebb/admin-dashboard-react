@@ -63,22 +63,13 @@ var ProfileTextInputModule = React.createClass({
 	}
 });
 //hotel address has address line 1, city, state
-var HotelAddress = React.createClass({
-	displayName: 'HotelAddress',
 
-	render: function render() {
-		return React.createElement(
-			'div',
-			{ className: 'panel' },
-			this.props.description
-		);
-	}
-});
 //hotel location has lat and lng then a point is made and stored in parse db
 var HotelLocation = React.createClass({
 	displayName: 'HotelLocation',
 
 	render: function render() {
+
 		return React.createElement(
 			'div',
 			{ className: 'panel' },

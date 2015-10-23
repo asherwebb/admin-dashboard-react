@@ -15,6 +15,9 @@ var ProfileBox = React.createClass({
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
 		hotelProfileQuery.get(hotelId, {
 			success: (function (hotel) {
+				var address = hotel.get("address");
+				console.log(address);
+
 				var data = {
 					featured_image: hotel.get("featured_image").url(),
 					hotel_image_1: hotel.get("hotel_image_1").url(),
@@ -31,7 +34,9 @@ var ProfileBox = React.createClass({
 					hotel_image_12: hotel.get("hotel_image_12").url(),
 					about_hotel: hotel.get("about_hotel"),
 					short_about_hotel: hotel.get("short_about_hotel"),
-					address: hotel.get("address"),
+					address_line_1: hotel.get("address_line_1"),
+					address_city: hotel.get("address_city"),
+					address_state: hotel.get("address_state"),
 					location: hotel.get("location"),
 					hub_city: hotel.get("hub_city"),
 					complimentary_wifi: hotel.get("complimentary_wifi"),
@@ -60,7 +65,6 @@ var ProfileBox = React.createClass({
 					drinks_beach_club: hotel.get("drinks_beach_club"),
 					timezone: hotel.get("timezone")
 				};
-				console.log(data.address);
 
 				this.setState({ data: data });
 			}).bind(this),
@@ -88,7 +92,6 @@ var ProfileBox = React.createClass({
 			error: function error(hotel, _error2) {}
 		});
 	},
-	updateHotelAddress: function updateHotelAddress() {},
 	updateHotelLocation: function updateHotelLocation() {},
 	updateMod: function updateMod(key, update, editElem) {
 		var data = {},
@@ -131,7 +134,9 @@ var ProfileBox = React.createClass({
 			),
 			React.createElement(HotelImage, { data: this.state.data.featured_image, onUpdate: this.updateMod, editElem: "file", objKey: "featured_image" }),
 			React.createElement(ProfileTextInputModule, { data: this.state.data.short_about_hotel, onUpdate: this.updateMod, editElem: "text", objKey: "short_about_hotel", description: "Short about hotel" }),
-			React.createElement(HotelAddress, { data: this.state.data.address, onUpdate: this.updateHotelAddress, editElem: "mixed", objKey: "address", description: "Hotel Address" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.address_line_1, onUpdate: this.updateMod, editElem: "text", objKey: "address_line_1", description: "Address Line 1" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.address_city, onUpdate: this.updateMod, editElem: "text", objKey: "address_city", description: "Address City" }),
+			React.createElement(ProfileSelectInputModule, { data: this.state.data.address_state, onUpdate: this.updateMod, editElem: "select", objKey: "address_state", description: "Address State" }),
 			React.createElement(HotelLocation, { data: this.state.data.location, onUpdate: this.updateHotelLocation, editElem: "mixed", objKey: "location", description: "Hotel Location" }),
 			React.createElement(ProfileSelectInputModule, { data: this.state.data.hub_city, onUpdate: this.updateMod, editElem: "select", objKey: "hub_city", description: "" }),
 			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.complimentary_wifi, onUpdate: this.updateMod, editElem: "checkbox", objKey: "complimentary_wifi", description: "Complimentary Wi-fi" }),
