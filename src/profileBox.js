@@ -65,13 +65,20 @@ var ProfileBox = React.createClass({
 	},
 	updateDb: function( key, update, editElem, data ){
 		var update = update, data = data, hotelId = this.props.hotelId, key=key, editElem = editElem;
+		console.log(update);
+		console.log(data);
 		var HotelProfile = Parse.Object.extend("hotel_profile");
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
 		console.log(editElem);
+		console.log(key);
+		var payload = {};
+		payload[key] = update;
 
+		console.log(typeof payload);
+		console.log(payload);
 		hotelProfileQuery.get( hotelId , {
 			success: function(hotel) {
-				hotel.save({key:update}, {
+				hotel.save(payload, {
 					success: function(result){
 						console.log('hotel updated');
 						this.setState( { data: data } );
@@ -141,9 +148,9 @@ var ProfileBox = React.createClass({
 			<ProfileCheckboxInputModule data={this.state.data.drinks_beach_club} onUpdate={this.updateMod} editElem="checkbox" objKey="drinks_beach_club" description="Drinks At Beach Club" />
 			<ProfileSelectInputModule data={this.state.data.timezone} onUpdate={this.updateMod} editElem="select" objKey="timezone" description="Timezone" />
 			<ProfileSelectInputModule data={this.state.data.hotel_style} onUpdate={this.updateMod} editElem="select" objKey="hotel_style" description="Hotel Style" />
-			<ProfileTextInputModule data={this.state.data.nightly_rate} onUpdate={this.updateMod} editElem="text" objKey="nightly_rate" description="Nightly Rate" />
-			<ProfileTextInputModule data={this.state.data.taxes} onUpdate={this.updateMod} editElem="text" objKey="taxes" description="Taxes" />
-			<ProfileTextInputModule data={this.state.data.additional_fees} onUpdate={this.updateMod} editElem="text" objKey="additional_fees" description="Additional Fees" />
+			<ProfileTextInputModule data={this.state.data.nightly_rate} onUpdate={this.updateMod} editElem="number" objKey="nightly_rate" description="Nightly Rate" />
+			<ProfileTextInputModule data={this.state.data.taxes} onUpdate={this.updateMod} editElem="number" objKey="taxes" description="Taxes" />
+			<ProfileTextInputModule data={this.state.data.additional_fees} onUpdate={this.updateMod} editElem="number" objKey="additional_fees" description="Additional Fees" />
 			<ProfileTextInputModule data={this.state.data.additional_fees_desc} onUpdate={this.updateMod} editElem="text" objKey="additional_fees_desc" description="Additional Fees Description" />
 
         	<p>Hotel Images</p>

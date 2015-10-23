@@ -73,13 +73,20 @@ var ProfileBox = React.createClass({
 		    hotelId = this.props.hotelId,
 		    key = key,
 		    editElem = editElem;
+		console.log(update);
+		console.log(data);
 		var HotelProfile = Parse.Object.extend("hotel_profile");
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
 		console.log(editElem);
+		console.log(key);
+		var payload = {};
+		payload[key] = update;
 
+		console.log(typeof payload);
+		console.log(payload);
 		hotelProfileQuery.get(hotelId, {
 			success: (function (hotel) {
-				hotel.save({ key: update }, {
+				hotel.save(payload, {
 					success: (function (result) {
 						console.log('hotel updated');
 						this.setState({ data: data });
@@ -148,9 +155,9 @@ var ProfileBox = React.createClass({
 			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.drinks_beach_club, onUpdate: this.updateMod, editElem: "checkbox", objKey: "drinks_beach_club", description: "Drinks At Beach Club" }),
 			React.createElement(ProfileSelectInputModule, { data: this.state.data.timezone, onUpdate: this.updateMod, editElem: "select", objKey: "timezone", description: "Timezone" }),
 			React.createElement(ProfileSelectInputModule, { data: this.state.data.hotel_style, onUpdate: this.updateMod, editElem: "select", objKey: "hotel_style", description: "Hotel Style" }),
-			React.createElement(ProfileTextInputModule, { data: this.state.data.nightly_rate, onUpdate: this.updateMod, editElem: "text", objKey: "nightly_rate", description: "Nightly Rate" }),
-			React.createElement(ProfileTextInputModule, { data: this.state.data.taxes, onUpdate: this.updateMod, editElem: "text", objKey: "taxes", description: "Taxes" }),
-			React.createElement(ProfileTextInputModule, { data: this.state.data.additional_fees, onUpdate: this.updateMod, editElem: "text", objKey: "additional_fees", description: "Additional Fees" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.nightly_rate, onUpdate: this.updateMod, editElem: "number", objKey: "nightly_rate", description: "Nightly Rate" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.taxes, onUpdate: this.updateMod, editElem: "number", objKey: "taxes", description: "Taxes" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.additional_fees, onUpdate: this.updateMod, editElem: "number", objKey: "additional_fees", description: "Additional Fees" }),
 			React.createElement(ProfileTextInputModule, { data: this.state.data.additional_fees_desc, onUpdate: this.updateMod, editElem: "text", objKey: "additional_fees_desc", description: "Additional Fees Description" }),
 			React.createElement(
 				"p",

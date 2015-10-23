@@ -15,18 +15,20 @@ var ProfileTextInputModule = React.createClass({
 	},
 	updateModule: function(e){
 		e.preventDefault();
-
-		var key = this.props.objKey;
-		var update = this.refs[key].getDOMNode().value;
-		var editElem = this.props.editElem;
+		var key = this.props.objKey, editElem = this.props.editElem, update = this.refs[key].getDOMNode().value;		
+		if( editElem === "number" ){
+			update = parseInt(update);
+		}
 		
+		console.log(typeof update);
+
 		this.props.onUpdate(key, update, editElem);
 		this.toggleEdit();
 	},
 	render: function(){
 		var moduleState = this.state.underEditing ? 
 			<div className="panel" >
-				<input ref={this.props.objKey} type={this.editElem} defaultValue={this.props.data} /><br />
+				<input ref={this.props.objKey} type="text" defaultValue={this.props.data} /><br />
 				<button className="btn btn-success" onClick={this.updateModule}>Save</button>
 			</div>
 			:
@@ -41,7 +43,7 @@ var ProfileTextInputModule = React.createClass({
 			);
 	}
 });
-
+//hotel address has address line 1, city, state
 var HotelAddress = React.createClass({
 	render: function(){
 		return (
@@ -51,7 +53,7 @@ var HotelAddress = React.createClass({
 			);
 	}
 });
-
+//hotel location has lat and lng then a point is made and stored in parse db
 var HotelLocation = React.createClass({
 	render: function(){
 		return (
@@ -61,7 +63,7 @@ var HotelLocation = React.createClass({
 			);
 	}
 });
-
+//rendering involves a checked or unchecked indicator with edit button 
 var ProfileCheckboxInputModule = React.createClass({
 	render: function(){
 		return (
@@ -71,7 +73,7 @@ var ProfileCheckboxInputModule = React.createClass({
 			);
 	}
 });
-
+//parse option selected and send
 var ProfileSelectInputModule = React.createClass({
 	render: function(){
 		return (
