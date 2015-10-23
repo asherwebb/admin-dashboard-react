@@ -27,8 +27,6 @@ var ProfileTextInputModule = React.createClass({
 			update = parseInt(update);
 		}
 
-		console.log(typeof update);
-
 		this.props.onUpdate(key, update, editElem);
 		this.toggleEdit();
 	},
@@ -234,13 +232,17 @@ var HotelImage = React.createClass({
 		}
 
 		var update = new Parse.File(key + '.jpg', image);
+
+		console.log(update);
+		console.log(typeof update);
+
 		update.save().then((function (obj) {
-			this.props.onUpdate(key, obj);
+			//take to db
+			this.props.onUpdate(key, update);
 			this.toggleEdit();
-		}).bind(this));
-		//create a new parse file of the image
-		//update the ui
-		//send to parse
+		}).bind(this), function (error) {
+			alert("Error uploading image");
+		});
 	},
 	toggleEditTrigger: function toggleEditTrigger(e) {
 		e.preventDefault();

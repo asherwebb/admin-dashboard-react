@@ -1,7 +1,3 @@
-//FIX ME: nightly rate, additional fees, taxes not being updated in DB
-
-//success message for creating profile and update state along with options for hub cities pulled dynamically
-
 "use strict";
 
 var CreateHotelProfile = React.createClass({
@@ -12,8 +8,6 @@ var CreateHotelProfile = React.createClass({
 		this.props.displayForm();
 	},
 	componentWillMount: function componentWillMount() {
-		//make parse call to get hub cities
-		//add hub cities to select list
 		var SettingsInfo = Parse.Object.extend("Settings_Info");
 		var settingsInfoQuery = new Parse.Query(SettingsInfo);
 
@@ -21,7 +15,7 @@ var CreateHotelProfile = React.createClass({
 			success: function success(settings) {
 				var hubCitiesArray = settings.get("hub_cities");
 				//put those cities in appropriate select
-				console.log(hubCitiesArray);
+				//console.log(hubCitiesArray);
 				for (var i = 0; i < hubCitiesArray.length; i++) {
 					$("#hubCities").append("<option value='" + hubCitiesArray[i] + "'>" + hubCitiesArray[i] + "</option>");
 				}
@@ -202,7 +196,7 @@ var CreateHotelProfile = React.createClass({
 
 		var inc = 1 / 13; //13 images
 		inc = inc * 100;
-		console.log("inc is:" + inc);
+		//console.log("inc is:" + inc);
 		var counter = 1;
 
 		function incrementProgressBar(counter) {
@@ -260,7 +254,7 @@ var CreateHotelProfile = React.createClass({
 																	hotel.save(payload, {
 																		success: (function (completeHotelProfile) {
 																			alert('Successfully created profile!');
-																			console.log(completeHotelProfile);
+																			//console.log(completeHotelProfile);
 																			counter = counter + 1;
 																			incrementProgressBar();
 																			$("#progressbox").hide();
