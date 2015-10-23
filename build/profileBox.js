@@ -72,24 +72,14 @@ var ProfileBox = React.createClass({
 		    hotelId = this.props.hotelId,
 		    key = key,
 		    editElem = editElem;
-		console.log(key);
-		console.log(update);
 		var HotelProfile = Parse.Object.extend("hotel_profile");
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
-		//console.log(editElem);
-		//console.log(key);
 		var payload = {};
 		payload[key] = update;
-
-		//console.log(typeof payload);
-		console.log(payload);
 		hotelProfileQuery.get(hotelId, {
 			success: (function (hotel) {
 				hotel.save(payload, {
-					success: (function (result) {
-						//console.log('hotel updated');
-
-					}).bind(this),
+					success: (function (result) {}).bind(this),
 					error: function error() {}
 				});
 			}).bind(this),
@@ -103,31 +93,24 @@ var ProfileBox = React.createClass({
 		    key = key,
 		    update = update,
 		    editElem = editElem;
-		//FIX ME: the below flag is preventing proper image uploads
-
 		console.log(update);
 		//update.url means we have an image - we need to pass to data already formatted as url to render the src
-
 		//when this occurs we need to take update.url and pass to data but pass update to db
 		if (update.url) {
-			//route this to ui as data
 			var dataUpdate = update.url();
 			data = {};
 			data = this.state.data;
 			data[key] = dataUpdate;
 			this.setState({ data: data });
 			this.updateDb(key, update, editElem);
-			//now lets update the db
 		} else {
-
-				data = this.state.data;
-				data[key] = update;
-				this.setState({ data: data });
-				this.updateDb(key, update, editElem);
-			}
+			data = this.state.data;
+			data[key] = update;
+			this.setState({ data: data });
+			this.updateDb(key, update, editElem);
+		}
 	},
 	render: function render() {
-
 		return React.createElement(
 			"div",
 			null,
@@ -138,7 +121,12 @@ var ProfileBox = React.createClass({
 				this.props.hotelName,
 				" "
 			),
-			React.createElement(AboutHotel, { data: this.state.data.about_hotel, onUpdate: this.updateMod, editElem: "textarea", objKey: "about_hotel", description: "About Hotel" }),
+			React.createElement(ProfileTextAreaInputModule, { data: this.state.data.about_hotel, onUpdate: this.updateMod, editElem: "textarea", objKey: "about_hotel", description: "About Hotel" }),
+			React.createElement(
+				"p",
+				null,
+				"Featured Image"
+			),
 			React.createElement(HotelImage, { data: this.state.data.featured_image, onUpdate: this.updateMod, editElem: "file", objKey: "featured_image" }),
 			React.createElement(ProfileTextInputModule, { data: this.state.data.short_about_hotel, onUpdate: this.updateMod, editElem: "text", objKey: "short_about_hotel", description: "Short about hotel" }),
 			React.createElement(HotelAddress, { data: this.state.data.address, onUpdate: this.updateHotelAddress, editElem: "mixed", objKey: "address", description: "Hotel Address" }),

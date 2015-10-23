@@ -111,8 +111,8 @@ var ProfileSelectInputModule = React.createClass({
 	}
 });
 
-var AboutHotel = React.createClass({
-	displayName: 'AboutHotel',
+var ProfileTextAreaInputModule = React.createClass({
+	displayName: 'ProfileTextAreaInputModule',
 
 	getInitialState: function getInitialState() {
 		return {
@@ -185,7 +185,6 @@ var HotelImage = React.createClass({
 		};
 	},
 	updateModule: function updateModule(e) {
-		//depending on the key assign image to correct dom node
 		var key = this.props.objKey;
 		var image;
 
@@ -232,12 +231,7 @@ var HotelImage = React.createClass({
 		}
 
 		var update = new Parse.File(key + '.jpg', image);
-
-		console.log(update);
-		console.log(typeof update);
-
 		update.save().then((function (obj) {
-			//take to db
 			this.props.onUpdate(key, update);
 			this.toggleEdit();
 		}).bind(this), function (error) {
@@ -274,11 +268,6 @@ var HotelImage = React.createClass({
 		return React.createElement(
 			'div',
 			{ className: 'panel' },
-			React.createElement(
-				'p',
-				null,
-				'Featured Image'
-			),
 			moduleState,
 			React.createElement(
 				'button',

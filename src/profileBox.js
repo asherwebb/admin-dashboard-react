@@ -65,31 +65,20 @@ var ProfileBox = React.createClass({
 	},
 	updateDb: function( key, update, editElem){
 		var update = update, hotelId = this.props.hotelId, key=key, editElem = editElem;
-		console.log(key);
-		console.log(update);
 		var HotelProfile = Parse.Object.extend("hotel_profile");
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
-		//console.log(editElem);
-		//console.log(key);
 		var payload = {};
 		payload[key] = update;
-
-		//console.log(typeof payload);
-		console.log(payload);
 		hotelProfileQuery.get( hotelId , {
 			success: function(hotel) {
 				hotel.save(payload, {
 					success: function(result){
-						//console.log('hotel updated');
-						
 					}.bind(this),
 					error: function(){
-
 					}
 				});
 			}.bind( this ),
 			error: function(hotel, error){
-
 			}
 		});
 	},
@@ -101,41 +90,31 @@ var ProfileBox = React.createClass({
 	},
 	updateMod: function(key, update, editElem){
 		var data ={}, key = key, update = update, editElem = editElem;
-		//FIX ME: the below flag is preventing proper image uploads
-
 		console.log(update);
 		//update.url means we have an image - we need to pass to data already formatted as url to render the src
-		
 		//when this occurs we need to take update.url and pass to data but pass update to db
 		if( update.url ){
-			//route this to ui as data
 			var dataUpdate = update.url();
 					data = {};
 			data = this.state.data;
 			data[key] = dataUpdate;
 			this.setState({data:data});
 			this.updateDb(key, update, editElem);
-			//now lets update the db
-
-
 		}else{
-
 			data = this.state.data;
 			data[key] = update;
 			this.setState( { data: data } );
 			this.updateDb(key, update, editElem);
-			
 		}
-
-		
 	},
     render: function() {
-
       return(
       	<div>
         	<h1>Profile View {this.props.hotelName} </h1>
 
-        	<AboutHotel data={this.state.data.about_hotel} onUpdate={this.updateMod} editElem="textarea" objKey="about_hotel" description="About Hotel"/>
+        	<ProfileTextAreaInputModule data={this.state.data.about_hotel} onUpdate={this.updateMod} editElem="textarea" objKey="about_hotel" description="About Hotel"/>
+        		
+        	<p>Featured Image</p>
         	<HotelImage data={this.state.data.featured_image} onUpdate={this.updateMod} editElem="file" objKey="featured_image" />
 			
 			<ProfileTextInputModule data={this.state.data.short_about_hotel} onUpdate={this.updateMod} editElem="text" objKey="short_about_hotel" description="Short about hotel"/>
