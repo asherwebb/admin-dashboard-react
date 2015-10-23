@@ -13,10 +13,20 @@ var ProfileTextInputModule = React.createClass({
 		var on = {underEditing: true, buttonText: 'cancel'}, off = {underEditing: false, buttonText: 'edit'};
 		this.state.underEditing ? this.setState(off) : this.setState(on);
 	},
+	updateModule: function(e){
+		e.preventDefault();
+
+		var key = this.props.objKey;
+		var update = this.refs[key].getDOMNode().value;
+		var editElem = this.props.editElem;
+		
+		this.props.onUpdate(key, update, editElem);
+		this.toggleEdit();
+	},
 	render: function(){
 		var moduleState = this.state.underEditing ? 
-			<div>
-				<input ref={this.props.objKey} type={this.editElem} /><br />
+			<div className="panel" >
+				<input ref={this.props.objKey} type={this.editElem} defaultValue={this.props.data} /><br />
 				<button className="btn btn-success" onClick={this.updateModule}>Save</button>
 			</div>
 			:
@@ -24,6 +34,7 @@ var ProfileTextInputModule = React.createClass({
 
 		return(
 			<div>
+			{this.props.description}
 			{moduleState}
 			<button onClick={this.toggleEditTrigger} > {this.state.buttonText} </button>
 			</div>
@@ -34,7 +45,9 @@ var ProfileTextInputModule = React.createClass({
 var HotelAddress = React.createClass({
 	render: function(){
 		return (
-			<p>hello</p>
+			<div className="panel">
+			{this.props.description}
+			</div>
 			);
 	}
 });
@@ -42,7 +55,9 @@ var HotelAddress = React.createClass({
 var HotelLocation = React.createClass({
 	render: function(){
 		return (
-			<p>hello</p>
+			<div className="panel">
+			{this.props.description}
+			</div>
 			);
 	}
 });
@@ -50,7 +65,9 @@ var HotelLocation = React.createClass({
 var ProfileCheckboxInputModule = React.createClass({
 	render: function(){
 		return (
-			<p>hello</p>
+			<div className="panel">
+			{this.props.description}
+			</div>
 			);
 	}
 });
@@ -58,7 +75,9 @@ var ProfileCheckboxInputModule = React.createClass({
 var ProfileSelectInputModule = React.createClass({
 	render: function(){
 		return (
-			<p>hello</p>
+			<div className="panel">
+			{this.props.description}
+			</div>
 			);
 	}
 });
@@ -84,9 +103,10 @@ var AboutHotel = React.createClass({
 	updateModule: function(e){ 
 		e.preventDefault();
 		var update = this.refs.about_hotel.getDOMNode().value;
-		this.toggleEdit();
+		var editElem = this.props.editElem;
 		var key = this.props.objKey;
-		this.props.onUpdate(key, update);
+		this.props.onUpdate(key, update, editElem);
+		this.toggleEdit();
 	},
 	render: function(){
 		var moduleState = this.state.underEditing ? <div><textarea ref="about_hotel" defaultValue={this.props.data}></textarea><br /><button className="btn btn-success" onClick={this.updateModule}>Save</button></div> 
@@ -94,7 +114,7 @@ var AboutHotel = React.createClass({
 		<p>{this.props.data}</p>;
 
 		return(
-			<div>
+			<div className="panel">
 			<h4>{this.description}</h4>
 			{moduleState}
 			<button onClick={this.toggleEditTrigger} > {this.state.buttonText} </button>
@@ -185,7 +205,8 @@ var HotelImage = React.createClass({
 			<img src={this.props.data} className="hotel-img-preview" / >;
 
 		return(
-			<div>
+			<div className="panel">
+			<p>Featured Image</p>
 			{moduleState}
 			<button onClick={this.toggleEditTrigger} > {this.state.buttonText} </button>
 			</div>

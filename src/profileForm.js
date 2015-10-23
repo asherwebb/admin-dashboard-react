@@ -1,4 +1,4 @@
-//FIX ME:
+//FIX ME: nightly rate, additional fees, taxes not being updated in DB
 
 //success message for creating profile and update state along with options for hub cities pulled dynamically
 
@@ -6,6 +6,26 @@ var CreateHotelProfile = React.createClass({
 	closeProfileForm: function(e){
 		e.preventDefault();
 		this.props.displayForm();
+	},
+	componentWillMount: function(){
+		//make parse call to get hub cities
+		//add hub cities to select list
+		var SettingsInfo = Parse.Object.extend( "Settings_Info" );
+		var settingsInfoQuery = new Parse.Query( SettingsInfo );
+
+		settingsInfoQuery.first({
+			success: function( settings ){
+				var hubCitiesArray = settings.get("hub_cities");
+				//put those cities in appropriate select
+				console.log(hubCitiesArray);
+				for(var i=0; i<hubCitiesArray.length; i++){
+					$("#hubCities").append("<option value='" + hubCitiesArray[i] + "'>"+hubCitiesArray[i]+"</option>");
+				}
+			},
+			error: function(settings, error){
+				alert("Error: Hub cities cannot be accessed");
+			}
+		});
 	},
 	componentDidMount: function(){
 		//set up a preview with jquery and traditional dom
@@ -235,7 +255,7 @@ var CreateHotelProfile = React.createClass({
 
 																		hotel.save(payload, {
 																			success: function(completeHotelProfile){
-																				alert('successfully created profile now figure how to update state ');
+																				alert('Successfully created profile!');
 																				console.log(completeHotelProfile);
 																				counter = counter +1;
 																				incrementProgressBar();
@@ -252,19 +272,19 @@ var CreateHotelProfile = React.createClass({
 
 																	}
 																});											
-														}, function(error){ alert( 'There has been an error processing image upload' ); });
-													}, function(error){ alert( 'There has been an error processing image upload' ); });
-												}, function(error){ alert( 'There has been an error processing image upload' ); });
-											}, function(error){ alert( 'There has been an error processing image upload' ); });
-										}, function(error){ alert( 'There has been an error processing image upload' ); });
-									}, function(error){ alert( 'There has been an error processing image upload' ); });
-								}, function(error){ alert( 'There has been an error processing image upload' ); });
-							}, function(error){ alert( 'There has been an error processing image upload' ); });
-						}, function(error){ alert( 'There has been an error processing image upload' ); });
-					}, function(error){ alert( 'There has been an error processing image upload' ); });
-				}, function(error){ alert( 'There has been an error processing image upload' ); });
-			}, function(error){ alert( 'There has been an error processing image upload' ); });
-		}, function(error){ alert( 'There has been an error processing image upload' ); });
+														}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+													}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+												}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+											}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+										}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+									}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+								}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+							}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+						}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+					}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+				}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+			}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
+		}.bind(this), function(error){ alert( 'There has been an error processing image upload' ); });
 	},
 	render: function(){
 		return(
@@ -326,9 +346,8 @@ var CreateHotelProfile = React.createClass({
 							<div className="col-xs-4">
 								<div className="fieldgroup form-inline">
 								<label>Hub City: </label>
-								<select ref="hub_city" className="form-control" >
-									<option value="Miami">Miami</option>
-									<option value="Orlando">Orlando</option>
+								<select ref="hub_city" className="form-control" id="hubCities" >
+								<option val="-"> - </option>
 								</select>
 							</div>
 						</div>

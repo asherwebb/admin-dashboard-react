@@ -1,4 +1,4 @@
-//FIX ME:
+//FIX ME: nightly rate, additional fees, taxes not being updated in DB
 
 //success message for creating profile and update state along with options for hub cities pulled dynamically
 
@@ -10,6 +10,26 @@ var CreateHotelProfile = React.createClass({
 	closeProfileForm: function closeProfileForm(e) {
 		e.preventDefault();
 		this.props.displayForm();
+	},
+	componentWillMount: function componentWillMount() {
+		//make parse call to get hub cities
+		//add hub cities to select list
+		var SettingsInfo = Parse.Object.extend("Settings_Info");
+		var settingsInfoQuery = new Parse.Query(SettingsInfo);
+
+		settingsInfoQuery.first({
+			success: function success(settings) {
+				var hubCitiesArray = settings.get("hub_cities");
+				//put those cities in appropriate select
+				console.log(hubCitiesArray);
+				for (var i = 0; i < hubCitiesArray.length; i++) {
+					$("#hubCities").append("<option value='" + hubCitiesArray[i] + "'>" + hubCitiesArray[i] + "</option>");
+				}
+			},
+			error: function error(settings, _error) {
+				alert("Error: Hub cities cannot be accessed");
+			}
+		});
 	},
 	componentDidMount: function componentDidMount() {
 		//set up a preview with jquery and traditional dom
@@ -191,43 +211,43 @@ var CreateHotelProfile = React.createClass({
 			$("#progressbar").progressbar("option", "value", value);
 		};
 
-		featured_imageParse.save().then(function () {
+		featured_imageParse.save().then((function () {
 			counter = counter + 1;
 			incrementProgressBar(counter);
-			hotel_image_1Parse.save().then(function () {
+			hotel_image_1Parse.save().then((function () {
 				counter = counter + 1;
 				incrementProgressBar(counter);
-				hotel_image_2Parse.save().then(function () {
+				hotel_image_2Parse.save().then((function () {
 					counter = counter + 1;
 					incrementProgressBar(counter);
-					hotel_image_3Parse.save().then(function () {
+					hotel_image_3Parse.save().then((function () {
 						counter = counter + 1;
 						incrementProgressBar(counter);
-						hotel_image_4Parse.save().then(function () {
+						hotel_image_4Parse.save().then((function () {
 							counter = counter + 1;
 							incrementProgressBar(counter);
-							hotel_image_5Parse.save().then(function () {
+							hotel_image_5Parse.save().then((function () {
 								counter = counter + 1;
 								incrementProgressBar(counter);
-								hotel_image_6Parse.save().then(function () {
+								hotel_image_6Parse.save().then((function () {
 									counter = counter + 1;
 									incrementProgressBar(counter);
-									hotel_image_7Parse.save().then(function () {
+									hotel_image_7Parse.save().then((function () {
 										counter = counter + 1;
 										incrementProgressBar(counter);
-										hotel_image_8Parse.save().then(function () {
+										hotel_image_8Parse.save().then((function () {
 											counter = counter + 1;
 											incrementProgressBar(counter);
-											hotel_image_9Parse.save().then(function () {
+											hotel_image_9Parse.save().then((function () {
 												counter = counter + 1;
 												incrementProgressBar(counter);
-												hotel_image_10Parse.save().then(function () {
+												hotel_image_10Parse.save().then((function () {
 													counter = counter + 1;
 													incrementProgressBar(counter);
-													hotel_image_11Parse.save().then(function () {
+													hotel_image_11Parse.save().then((function () {
 														counter = counter + 1;
 														incrementProgressBar(counter);
-														hotel_image_12Parse.save().then(function () {
+														hotel_image_12Parse.save().then((function () {
 															counter = counter + 1;
 															incrementProgressBar(counter);
 															//we need to query hotel profile as it already exists
@@ -239,7 +259,7 @@ var CreateHotelProfile = React.createClass({
 
 																	hotel.save(payload, {
 																		success: (function (completeHotelProfile) {
-																			alert('successfully created profile now figure how to update state ');
+																			alert('Successfully created profile!');
 																			console.log(completeHotelProfile);
 																			counter = counter + 1;
 																			incrementProgressBar();
@@ -247,50 +267,50 @@ var CreateHotelProfile = React.createClass({
 																			//FIX ME: need to pass props back to parent state
 																			this.props.profileComplete({ profileComplete: true });
 																		}).bind(this),
-																		error: function error(completeHotelProfile, _error2) {
-																			alert('Failed to create new object, with error code: ' + _error2.message);
+																		error: function error(completeHotelProfile, _error3) {
+																			alert('Failed to create new object, with error code: ' + _error3.message);
 																		}
 																	});
 																}).bind(this),
-																error: function error(hotel, _error) {}
+																error: function error(hotel, _error2) {}
 															});
-														}, function (error) {
+														}).bind(this), function (error) {
 															alert('There has been an error processing image upload');
 														});
-													}, function (error) {
+													}).bind(this), function (error) {
 														alert('There has been an error processing image upload');
 													});
-												}, function (error) {
+												}).bind(this), function (error) {
 													alert('There has been an error processing image upload');
 												});
-											}, function (error) {
+											}).bind(this), function (error) {
 												alert('There has been an error processing image upload');
 											});
-										}, function (error) {
+										}).bind(this), function (error) {
 											alert('There has been an error processing image upload');
 										});
-									}, function (error) {
+									}).bind(this), function (error) {
 										alert('There has been an error processing image upload');
 									});
-								}, function (error) {
+								}).bind(this), function (error) {
 									alert('There has been an error processing image upload');
 								});
-							}, function (error) {
+							}).bind(this), function (error) {
 								alert('There has been an error processing image upload');
 							});
-						}, function (error) {
+						}).bind(this), function (error) {
 							alert('There has been an error processing image upload');
 						});
-					}, function (error) {
+					}).bind(this), function (error) {
 						alert('There has been an error processing image upload');
 					});
-				}, function (error) {
+				}).bind(this), function (error) {
 					alert('There has been an error processing image upload');
 				});
-			}, function (error) {
+			}).bind(this), function (error) {
 				alert('There has been an error processing image upload');
 			});
-		}, function (error) {
+		}).bind(this), function (error) {
 			alert('There has been an error processing image upload');
 		});
 	},
@@ -726,16 +746,11 @@ var CreateHotelProfile = React.createClass({
 								),
 								React.createElement(
 									"select",
-									{ ref: "hub_city", className: "form-control" },
+									{ ref: "hub_city", className: "form-control", id: "hubCities" },
 									React.createElement(
 										"option",
-										{ value: "Miami" },
-										"Miami"
-									),
-									React.createElement(
-										"option",
-										{ value: "Orlando" },
-										"Orlando"
+										{ val: "-" },
+										" - "
 									)
 								)
 							)

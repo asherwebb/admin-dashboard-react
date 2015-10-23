@@ -18,11 +18,21 @@ var ProfileTextInputModule = React.createClass({
 		    off = { underEditing: false, buttonText: 'edit' };
 		this.state.underEditing ? this.setState(off) : this.setState(on);
 	},
+	updateModule: function updateModule(e) {
+		e.preventDefault();
+
+		var key = this.props.objKey;
+		var update = this.refs[key].getDOMNode().value;
+		var editElem = this.props.editElem;
+
+		this.props.onUpdate(key, update, editElem);
+		this.toggleEdit();
+	},
 	render: function render() {
 		var moduleState = this.state.underEditing ? React.createElement(
 			'div',
-			null,
-			React.createElement('input', { ref: this.props.objKey, type: this.editElem }),
+			{ className: 'panel' },
+			React.createElement('input', { ref: this.props.objKey, type: this.editElem, defaultValue: this.props.data }),
 			React.createElement('br', null),
 			React.createElement(
 				'button',
@@ -38,6 +48,7 @@ var ProfileTextInputModule = React.createClass({
 		return React.createElement(
 			'div',
 			null,
+			this.props.description,
 			moduleState,
 			React.createElement(
 				'button',
@@ -55,9 +66,9 @@ var HotelAddress = React.createClass({
 
 	render: function render() {
 		return React.createElement(
-			'p',
-			null,
-			'hello'
+			'div',
+			{ className: 'panel' },
+			this.props.description
 		);
 	}
 });
@@ -67,9 +78,9 @@ var HotelLocation = React.createClass({
 
 	render: function render() {
 		return React.createElement(
-			'p',
-			null,
-			'hello'
+			'div',
+			{ className: 'panel' },
+			this.props.description
 		);
 	}
 });
@@ -79,9 +90,9 @@ var ProfileCheckboxInputModule = React.createClass({
 
 	render: function render() {
 		return React.createElement(
-			'p',
-			null,
-			'hello'
+			'div',
+			{ className: 'panel' },
+			this.props.description
 		);
 	}
 });
@@ -91,9 +102,9 @@ var ProfileSelectInputModule = React.createClass({
 
 	render: function render() {
 		return React.createElement(
-			'p',
-			null,
-			'hello'
+			'div',
+			{ className: 'panel' },
+			this.props.description
 		);
 	}
 });
@@ -120,9 +131,10 @@ var AboutHotel = React.createClass({
 	updateModule: function updateModule(e) {
 		e.preventDefault();
 		var update = this.refs.about_hotel.getDOMNode().value;
-		this.toggleEdit();
+		var editElem = this.props.editElem;
 		var key = this.props.objKey;
-		this.props.onUpdate(key, update);
+		this.props.onUpdate(key, update, editElem);
+		this.toggleEdit();
 	},
 	render: function render() {
 		var moduleState = this.state.underEditing ? React.createElement(
@@ -143,7 +155,7 @@ var AboutHotel = React.createClass({
 
 		return React.createElement(
 			'div',
-			null,
+			{ className: 'panel' },
 			React.createElement(
 				'h4',
 				null,
@@ -255,7 +267,12 @@ var HotelImage = React.createClass({
 
 		return React.createElement(
 			'div',
-			null,
+			{ className: 'panel' },
+			React.createElement(
+				'p',
+				null,
+				'Featured Image'
+			),
 			moduleState,
 			React.createElement(
 				'button',

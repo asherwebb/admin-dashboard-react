@@ -10,16 +10,11 @@ var ProfileBox = React.createClass({
 		};
 	},
 	componentWillMount: function componentWillMount() {
-		//fetch parse data for the object
-
 		var hotelId = this.props.hotelId;
-		//display in ui with options to edit each field
 		var HotelProfile = Parse.Object.extend("hotel_profile");
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
-
 		hotelProfileQuery.get(hotelId, {
 			success: (function (hotel) {
-
 				var data = {
 					featured_image: hotel.get("featured_image").url(),
 					hotel_image_1: hotel.get("hotel_image_1").url(),
@@ -72,13 +67,15 @@ var ProfileBox = React.createClass({
 			}
 		});
 	},
-	updateDb: function updateDb(key, update, data) {
-		var update = update;
-		var data = data;
-		var hotelId = this.props.hotelId;
-		//display in ui with options to edit each field
+	updateDb: function updateDb(key, update, editElem, data) {
+		var update = update,
+		    data = data,
+		    hotelId = this.props.hotelId,
+		    key = key,
+		    editElem = editElem;
 		var HotelProfile = Parse.Object.extend("hotel_profile");
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
+		console.log(editElem);
 
 		hotelProfileQuery.get(hotelId, {
 			success: (function (hotel) {
@@ -95,13 +92,14 @@ var ProfileBox = React.createClass({
 	},
 	updateHotelAddress: function updateHotelAddress() {},
 	updateHotelLocation: function updateHotelLocation() {},
-	updateMod: function updateMod(key, update, data) {
+	updateMod: function updateMod(key, update, editElem) {
 		//this needs to allow for the different types
 		//FIX ME in the am
 		var key = key,
-		    update = update;
+		    update = update,
+		    editElem = editElem;
 
-		if (update.url()) {
+		if (update.url) {
 			update = update.url();
 		}
 
@@ -109,7 +107,7 @@ var ProfileBox = React.createClass({
 		data = this.state.data;
 		data[key] = update;
 
-		this.updateDb(key, update, data);
+		this.updateDb(key, update, editElem, data);
 	},
 	render: function render() {
 
@@ -124,41 +122,36 @@ var ProfileBox = React.createClass({
 				" "
 			),
 			React.createElement(AboutHotel, { data: this.state.data.about_hotel, onUpdate: this.updateMod, editElem: "textarea", objKey: "about_hotel", description: "About Hotel" }),
-			React.createElement(
-				"p",
-				null,
-				"Featured Image"
-			),
 			React.createElement(HotelImage, { data: this.state.data.featured_image, onUpdate: this.updateMod, editElem: "file", objKey: "featured_image" }),
-			React.createElement(ProfileTextInputModule, { data: this.state.data.short_about_hotel, onUpdate: this.updateMod, editElem: "text", objKey: "short_about_hotel" }),
-			React.createElement(HotelAddress, { data: this.state.data.address, onUpdate: this.updateHotelAddress, editElem: "mixed", objKey: "address" }),
-			React.createElement(HotelLocation, { data: this.state.data.location, onUpdate: this.updateHotelLocation, editElem: "mixed", objKey: "location" }),
-			React.createElement(ProfileSelectInputModule, { data: this.state.data.hub_city, onUpdate: this.updateMod, editElem: "select", objKey: "hub_city" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.complimentary_wifi, onUpdate: this.updateMod, editElem: "checkbox", objKey: "complimentary_wifi" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.complimentary_self_parking, onUpdate: this.updateMod, editElem: "checkbox", objKey: "complimentary_self_parking" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.fitness_center, onUpdate: this.updateMod, editElem: "checkbox", objKey: "fitness_center" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.outdoor_pool, onUpdate: this.updateMod, editElem: "checkbox", objKey: "outdoor_pool" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.valet_parking, onUpdate: this.updateMod, editElem: "checkbox", objKey: "valet_parking" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.valet_parking_fee, onUpdate: this.updateMod, editElem: "checkbox", objKey: "valet_parking_fee" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.indoor_pool, onUpdate: this.updateMod, editElem: "checkbox", objKey: "indoor_pool" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.hot_tub, onUpdate: this.updateMod, editElem: "checkbox", objKey: "hot_tub" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.sauna, onUpdate: this.updateMod, editElem: "checkbox", objKey: "sauna" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.beach_access, onUpdate: this.updateMod, editElem: "checkbox", objKey: "beach_access" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.ski_access, onUpdate: this.updateMod, editElem: "checkbox", objKey: "ski_access" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.spa_services, onUpdate: this.updateMod, editElem: "checkbox", objKey: "spa_services" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.restaurant_on_site, onUpdate: this.updateMod, editElem: "checkbox", objKey: "restaurant_on_site" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.bar_on_site, onUpdate: this.updateMod, editElem: "checkbox", objKey: "bar_on_site" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.room_service, onUpdate: this.updateMod, editElem: "checkbox", objKey: "room_service" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.pets_allowed, onUpdate: this.updateMod, editElem: "checkbox", objKey: "pets_allowed" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.phone_checkbox, onUpdate: this.updateMod, editElem: "checkbox", objKey: "phone_checkbox" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.restaurant_regional_cuisine, onUpdate: this.updateMod, editElem: "checkbox", objKey: "restaurant_regional_cuisine" }),
-			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.drinks_beach_club, onUpdate: this.updateMod, editElem: "checkbox", objKey: "drinks_beach_club" }),
-			React.createElement(ProfileSelectInputModule, { data: this.state.data.timezone, onUpdate: this.updateMod, editElem: "select", objKey: "timezone" }),
-			React.createElement(ProfileSelectInputModule, { data: this.state.data.hotel_style, onUpdate: this.updateMod, editElem: "select", objKey: "hotel_style" }),
-			React.createElement(ProfileTextInputModule, { data: this.state.data.nightly_rate, onUpdate: this.updateMod, editElem: "text", objKey: "nightly_rate" }),
-			React.createElement(ProfileTextInputModule, { data: this.state.data.taxes, onUpdate: this.updateMod, editElem: "text", objKey: "taxes" }),
-			React.createElement(ProfileTextInputModule, { data: this.state.data.additional_fees, onUpdate: this.updateMod, editElem: "text", objKey: "additional_fees" }),
-			React.createElement(ProfileTextInputModule, { data: this.state.data.additional_fees_desc, onUpdate: this.updateMod, editElem: "text", objKey: "additional_fees_desc" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.short_about_hotel, onUpdate: this.updateMod, editElem: "text", objKey: "short_about_hotel", description: "Short about hotel" }),
+			React.createElement(HotelAddress, { data: this.state.data.address, onUpdate: this.updateHotelAddress, editElem: "mixed", objKey: "address", description: "Hotel Address" }),
+			React.createElement(HotelLocation, { data: this.state.data.location, onUpdate: this.updateHotelLocation, editElem: "mixed", objKey: "location", description: "Hotel Location" }),
+			React.createElement(ProfileSelectInputModule, { data: this.state.data.hub_city, onUpdate: this.updateMod, editElem: "select", objKey: "hub_city", description: "" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.complimentary_wifi, onUpdate: this.updateMod, editElem: "checkbox", objKey: "complimentary_wifi", description: "Complimentary Wi-fi" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.complimentary_self_parking, onUpdate: this.updateMod, editElem: "checkbox", objKey: "complimentary_self_parking", description: "Complimentary Self Parking" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.fitness_center, onUpdate: this.updateMod, editElem: "checkbox", objKey: "fitness_center", description: "Fitness Center" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.outdoor_pool, onUpdate: this.updateMod, editElem: "checkbox", objKey: "outdoor_pool", description: "Outdoor Pool" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.valet_parking, onUpdate: this.updateMod, editElem: "checkbox", objKey: "valet_parking", description: "Valet Parking" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.valet_parking_fee, onUpdate: this.updateMod, editElem: "checkbox", objKey: "valet_parking_fee", description: "Valet Parking Fee" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.indoor_pool, onUpdate: this.updateMod, editElem: "checkbox", objKey: "indoor_pool", description: "Indoor Pool" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.hot_tub, onUpdate: this.updateMod, editElem: "checkbox", objKey: "hot_tub", description: "Hot Tub" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.sauna, onUpdate: this.updateMod, editElem: "checkbox", objKey: "sauna", description: "Sauna" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.beach_access, onUpdate: this.updateMod, editElem: "checkbox", objKey: "beach_access", description: "Beach Access" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.ski_access, onUpdate: this.updateMod, editElem: "checkbox", objKey: "ski_access", description: "Ski Access" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.spa_services, onUpdate: this.updateMod, editElem: "checkbox", objKey: "spa_services", description: "Spa Services" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.restaurant_on_site, onUpdate: this.updateMod, editElem: "checkbox", objKey: "restaurant_on_site", description: "Restaurant On Site" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.bar_on_site, onUpdate: this.updateMod, editElem: "checkbox", objKey: "bar_on_site", description: "Bar On Site" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.room_service, onUpdate: this.updateMod, editElem: "checkbox", objKey: "room_service", description: "Room Service" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.pets_allowed, onUpdate: this.updateMod, editElem: "checkbox", objKey: "pets_allowed", description: "Pets Allowed" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.phone_checkbox, onUpdate: this.updateMod, editElem: "checkbox", objKey: "phone_checkbox", description: "Phone" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.restaurant_regional_cuisine, onUpdate: this.updateMod, editElem: "checkbox", objKey: "restaurant_regional_cuisine", description: "Restaurant Serves Regional Cuisine" }),
+			React.createElement(ProfileCheckboxInputModule, { data: this.state.data.drinks_beach_club, onUpdate: this.updateMod, editElem: "checkbox", objKey: "drinks_beach_club", description: "Drinks At Beach Club" }),
+			React.createElement(ProfileSelectInputModule, { data: this.state.data.timezone, onUpdate: this.updateMod, editElem: "select", objKey: "timezone", description: "Timezone" }),
+			React.createElement(ProfileSelectInputModule, { data: this.state.data.hotel_style, onUpdate: this.updateMod, editElem: "select", objKey: "hotel_style", description: "Hotel Style" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.nightly_rate, onUpdate: this.updateMod, editElem: "text", objKey: "nightly_rate", description: "Nightly Rate" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.taxes, onUpdate: this.updateMod, editElem: "text", objKey: "taxes", description: "Taxes" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.additional_fees, onUpdate: this.updateMod, editElem: "text", objKey: "additional_fees", description: "Additional Fees" }),
+			React.createElement(ProfileTextInputModule, { data: this.state.data.additional_fees_desc, onUpdate: this.updateMod, editElem: "text", objKey: "additional_fees_desc", description: "Additional Fees Description" }),
 			React.createElement(
 				"p",
 				null,
