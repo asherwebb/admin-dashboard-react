@@ -205,8 +205,7 @@ var SettingsBox = React.createClass({
 					'Add Hub City'
 				)
 			),
-			React.createElement(AppPolicies, { data: this.state.appPolicies, onUpdate: this.updateAppPolicies }),
-			React.createElement('br', null)
+			React.createElement(AppPolicies, { data: this.state.appPolicies, onUpdate: this.updateAppPolicies })
 		);
 	}
 });

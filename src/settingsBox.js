@@ -154,8 +154,6 @@ var SettingsBox = React.createClass({
 
 				<AppPolicies data={this.state.appPolicies} onUpdate={this.updateAppPolicies} />
 				
-				<br />
-
 			</div>
 		);
 	}

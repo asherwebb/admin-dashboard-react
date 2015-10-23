@@ -56,6 +56,8 @@ var ProfileBox = React.createClass({
 						drinks_beach_club : hotel.get("drinks_beach_club"),
 						timezone : hotel.get("timezone")
 					};
+					console.log(data.address);
+
 					this.setState( { data:data } );
 				}.bind(this),
 					error: function( hotel, error){

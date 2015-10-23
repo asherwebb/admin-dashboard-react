@@ -120,7 +120,6 @@ var ProfileTextAreaInputModule = React.createClass({
 			buttonText: 'edit'
 		};
 	},
-	componentDidMount: function componentDidMount() {},
 	toggleEditTrigger: function toggleEditTrigger(e) {
 		e.preventDefault();
 		this.toggleEdit();

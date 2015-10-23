@@ -43,10 +43,32 @@ var ProfileTextInputModule = React.createClass({
 });
 //hotel address has address line 1, city, state
 var HotelAddress = React.createClass({
+	getInitialState: function(){
+		return{
+			underEditing: false,
+			buttonText: 'edit',
+		}
+	},
+	toggleEditTrigger: function(e){
+		e.preventDefault();
+		this.toggleEdit();
+	},
+	toggleEdit: function(){
+		var on = {underEditing: true, buttonText: 'cancel'}, off = {underEditing: false, buttonText: 'edit'};
+		this.state.underEditing ? this.setState(off) : this.setState(on);
+	},
 	render: function(){
+		var addressLine1 = this.state.underEditing ? : ;
+		var city = this.state.underEditing ? : ;
+		var state = this.state.underEditing ? : ;
+
 		return (
 			<div className="panel">
 			{this.props.description}
+			{addressLine1}
+			{city}
+			{state}
+			<button onClick={this.toggleEditTrigger} > {this.state.buttonText} </button>
 			</div>
 			);
 	}
@@ -88,9 +110,6 @@ var ProfileTextAreaInputModule = React.createClass({
 			underEditing: false,
 			buttonText: 'edit',
 		}
-	},
-	componentDidMount: function(){
-
 	},
 	toggleEditTrigger: function(e){
 		e.preventDefault();

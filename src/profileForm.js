@@ -65,13 +65,21 @@ var CreateHotelProfile = React.createClass({
 		var short_about_hotel = this.refs.short_about_hotel.getDOMNode().value;
 		var hotel_entered_address = this.refs.hotel_entered_address.getDOMNode().value;
 		var city = this.refs.city.getDOMNode().value;
-		var hotel_select_state = this.refs.hotel_select_state.getDOMNode().selected;
 
+		var hotel_select_state = React.findDOMNode(this.refs.hotel_select_state);
+			hotel_select_state = $(hotel_select_state).val();
+		
+
+
+		
 		var hotel_entered_latitude = parseInt( this.refs.hotel_entered_latitude.getDOMNode().value );
 		var hotel_entered_longitude = parseInt( this.refs.hotel_entered_longitude.getDOMNode().value );
 		var point = new Parse.GeoPoint({latitude: hotel_entered_latitude, longitude: hotel_entered_longitude});
 
-		var hub_city = this.refs.hub_city.getDOMNode().selected;
+
+		var hub_city = React.findDOMNode(this.refs.hub_city);
+			hub_city = $(hub_city).val();
+
 		var complimentary_wifi = this.refs.complimentary_wifi.getDOMNode().checked;
 		var complimentary_self_parking = this.refs.complimentary_self_parking.getDOMNode().checked;
 		var fitness_center = this.refs.fitness_center.getDOMNode().checked;
@@ -94,11 +102,16 @@ var CreateHotelProfile = React.createClass({
 		var taxes = parseInt( this.refs.taxes.getDOMNode().value );
 		var additional_fees = parseInt( this.refs.additional_fees.getDOMNode().value );
 		var additional_fees_desc = this.refs.additional_fees_desc.getDOMNode().value;
-		var hotel_style = this.refs.hotel_style.getDOMNode().selected;
+
+				// var hotel_select_state = React.findDOMNode(this.refs.hotel_select_state);
+		// hotel_select_state = $(hotel_select_state).val();
+		var hotel_style = React.findDOMNode(this.refs.hotel_style);
+			hotel_style = $(hotel_style).val();
 		var restaurant_regional_cuisine = this.refs.restaurant_regional_cuisine.getDOMNode().checked;
 		var drinks_beach_club = this.refs.drinks_beach_club.getDOMNode().checked;
-		var timezone = this.refs.timezone.getDOMNode().selected;
 
+		var timezone = React.findDOMNode(this.refs.timezone);
+			timezone = $(timezone).val();
 		//### i m a g e s ###
 		var featured_image = this.refs.featured_image.getDOMNode().files[0];
   		var featured_imageParse = new Parse.File('featured_image.jpg', featured_image);
