@@ -1,5 +1,103 @@
 'use strict';
 
+var ProfileTextInputModule = React.createClass({
+	displayName: 'ProfileTextInputModule',
+
+	getInitialState: function getInitialState() {
+		return {
+			underEditing: false,
+			buttonText: 'edit'
+		};
+	},
+	toggleEditTrigger: function toggleEditTrigger(e) {
+		e.preventDefault();
+		this.toggleEdit();
+	},
+	toggleEdit: function toggleEdit() {
+		var on = { underEditing: true, buttonText: 'cancel' },
+		    off = { underEditing: false, buttonText: 'edit' };
+		this.state.underEditing ? this.setState(off) : this.setState(on);
+	},
+	render: function render() {
+		var moduleState = this.state.underEditing ? React.createElement(
+			'div',
+			null,
+			React.createElement('input', { ref: this.props.objKey, type: this.editElem }),
+			React.createElement('br', null),
+			React.createElement(
+				'button',
+				{ className: 'btn btn-success', onClick: this.updateModule },
+				'Save'
+			)
+		) : React.createElement(
+			'p',
+			null,
+			this.props.data
+		);
+
+		return React.createElement(
+			'div',
+			null,
+			moduleState,
+			React.createElement(
+				'button',
+				{ onClick: this.toggleEditTrigger },
+				' ',
+				this.state.buttonText,
+				' '
+			)
+		);
+	}
+});
+
+var HotelAddress = React.createClass({
+	displayName: 'HotelAddress',
+
+	render: function render() {
+		return React.createElement(
+			'p',
+			null,
+			'hello'
+		);
+	}
+});
+
+var HotelLocation = React.createClass({
+	displayName: 'HotelLocation',
+
+	render: function render() {
+		return React.createElement(
+			'p',
+			null,
+			'hello'
+		);
+	}
+});
+
+var ProfileCheckboxInputModule = React.createClass({
+	displayName: 'ProfileCheckboxInputModule',
+
+	render: function render() {
+		return React.createElement(
+			'p',
+			null,
+			'hello'
+		);
+	}
+});
+
+var ProfileSelectInputModule = React.createClass({
+	displayName: 'ProfileSelectInputModule',
+
+	render: function render() {
+		return React.createElement(
+			'p',
+			null,
+			'hello'
+		);
+	}
+});
+
 var AboutHotel = React.createClass({
 	displayName: 'AboutHotel',
 
@@ -9,6 +107,7 @@ var AboutHotel = React.createClass({
 			buttonText: 'edit'
 		};
 	},
+	componentDidMount: function componentDidMount() {},
 	toggleEditTrigger: function toggleEditTrigger(e) {
 		e.preventDefault();
 		this.toggleEdit();
@@ -48,7 +147,7 @@ var AboutHotel = React.createClass({
 			React.createElement(
 				'h4',
 				null,
-				'About Hotel'
+				this.description
 			),
 			moduleState,
 			React.createElement(
@@ -120,8 +219,7 @@ var HotelImage = React.createClass({
 
 		var update = new Parse.File(key + '.jpg', image);
 		update.save().then((function (obj) {
-			console.log(obj.url());
-			this.props.onUpdate(key, update);
+			this.props.onUpdate(key, obj);
 			this.toggleEdit();
 		}).bind(this));
 		//create a new parse file of the image
@@ -147,8 +245,14 @@ var HotelImage = React.createClass({
 				'button',
 				{ className: 'btn btn-success', onClick: this.updateModule },
 				'Save'
+			),
+			React.createElement(
+				'p',
+				{ className: 'warning' },
+				' Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format'
 			)
-		) : React.createElement('img', { src: this.props.data });
+		) : React.createElement('img', { src: this.props.data, className: 'hotel-img-preview' });
+
 		return React.createElement(
 			'div',
 			null,

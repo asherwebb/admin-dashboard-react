@@ -1,3 +1,68 @@
+var ProfileTextInputModule = React.createClass({
+	getInitialState: function(){
+		return{
+			underEditing: false,
+			buttonText: 'edit',
+		}
+	},
+	toggleEditTrigger: function(e){
+		e.preventDefault();
+		this.toggleEdit();
+	},
+	toggleEdit: function(){
+		var on = {underEditing: true, buttonText: 'cancel'}, off = {underEditing: false, buttonText: 'edit'};
+		this.state.underEditing ? this.setState(off) : this.setState(on);
+	},
+	render: function(){
+		var moduleState = this.state.underEditing ? 
+			<div>
+				<input ref={this.props.objKey} type={this.editElem} /><br />
+				<button className="btn btn-success" onClick={this.updateModule}>Save</button>
+			</div>
+			:
+			<p>{this.props.data}</p>;
+
+		return(
+			<div>
+			{moduleState}
+			<button onClick={this.toggleEditTrigger} > {this.state.buttonText} </button>
+			</div>
+			);
+	}
+});
+
+var HotelAddress = React.createClass({
+	render: function(){
+		return (
+			<p>hello</p>
+			);
+	}
+});
+
+var HotelLocation = React.createClass({
+	render: function(){
+		return (
+			<p>hello</p>
+			);
+	}
+});
+
+var ProfileCheckboxInputModule = React.createClass({
+	render: function(){
+		return (
+			<p>hello</p>
+			);
+	}
+});
+
+var ProfileSelectInputModule = React.createClass({
+	render: function(){
+		return (
+			<p>hello</p>
+			);
+	}
+});
+
 var AboutHotel = React.createClass({
 	getInitialState: function(){
 		return{
@@ -30,7 +95,7 @@ var AboutHotel = React.createClass({
 
 		return(
 			<div>
-			<h4>About Hotel</h4>
+			<h4>{this.description}</h4>
 			{moduleState}
 			<button onClick={this.toggleEditTrigger} > {this.state.buttonText} </button>
 			</div>
@@ -117,7 +182,8 @@ var HotelImage = React.createClass({
 				<p className="warning"> Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format</p>
 			</div>
 			:
-			<img src={this.props.data} width="/>
+			<img src={this.props.data} className="hotel-img-preview" / >;
+
 		return(
 			<div>
 			{moduleState}
