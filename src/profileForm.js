@@ -170,6 +170,8 @@ var CreateHotelProfile = React.createClass({
 			"address_line_1":hotel_entered_address,
 			"address_city":city,
 			"address_state":hotel_select_state,
+			"latitude":hotel_entered_latitude,
+			"longitude":hotel_entered_longitude,
 			"location" : point,
 			"hub_city" : hub_city,
 			"complimentary_wifi" : complimentary_wifi,

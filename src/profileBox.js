@@ -33,6 +33,8 @@ var ProfileBox = React.createClass({
 						short_about_hotel : hotel.get("short_about_hotel"),
 						address_line_1: hotel.get("address_line_1"),
 						address_city: hotel.get("address_city"),
+						latitude: hotel.get("latitude"),
+						longitude: hotel.get("longitude"),
 						address_state: hotel.get("address_state"),
 						location : hotel.get("location"),
 						hub_city : hotel.get("hub_city"),
@@ -89,9 +91,6 @@ var ProfileBox = React.createClass({
 			}
 		});
 	},
-	updateHotelLocation: function() {
-
-	},
 	updateMod: function(key, update, editElem){
 		var data ={}, key = key, update = update, editElem = editElem;
 		console.log(update);
@@ -127,10 +126,10 @@ var ProfileBox = React.createClass({
 			<ProfileTextInputModule data={this.state.data.address_city} onUpdate={this.updateMod} editElem="text" objKey="address_city" description="Address City" />
 			<ProfileSelectInputModule data={this.state.data.address_state} onUpdate={this.updateMod} editElem="select" objKey="address_state" description="Address State" />
 
+			<ProfileTextInputModule data={this.state.data.latitude} onUpdate={this.updateMod} editElem="number" objKey="latitude" description="Latitude" />
+			<ProfileTextInputModule data={this.state.data.longitude} onUpdate={this.updateMod} editElem="number" objKey="longitude" description="Longitude" />
 
-
-			<HotelLocation data={this.state.data.location} onUpdate={this.updateHotelLocation} editElem="mixed" objKey="location" description="Hotel Location" />			
-			<ProfileSelectInputModule data={this.state.data.hub_city} onUpdate={this.updateMod} editElem="select" objKey="hub_city" description="" />
+			<ProfileSelectInputModule data={this.state.data.hub_city} onUpdate={this.updateMod} editElem="select" objKey="hub_city" description="Hub City" />
 			<ProfileCheckboxInputModule data={this.state.data.complimentary_wifi} onUpdate={this.updateMod} editElem="checkbox" objKey="complimentary_wifi" description="Complimentary Wi-fi" />
 			<ProfileCheckboxInputModule data={this.state.data.complimentary_self_parking} onUpdate={this.updateMod} editElem="checkbox" objKey="complimentary_self_parking" description="Complimentary Self Parking" />
 			<ProfileCheckboxInputModule data={this.state.data.fitness_center} onUpdate={this.updateMod} editElem="checkbox" objKey="fitness_center" description="Fitness Center" />
