@@ -72,11 +72,24 @@ var ProfileTextInputModule = React.createClass({
 var ProfileCheckboxInputModule = React.createClass({
 	displayName: 'ProfileCheckboxInputModule',
 
+	getInitialState: function getInitialState() {
+		return {
+			style: "btn btn-default faded"
+		};
+	},
+	componentDidMount: function componentDidMount() {},
+	toggleCheck: function toggleCheck() {},
 	render: function render() {
+		var isCheckedBtn = this.state.style;
 		return React.createElement(
 			'div',
 			{ className: 'panel' },
-			this.props.description
+			this.props.description,
+			React.createElement(
+				'button',
+				{ type: 'button', className: isCheckedBtn, onClick: this.toggleCheck },
+				React.createElement('span', { className: 'glyphicon glyphicon-ok-sign' })
+			)
 		);
 	}
 });
