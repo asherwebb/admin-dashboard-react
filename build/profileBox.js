@@ -41,7 +41,7 @@ var ProfileBox = React.createClass({
 					address_state: hotel.get("address_state"),
 					location: hotel.get("location"),
 					hub_city: hotel.get("hub_city"),
-					complimentary_wifi: { complimentary_wifi: hotel.get("complimentary_wifi") },
+					complimentary_wifi: hotel.get("complimentary_wifi"),
 					complimentary_self_parking: hotel.get("complimentary_self_parking"),
 					fitness_center: hotel.get("fitness_center"),
 					outdoor_pool: hotel.get("outdoor_pool"),

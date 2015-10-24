@@ -72,24 +72,36 @@ var ProfileTextInputModule = React.createClass({
 var ProfileCheckboxInputModule = React.createClass({
 	displayName: 'ProfileCheckboxInputModule',
 
-	getInitialState: function getInitialState() {
-		return {
-			style: "btn btn-default faded"
-		};
+	componentWillMount: function componentWillMount() {
+		console.log(this.props.data);
 	},
-	componentDidMount: function componentDidMount() {},
-	toggleCheck: function toggleCheck() {},
+	toggleCheck: function toggleCheck(e) {
+		e.preventDefault();
+		var key = this.props.objKey;
+
+		//this.setState({ checked: !this.props.data});
+		this.props.data = !this.props.data;
+		var update = this.props.data;
+		this.props.onUpdate(key, update);
+		//FIX ME:update db
+	},
 	render: function render() {
-		var isCheckedBtn = this.state.style;
+
+		var isCheckedBtn = this.props.data ? React.createElement(
+			'button',
+			{ type: 'button', className: 'btn btn-success', onClick: this.toggleCheck, key: this.props.objKey },
+			React.createElement('span', { className: 'glyphicon glyphicon-ok-sign' })
+		) : React.createElement(
+			'button',
+			{ type: 'button', className: 'btn btn-default faded', onClick: this.toggleCheck, key: this.props.objKey },
+			React.createElement('span', { className: 'glyphicon glyphicon-ok-sign' })
+		);
+
 		return React.createElement(
 			'div',
 			{ className: 'panel' },
 			this.props.description,
-			React.createElement(
-				'button',
-				{ type: 'button', className: isCheckedBtn, onClick: this.toggleCheck },
-				React.createElement('span', { className: 'glyphicon glyphicon-ok-sign' })
-			)
+			isCheckedBtn
 		);
 	}
 });

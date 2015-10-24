@@ -50,24 +50,32 @@ var ProfileTextInputModule = React.createClass({
 //rendering involves a checked or unchecked indicator with edit button 
 var ProfileCheckboxInputModule = React.createClass({
 
-	getInitialState: function(){
-		return {
-		style:"btn btn-default faded"
-		}
+	componentWillMount: function(){
+		console.log(this.props.data);
 	},
-	componentDidMount: function(){
-	},
-	toggleCheck: function(){
+	toggleCheck: function(e){
+		e.preventDefault();
+		var key = this.props.objKey;
 
+		//this.setState({ checked: !this.props.data});
+		this.props.data = !this.props.data;
+		var update = this.props.data;
+		this.props.onUpdate(key, update);
+		//FIX ME:update db
 	},
 	render: function(){
-		var isCheckedBtn = this.state.style;
+
+
+		var isCheckedBtn = this.props.data ? 
+			<button  type="button" className="btn btn-success" onClick={this.toggleCheck} key={this.props.objKey}><span className="glyphicon glyphicon-ok-sign"></span></button> : <button  type="button" className="btn btn-default faded" onClick={this.toggleCheck} key={this.props.objKey}><span className="glyphicon glyphicon-ok-sign"></span></button>;
+	
+
+
+
 		return (
 			<div className="panel">
 			{this.props.description}
-			<button type="button" className={isCheckedBtn} onClick={this.toggleCheck} >
-			<span className="glyphicon glyphicon-ok-sign"></span>
-			</button>
+			{isCheckedBtn}
 			</div>
 			);
 	}
