@@ -57,36 +57,23 @@ var ProfileTextInputModule = React.createClass({
 			React.createElement(
 				'button',
 				{ onClick: this.toggleEditTrigger },
-				' ',
-				this.state.buttonText,
-				' '
+				this.state.buttonText
 			)
 		);
 	}
 });
-//hotel address has address line 1, city, state
 
-//hotel location has lat and lng then a point is made and stored in parse db
-
-//rendering involves a checked or unchecked indicator with edit button
 var ProfileCheckboxInputModule = React.createClass({
 	displayName: 'ProfileCheckboxInputModule',
 
-	componentWillMount: function componentWillMount() {
-		console.log(this.props.data);
-	},
 	toggleCheck: function toggleCheck(e) {
 		e.preventDefault();
 		var key = this.props.objKey;
-
-		//this.setState({ checked: !this.props.data});
 		this.props.data = !this.props.data;
 		var update = this.props.data;
 		this.props.onUpdate(key, update);
-		//FIX ME:update db
 	},
 	render: function render() {
-
 		var isCheckedBtn = this.props.data ? React.createElement(
 			'button',
 			{ type: 'button', className: 'btn btn-success', onClick: this.toggleCheck, key: this.props.objKey },
@@ -96,7 +83,6 @@ var ProfileCheckboxInputModule = React.createClass({
 			{ type: 'button', className: 'btn btn-default faded', onClick: this.toggleCheck, key: this.props.objKey },
 			React.createElement('span', { className: 'glyphicon glyphicon-ok-sign' })
 		);
-
 		return React.createElement(
 			'div',
 			{ className: 'panel' },
@@ -105,7 +91,7 @@ var ProfileCheckboxInputModule = React.createClass({
 		);
 	}
 });
-//parse option selected and send
+
 var ProfileSelectInputModule = React.createClass({
 	displayName: 'ProfileSelectInputModule',
 
@@ -125,18 +111,12 @@ var ProfileSelectInputModule = React.createClass({
 		settingsInfoQuery.first({
 			success: (function (settings) {
 				var hubCitiesArray = settings.get("hub_cities");
-				//put those cities in appropriate select
-				//console.log(hubCitiesArray);
-				console.log(hubCitiesArray);
-
 				for (var i = 0; i < hubCitiesArray.length; i++) {
 					var item = {};
 					item.value = hubCitiesArray[i];
 					item.text = hubCitiesArray[i];
 					data.push(item);
 				}
-
-				console.log(data);
 				this.setState({ hub_cities: data });
 			}).bind(this),
 			error: function error(settings, _error) {
@@ -145,9 +125,8 @@ var ProfileSelectInputModule = React.createClass({
 		});
 	},
 	checkSelectInputKey: function checkSelectInputKey(key) {
-		//check obj key timezone or state etc need to pull in options and set state in data and then map those options to select in render
-		var data = [];
-		var key = key;
+		var data = [],
+		    key = key;
 		switch (key) {
 			case "address_state":
 				data = [{ text: "", value: "" }, { text: "AK", value: "AK" }, { text: "AL", value: "AL" }, { text: "AR", value: "AR" }, { text: "AS", value: "AS" }, { text: "AZ", value: "AZ" }, { text: "CA", value: "CA" }, { text: "CO", value: "CO" }, { text: "CT", value: "CT" }, { text: "DC", value: "DC" }, { text: "DE", value: "DE" }, { text: "FL", value: "FL" }, { text: "GA", value: "GA" }, { text: "GU", value: "GU" }, { text: "HI", value: "HI" }, { text: "IA", value: "IA" }, { text: "ID", value: "ID" }, { text: "IL", value: "IL" }, { text: "IN", value: "IN" }, { text: "KS", value: "KS" }, { text: "KY", value: "KY" }, { text: "LA", value: "LA" }, { text: "MA", value: "MA" }, { text: "MD", value: "MD" }, { text: "ME", value: "ME" }, { text: "MI", value: "MI" }, { text: "MN", value: "MN" }, { text: "MO", value: "MO" }, { text: "MS", value: "MS" }, { text: "MT", value: "MT" }, { text: "NC", value: "NC" }, { text: "ND", value: "ND" }, { text: "NE", value: "NE" }, { text: "NH", value: "NH" }, { text: "NJ", value: "NJ" }, { text: "NM", value: "NM" }, { text: "NV", value: "NV" }, { text: "NY", value: "NY" }, { text: "OH", value: "OH" }, { text: "OK", value: "OK" }, { text: "OR", value: "OR" }, { text: "PA", value: "PA" }, { text: "RI", value: "RI" }, { text: "SC", value: "SC" }, { text: "SD", value: "SD" }, { text: "TN", value: "TN" }, { text: "TX", value: "TX" }, { text: "UT", value: "UT" }, { text: "VA", value: "VA" }, { text: "VI", value: "VI" }, { text: "VT", value: "VT" }, { text: "WA", value: "WA" }, { text: "WI", value: "WI" }, { text: "WV", value: "WV" }, { text: "WY", value: "WY" }];
@@ -160,9 +139,7 @@ var ProfileSelectInputModule = React.createClass({
 				break;
 
 			case "hub_city":
-
 				data = this.state.hub_cities;
-
 				this.setState({ selectData: data });
 				break;
 
@@ -194,10 +171,8 @@ var ProfileSelectInputModule = React.createClass({
 		e.preventDefault();
 		var key = this.props.objKey,
 		    editElem = this.props.editElem;
-
 		var update = React.findDOMNode(this.refs[key]);
 		update = $(update).val();
-
 		this.props.onUpdate(key, update, editElem);
 		this.toggleEdit();
 	},
@@ -209,13 +184,15 @@ var ProfileSelectInputModule = React.createClass({
 				opt.text
 			);
 		});
-
 		var moduleState = this.state.underEditing ? React.createElement(
 			'div',
 			{ className: 'panel' },
 			React.createElement(
 				'select',
-				{ ref: this.props.objKey, id: this.props.objKey, defaultValue: this.props.data, className: 'form-control' },
+				{ ref: this.props.objKey,
+					id: this.props.objKey,
+					defaultValue: this.props.data,
+					className: 'form-control' },
 				selectOptions
 			),
 			React.createElement(
@@ -236,9 +213,7 @@ var ProfileSelectInputModule = React.createClass({
 			React.createElement(
 				'button',
 				{ onClick: this.toggleEditTrigger },
-				' ',
-				this.state.buttonText,
-				' '
+				this.state.buttonText
 			)
 		);
 	}
@@ -264,9 +239,9 @@ var ProfileTextAreaInputModule = React.createClass({
 	},
 	updateModule: function updateModule(e) {
 		e.preventDefault();
-		var update = this.refs.about_hotel.getDOMNode().value;
-		var editElem = this.props.editElem;
-		var key = this.props.objKey;
+		var update = this.refs.about_hotel.getDOMNode().value,
+		    editElem = this.props.editElem,
+		    key = this.props.objKey;
 		this.props.onUpdate(key, update, editElem);
 		this.toggleEdit();
 	},
@@ -299,9 +274,7 @@ var ProfileTextAreaInputModule = React.createClass({
 			React.createElement(
 				'button',
 				{ onClick: this.toggleEditTrigger },
-				' ',
-				this.state.buttonText,
-				' '
+				this.state.buttonText
 			)
 		);
 	}
@@ -317,8 +290,8 @@ var HotelImage = React.createClass({
 		};
 	},
 	updateModule: function updateModule(e) {
-		var key = this.props.objKey;
-		var image;
+		var key = this.props.objKey,
+		    image;
 
 		switch (key) {
 			case "featured_image":
@@ -393,7 +366,7 @@ var HotelImage = React.createClass({
 			React.createElement(
 				'p',
 				{ className: 'warning' },
-				' Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format'
+				'Make sure your images are saved at 640 pixels width and 520 pixels height at 72 pixels per inch in .jpg format'
 			)
 		) : React.createElement('img', { src: this.props.data, className: 'hotel-img-preview' });
 
@@ -404,9 +377,7 @@ var HotelImage = React.createClass({
 			React.createElement(
 				'button',
 				{ onClick: this.toggleEditTrigger },
-				' ',
-				this.state.buttonText,
-				' '
+				this.state.buttonText
 			)
 		);
 	}

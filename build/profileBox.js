@@ -15,23 +15,9 @@ var ProfileBox = React.createClass({
 		var hotelProfileQuery = new Parse.Query(HotelProfile);
 		hotelProfileQuery.get(hotelId, {
 			success: (function (hotel) {
-				var address = hotel.get("address");
-				console.log(address);
-
 				var data = {
 					featured_image: hotel.get("featured_image").url(),
-					hotel_image_1: hotel.get("hotel_image_1").url(),
-					hotel_image_2: hotel.get("hotel_image_2").url(),
-					hotel_image_3: hotel.get("hotel_image_3").url(),
-					hotel_image_4: hotel.get("hotel_image_4").url(),
-					hotel_image_5: hotel.get("hotel_image_5").url(),
-					hotel_image_6: hotel.get("hotel_image_6").url(),
-					hotel_image_7: hotel.get("hotel_image_7").url(),
-					hotel_image_8: hotel.get("hotel_image_8").url(),
-					hotel_image_9: hotel.get("hotel_image_9").url(),
-					hotel_image_10: hotel.get("hotel_image_10").url(),
-					hotel_image_11: hotel.get("hotel_image_11").url(),
-					hotel_image_12: hotel.get("hotel_image_12").url(),
+					hotel_image_1: hotel.get("hotel_image_1").url(), hotel_image_2: hotel.get("hotel_image_2").url(), hotel_image_3: hotel.get("hotel_image_3").url(), hotel_image_4: hotel.get("hotel_image_4").url(), hotel_image_5: hotel.get("hotel_image_5").url(), hotel_image_6: hotel.get("hotel_image_6").url(), hotel_image_7: hotel.get("hotel_image_7").url(), hotel_image_8: hotel.get("hotel_image_8").url(), hotel_image_9: hotel.get("hotel_image_9").url(), hotel_image_10: hotel.get("hotel_image_10").url(), hotel_image_11: hotel.get("hotel_image_11").url(), hotel_image_12: hotel.get("hotel_image_12").url(),
 					about_hotel: hotel.get("about_hotel"),
 					short_about_hotel: hotel.get("short_about_hotel"),
 					address_line_1: hotel.get("address_line_1"),
@@ -67,11 +53,11 @@ var ProfileBox = React.createClass({
 					drinks_beach_club: hotel.get("drinks_beach_club"),
 					timezone: hotel.get("timezone")
 				};
-				console.log(data.complimentary_wifi);
+
 				this.setState({ data: data });
 			}).bind(this),
 			error: function error(hotel, _error) {
-				alert('Failed to access hotel profile, with error code: ' + _error.message);
+				alert('Error: Failed to access hotel profile, with error code: ' + _error.message);
 			}
 		});
 	},
@@ -88,20 +74,23 @@ var ProfileBox = React.createClass({
 			success: (function (hotel) {
 				hotel.save(payload, {
 					success: (function (result) {}).bind(this),
-					error: function error() {}
+					error: function error() {
+						//FIX ME:
+					}
 				});
 			}).bind(this),
-			error: function error(hotel, _error2) {}
+			error: function error(hotel, _error2) {
+				//FIX ME:
+			}
 		});
 	},
 	updateMod: function updateMod(key, update, editElem) {
+		//all profile modules call this fn
 		var data = {},
 		    key = key,
 		    update = update,
 		    editElem = editElem;
-		console.log(update);
 		//update.url means we have an image - we need to pass to data already formatted as url to render the src
-		//when this occurs we need to take update.url and pass to data but pass update to db
 		if (update.url) {
 			var dataUpdate = update.url();
 			data = {};

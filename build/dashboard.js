@@ -9,22 +9,17 @@ var Dashboard = React.createClass({
 		};
 	},
 	userCreatedUpdate: function userCreatedUpdate(userData) {
-		var data = [];
-		var currentItems = this.state.data;
+		var data = [],
+		    currentItems = this.state.data;
 		data = currentItems;
 		data.unshift(userData);
 		this.setState({ data: data });
 	},
-	userRemovedUpdate: function userRemovedUpdate(hotel) {
-		var hotelId = hotel.id;
-		alert(hotelId);
-		//hotel should contain hotel object id
-		//get this.state.data
-		//find hotel to remove by key
-		//pop that index out of the array
-		//set state with new array as data
-	},
 	componentWillMount: function componentWillMount() {
+		var data = [],
+		    userHotelLink = [],
+		    mergedHotelUserData = [];
+		var allUsers = new Parse.Query(Parse.User);
 		var query = new Parse.Query(Parse.User);
 		query.equalTo("isAdmin", true);
 		query.find({
@@ -36,11 +31,6 @@ var Dashboard = React.createClass({
 				}
 			}).bind(this)
 		});
-
-		var data = [];
-		var userHotelLink = [];
-		var mergedHotelUserData = [];
-		var allUsers = new Parse.Query(Parse.User);
 
 		allUsers.notEqualTo("isAdmin", true);
 		allUsers.find({
@@ -54,7 +44,6 @@ var Dashboard = React.createClass({
 					userHotelLink.push(userData.uid);
 				};
 
-				//extend user data objects to include hotel data objects in new array
 				var HotelQuery = new Parse.Object.extend("hotel_profile");
 				var hotelQuery = new Parse.Query(HotelQuery);
 				hotelQuery.containedIn("user_key", userHotelLink);
@@ -62,9 +51,7 @@ var Dashboard = React.createClass({
 					success: (function (results) {
 						var hotelMatchItems = results;
 						var arrayMatchData = hotelMatchItems.map(function (object) {
-
 							var rObj = {};
-							//? .isActive to not display hotels not active
 							rObj.isActive = object.get("isActive");
 							rObj.createdAt = object.createdAt;
 							rObj.hotelUserKey = object.get('user_key');
@@ -73,29 +60,26 @@ var Dashboard = React.createClass({
 							rObj.hotelName = object.get('hotel_name');
 							return rObj;
 						});
-
 						var orderedHotelProfileDataSetArray = _.sortBy(arrayMatchData, 'createdAt');
 						var orderedUserProfileDataSetArray = _.sortBy(data, 'createdAt');
-
-						//console.log(orderedHotelProfileDataSetArray);
 
 						mergedHotelUserData = orderedUserProfileDataSetArray.map(function (item, i) {
 							var mObj = {};
 							mObj = _.extend(item, orderedHotelProfileDataSetArray[i]);
-							console.log(mObj);
 							if (mObj.isActive === false) {
 								return null;
 							} else {
 								return mObj;
 							}
 						});
-						//reverse to display createdAt order descending
+
 						mergedHotelUserData = mergedHotelUserData.reverse();
-						//console.log(mergedHotelUserData);		
 						mergedHotelUserData = _.compact(mergedHotelUserData);
 						this.setState({ data: mergedHotelUserData });
 					}).bind(this),
-					error: function error() {}
+					error: function error() {
+						//FIX ME:
+					}
 				});
 			}).bind(this)
 		});
@@ -119,9 +103,13 @@ var Dashboard = React.createClass({
 		this.setState({ displaySettings: false });
 	},
 	render: function render() {
-		//FIX ME: duplicate key issue check users and hotel
 		var hotelUserNodes = this.state.data.map(function (user) {
-			return React.createElement(HotelUser, { hotelId: user.hotelId, username: user.username, key: user.uid, objId: user.uid, email: user.email, profileComplete: user.profileComplete, hotelName: user.hotelName });
+			return React.createElement(HotelUser, { hotelId: user.hotelId,
+				username: user.username,
+				key: user.uid, objId: user.uid,
+				email: user.email,
+				profileComplete: user.profileComplete,
+				hotelName: user.hotelName });
 		});
 
 		var isManagingSettings = this.state.displaySettings ? React.createElement(SettingsBox, { hideBox: this.hideSettings }) : '';
@@ -144,13 +132,13 @@ var Dashboard = React.createClass({
 				"button",
 				{ disabled: this.state.creatingUser, onClick: this.renderCreateUserBox, className: "btn btn-primary" },
 				React.createElement("span", { className: "glyphicon glyphicon-plus" }),
-				" Create User"
+				"Create User"
 			),
 			React.createElement(
 				"button",
 				{ className: "btn btn-info mg-settings", onClick: this.displaySettings },
 				React.createElement("span", { className: "glyphicon glyphicon-option-horizontal" }),
-				" Manage Settings"
+				"Manage Settings"
 			),
 			React.createElement(
 				"h3",
@@ -169,8 +157,7 @@ var Dashboard = React.createClass({
 					"button",
 					{ onClick: this.logout, className: "btn btn-danger" },
 					"Logout"
-				),
-				" "
+				)
 			),
 			React.createElement(
 				"button",
@@ -184,7 +171,9 @@ var Dashboard = React.createClass({
 			)
 		);
 
-		var isCreatingUser = this.state.creatingUser ? React.createElement(CreateUserBox, { isActive: this.creatingUser, userCreatedUpdate: this.userCreatedUpdate, data: this.state.data }) : '';
+		var isCreatingUser = this.state.creatingUser ? React.createElement(CreateUserBox, { isActive: this.creatingUser,
+			userCreatedUpdate: this.userCreatedUpdate,
+			data: this.state.data }) : '';
 		return React.createElement(
 			"div",
 			{ className: "jumbotron padding-left container" },
