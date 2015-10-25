@@ -1,6 +1,6 @@
 var HubCitiesList = React.createClass({
-	removeCityFromList: function(i){
-		this.props.removeCity(i);
+	removeCityFromList: function( i ){
+		this.props.removeCity( i );
 	},
 	render: function() {
 		return(
@@ -8,13 +8,16 @@ var HubCitiesList = React.createClass({
 		    	<h4>Hub Cities</h4>
 				<p>These hub cities will appear on the home screen of the Swing Shift Mobile application along with a near me 
 				option to ensure users will be funneled toward cities that initially have hotels offerring rooms in the app.</p>
-
-        		{this.props.data.map(function(hotel, i) {
+        		{this.props.data.map( function( hotel, i ) {
           			return (
-            			<div key={i} >{hotel} <button onClick={this.removeCityFromList.bind(this, i)}>Delete</button></div>
+            			<div key={i} >
+            				{hotel} 
+            				<button onClick={this.removeCityFromList.bind(this, i)}>
+            					Delete
+            				</button>
+            			</div>
           			);
-        		}, this)}
-
+        		}, this ) }
       		</div>
 		);
 	}
@@ -31,21 +34,28 @@ var AppPolicies = React.createClass({
 	updatePolicies: function(e){
 		e.preventDefault();
 		var policy = this.refs.appPolicy.getDOMNode().value;
-		this.props.onUpdate(policy);
+		this.props.onUpdate( policy );
 		this.editingToggle();
 	},
-	editPolicy: function(e){
+	editPolicy: function( e ){
 		e.preventDefault();
 		this.editingToggle();
 	},
 	editingToggle: function(){
-		var on = {underEditing: true, buttonText: 'cancel'}, off = {underEditing: false, buttonText: 'edit'}
-		this.state.underEditing ? this.setState(off) : this.setState(on);
+		var on = { underEditing: true, buttonText: 'cancel'}, off = {underEditing: false, buttonText: 'edit'}
+		this.state.underEditing ? this.setState( off ) : this.setState( on );
 	},
 	render: function() {
 		var appPoliciesState = this.state.underEditing ? 
-			<div><textarea ref="appPolicy" className="form-control" defaultValue={this.props.data}></textarea>
-			<button onClick={this.updatePolicies} className="btn btn-success" >Save</button>
+			<div>
+				<textarea ref="appPolicy" 
+						  className="form-control" 
+						  defaultValue={this.props.data}>
+				</textarea>
+				<button onClick={this.updatePolicies} 
+								className="btn btn-success" >
+					Save
+				</button>
 			</div>
 			: 
 			<p>{this.props.data}</p>;
@@ -53,10 +63,10 @@ var AppPolicies = React.createClass({
 			<div>
 				<h4>General App Booking Policies</h4>
 				<p>This information appears during the booking process and informs the users of Swing Shift booking policies.</p>
-				
 				{appPoliciesState}
-				
-				<button onClick={this.editPolicy}>{this.state.buttonText}</button>
+				<button onClick={this.editPolicy}>
+					{this.state.buttonText}
+				</button>
 			</div>
 			);
 	}
@@ -114,23 +124,23 @@ var SettingsBox = React.createClass({
 		this.refs.addHubCity.getDOMNode().value = '';
 	},
 	componentWillMount: function() {
-		var SettingsInfo = Parse.Object.extend("Settings_Info");
-		var settingsInfoQuery = new Parse.Query(SettingsInfo);
+		var SettingsInfo = Parse.Object.extend( "Settings_Info" );
+		var settingsInfoQuery = new Parse.Query( SettingsInfo );
 
 		settingsInfoQuery.first({
-			success: function(obj) {
-				var hubCitiesArray = obj.get('hub_cities');
-				var appPolicies = obj.get("app_policies");
+			success: function( obj ) {
+				var hubCitiesArray = obj.get( 'hub_cities' );
+				var appPolicies = obj.get( "app_policies" );
 
-				this.setState( {hubCities:hubCitiesArray, appPolicies: appPolicies} );
+				this.setState( { hubCities: hubCitiesArray, appPolicies: appPolicies } );
 			}.bind(this),
-			error: function(obj, error) {
+			error: function( obj, error ) {
 				alert( 'Error retreiving hub cities' );
 			}.bind(this)
 		});
 
 	},
-	updateAppPolicies: function(policy) {
+	updateAppPolicies: function( policy ) {
 		var policy = policy;
 		this.setState( { appPolicies: policy } );
 		var data = { data: { app_policies: policy }, label: "App Policies" };
@@ -143,17 +153,22 @@ var SettingsBox = React.createClass({
 	render: function(){		
 		return(
 			<div className="container-fluid">
-				<h3>Settings Views</h3> <button className="btn" onClick={this.closeSettings} >Close</button>
+				<h3>
+					Settings Views
+				</h3> 
+				<button className="btn" onClick={this.closeSettings} >
+					Close
+				</button>
 				
 				<HubCitiesList data={this.state.hubCities} removeCity={this.removeCity} />
 
 				<div className="form-inline">
-				<input type="text" className="form-control" placeholder="City, St" ref="addHubCity"/>
-				<button className="btn" onClick={this.addCity} >Add Hub City</button>
+					<input type="text" className="form-control" placeholder="City, St" ref="addHubCity"/>
+					<button className="btn" onClick={this.addCity} >
+						Add Hub City
+					</button>
 				</div>
-
 				<AppPolicies data={this.state.appPolicies} onUpdate={this.updateAppPolicies} />
-				
 			</div>
 		);
 	}

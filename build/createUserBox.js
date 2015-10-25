@@ -20,8 +20,7 @@ var CreateUserBox = React.createClass({
 		user.set("phone", phone);
 		user.signUp(null, {
 			success: (function (user) {
-				//FIX ME: remove this and hotel profile alert into 1 progress bar
-				alert('user sign up success');
+				alert('New user sign up was successful!');
 				var user_key = user.id;
 				var userCreatedAt = user.createdAt;
 				//create a new hotel profile object with the hotel name and a link to the user
@@ -38,10 +37,7 @@ var CreateUserBox = React.createClass({
 
 				hotelProfile.save(payload, {
 					success: (function (hotelProfile) {
-						//FIX ME:
-						//grab the hotel profile id and store will need to ref in profile form where we get created profile to update
 						alert('New user has been created and a verification email has been sent!');
-
 						//optimistic ui update		  				
 						var userData = {
 							profileComplete: false,
@@ -63,13 +59,13 @@ var CreateUserBox = React.createClass({
 								this.props.userCreatedUpdate(userData);
 							}).bind(this),
 							error: function error(_error3) {
-								alert('User Authorization Error');
+								alert('Error: User authorization');
 							}
 						});
 						this.props.isActive();
 					}).bind(this),
 					error: function error(hotelProfile, _error2) {
-						alert('Failed to create new object, with error code: ' + _error2.message);
+						alert('Error: Failed to create new object, with error code: ' + _error2.message);
 					}
 				});
 			}).bind(this),
@@ -91,15 +87,35 @@ var CreateUserBox = React.createClass({
 			React.createElement(
 				"form",
 				{ id: "create-user-form" },
-				React.createElement("input", { type: "text", ref: "newUsername", placeholder: "New Username", className: "form-control input-margin", required: true }),
+				React.createElement("input", { type: "text",
+					ref: "newUsername",
+					placeholder: "New Username",
+					className: "form-control input-margin",
+					required: true }),
 				React.createElement("br", null),
-				React.createElement("input", { type: "email", ref: "createUserEmail", placeholder: "New User Email", className: "form-control input-margin", required: true }),
+				React.createElement("input", { type: "email",
+					ref: "createUserEmail",
+					placeholder: "New User Email",
+					className: "form-control input-margin",
+					required: true }),
 				React.createElement("br", null),
-				React.createElement("input", { type: "password", ref: "createUserPassword", placeholder: "New User Password", className: "form-control input-margin", required: true }),
+				React.createElement("input", { type: "password",
+					ref: "createUserPassword",
+					placeholder: "New User Password",
+					className: "form-control input-margin",
+					required: true }),
 				React.createElement("br", null),
-				React.createElement("input", { type: "text", ref: "createUserPhone", placeholder: "New User Phone", className: "form-control input-margin", required: true }),
+				React.createElement("input", { type: "text",
+					ref: "createUserPhone",
+					placeholder: "New User Phone",
+					className: "form-control input-margin",
+					required: true }),
 				React.createElement("br", null),
-				React.createElement("input", { type: "text", ref: "createUserHotelName", placeholder: "Enter name of hotel this user will administer", className: "form-control input-margin", required: true }),
+				React.createElement("input", { type: "text",
+					ref: "createUserHotelName",
+					placeholder: "Enter name of hotel this user will administer",
+					className: "form-control input-margin",
+					required: true }),
 				React.createElement("br", null),
 				React.createElement(
 					"div",
@@ -107,13 +123,13 @@ var CreateUserBox = React.createClass({
 					React.createElement(
 						"button",
 						{ onClick: this.cancelNewUser, className: "btn btn-danger delete-user-btn btn-small" },
-						" Cancel ",
+						"Cancel",
 						React.createElement("span", { "class": "glyphicon glyphicon-remove-circle" })
 					),
 					React.createElement(
 						"button",
 						{ onClick: this.createNewUser, className: "btn btn-success btn-large" },
-						" Submit "
+						"Submit"
 					)
 				)
 			)

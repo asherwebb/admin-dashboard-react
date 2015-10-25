@@ -25,7 +25,6 @@ var HubCitiesList = React.createClass({
 					'div',
 					{ key: i },
 					hotel,
-					' ',
 					React.createElement(
 						'button',
 						{ onClick: this.removeCityFromList.bind(this, i) },
@@ -66,10 +65,13 @@ var AppPolicies = React.createClass({
 		var appPoliciesState = this.state.underEditing ? React.createElement(
 			'div',
 			null,
-			React.createElement('textarea', { ref: 'appPolicy', className: 'form-control', defaultValue: this.props.data }),
+			React.createElement('textarea', { ref: 'appPolicy',
+				className: 'form-control',
+				defaultValue: this.props.data }),
 			React.createElement(
 				'button',
-				{ onClick: this.updatePolicies, className: 'btn btn-success' },
+				{ onClick: this.updatePolicies,
+					className: 'btn btn-success' },
 				'Save'
 			)
 		) : React.createElement(
@@ -188,7 +190,6 @@ var SettingsBox = React.createClass({
 				null,
 				'Settings Views'
 			),
-			' ',
 			React.createElement(
 				'button',
 				{ className: 'btn', onClick: this.closeSettings },
