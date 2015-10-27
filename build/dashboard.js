@@ -102,6 +102,10 @@ var Dashboard = React.createClass({
 	hideSettings: function hideSettings() {
 		this.setState({ displaySettings: false });
 	},
+	renderRoomInventoryDashboard: function renderRoomInventoryDashboard(e) {
+		e.preventDefault();
+		//set this to render the appropriate component via change in state
+	},
 	render: function render() {
 		var hotelUserNodes = this.state.data.map(function (user) {
 			return React.createElement(HotelUser, { hotelId: user.hotelId,
@@ -164,11 +168,7 @@ var Dashboard = React.createClass({
 				null,
 				"Profile"
 			),
-			React.createElement(
-				"button",
-				null,
-				"View Dashboard"
-			)
+			React.createElement(RoomInventoryDashboard, { description: "Room Inventory Dashboard" })
 		);
 
 		var isCreatingUser = this.state.creatingUser ? React.createElement(CreateUserBox, { isActive: this.creatingUser,

@@ -95,6 +95,10 @@ var Dashboard = React.createClass({
 	hideSettings: function(){
 		this.setState( { displaySettings: false } );
 	},
+	renderRoomInventoryDashboard: function(e){
+		e.preventDefault();
+		//set this to render the appropriate component via change in state
+	},
 	render: function(){	
 		var hotelUserNodes = this.state.data.map( function ( user ) {
       	return (
@@ -130,7 +134,7 @@ var Dashboard = React.createClass({
 			<div>
 				<p>Welcome SwingShift Hotel Member <button onClick={this.logout} className="btn btn-danger">Logout</button></p>
 				<button>Profile</button>
-				<button>View Dashboard</button>
+				<RoomInventoryDashboard description="Room Inventory Dashboard" />
 			</div>;
 
 		var isCreatingUser = this.state.creatingUser ? 
